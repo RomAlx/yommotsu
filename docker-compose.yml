@@ -1,6 +1,22 @@
 version: '3'
 services:
 
+    #Nginx Service
+    webserver:
+        image: nginx:alpine
+        container_name: p2p_exchange_nginx
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+        links:
+            - app
+
+
     #PHP Service
     app:
         env_file: .env
@@ -16,23 +32,8 @@ services:
         volumes:
             - ./:/var/www
             - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-        networks:
-            - app-network
-
-    #Nginx Service
-    webserver:
-        image: nginx:alpine
-        container_name: p2p_exchange_nginx
-        restart: unless-stopped
-        tty: true
-        ports:
-            - "80:80"
-            - "443:443"
-        volumes:
-            - ./:/var/www
-            - ./nginx/conf.d/:/etc/nginx/conf.d/
-        networks:
-            - app-network
+        links:
+            - db
 
     #MySQL Service
     db:
@@ -48,13 +49,6 @@ services:
         volumes:
             - dbdata:/var/lib/mysql
             - ./mysql/my.cnf:/etc/mysql/my.cnf
-        networks:
-            - app-network
-
-#Docker Networks
-networks:
-    app-network:
-        driver: bridge
 
 #Volumes
 volumes:
