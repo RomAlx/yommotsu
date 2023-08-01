@@ -12,9 +12,11 @@ services:
             - "443:443"
         volumes:
             - ./:/var/www
-            #- ./nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf #DEV
-            - ./nginx/conf.d/appProd.conf:/etc/nginx/conf.d/app.conf #PROD
-            - ./nginx/conf.d/ssl:./ssl #PROD
+            #DEV
+            #- ./nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf
+            #PROD
+            - ./nginx/conf.d/appProd.conf:/etc/nginx/conf.d/app.conf 
+            - ./nginx/ssl:./etc/ssl
         links:
             - app
 
