@@ -71,5 +71,5 @@ Route::get('/merchant', function (Request $request) {
 Route::get('/binance', function () {
     $response = Http::get("https://api.binance.com/api/v3/ticker/price?symbol=BTCRUB");
     $body = json_decode($response->body(), 1);
-    dd((float)$body['price']);
+    return response($body);
 });
