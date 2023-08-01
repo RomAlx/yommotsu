@@ -8,14 +8,14 @@ use Telegram\Bot\Api;
 
 class TelegramApiBotService
 {
-    public function sendOrder(array $body, Api $telegram): void
+    public function sendOrder(array $data, Api $telegram): void
     {
         Log::info('Preparing data');
-        $data = (new TelegramApiBotMessagesHelper())->prepareDataFromRequest($body);
-        Log::info('Data was prepared: ' . json_encode($data));
+        $text = (new TelegramApiBotMessagesHelper())->prepareDataFromRequest($data);
+        Log::info('Data was prepared: ' . $text);
         $telegram->sendMessage([
             'chat_id'=>env('TELEGRAM_BOT_PAY_PUSH'),
-            'text'=>$data['text'],
+            'text'=>$text,
             'parse_mode' => 'HTML'
         ]);
     }

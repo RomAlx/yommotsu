@@ -32,14 +32,28 @@ Route::post('/api/telegram/webhook', function () {
 }); 
 
 Route::post('/api/order/webhook', function (Request $request) {
-    $token = env('TELEGRAM_BOT_API_TOKEN');
-    $telegram = new Api($token);
-    $body = $request->getContent();
-    Log::info('New Request: ' . $body);
-    $body = json_decode($body, true);
-    (new TelegramApiBotService())->sendOrder($body['data'], $telegram);
-    Log::info('Ending...');
-    return response('OK', 200);
+    Log::info('New Request: ' . $request->getContent());
+    if ($request->has('project_name')) {
+        $botRepository = new BotRepository();
+        $bot = $botRepository->getBotByName($request->input('project_name'));
+        if(!is_null($bot)) {
+            $token = env('TELEGRAM_BOT_API_TOKEN');
+            $telegram = new Api($token);
+            $data = [
+                'project_name'=> $request->input('project_name'),
+                'telegram_username'=> $request->input('telegram_username'),
+                'name'=> $request->input('name'),
+                'amount'=> $request->input('amount'),
+            ];
+            (new TelegramApiBotService())->sendOrder($data, $telegram);
+            Log::info('Ending...');
+            return response('OK', 200);
+        } else {
+            return response('There is no project with this name', 404);
+        }
+    } else {
+        return response('Something went wrong', 404);
+    }
 });
 
 Route::get('/merchant', function (Request $request) {
@@ -50,7 +64,7 @@ Route::get('/merchant', function (Request $request) {
     $merchant = $merchantRep->getCurrent();
     $merchantRep->setNextMerchant();
     if (array_key_exists('project_name', $queryParams)) {
-        $bot = $botRepository->getUrlByName($queryParams['project_name']);
+        $bot = $botRepository->getBotByName($queryParams['project_name']);
         if(!is_null($bot)) {
             $data = [
                 'project_name' => $bot->bot_name,
