@@ -52,7 +52,7 @@ Route::post('/api/order/webhook', function (Request $request) {
             return response('There is no project with this name', 404);
         }
     } else {
-        return response('Something went wrong', 404);
+        return response('Something went wrong', 400);
     }
 });
 
