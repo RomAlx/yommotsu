@@ -57,7 +57,8 @@ class TelegramMainBotCommandsHelper
         Log::info('"Help"command');
         $telegram->sendMessage([
             'chat_id' => $update->message->chat->id,
-            'text' => 'help message'
+            'text' => (string)view('TelegramBotHelpMessage'),
+            'parse_mode' => 'html',
         ]);
     }
 }
