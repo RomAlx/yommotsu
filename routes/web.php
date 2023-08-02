@@ -33,7 +33,7 @@ Route::post('/api/telegram/webhook', function () {
 
 Route::post('/api/order/webhook', function (Request $request) {
     Log::info('New Request: ' . $request->getContent());
-    if ($request->has('project_name') && $request->has('name')) {
+    if ($request->has('project_name') && $request->has('name') && $request->has('amount')) {
         $botRepository = new BotRepository();
         $bot = $botRepository->getBotByName($request->input('project_name'));
         if(!is_null($bot)) {
