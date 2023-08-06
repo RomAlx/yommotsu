@@ -108,7 +108,7 @@ Route::get('/pay', function (Request $request) {
                 'name' => $merchant['name'],
                 'order_id' => $queryParams['order_id'],
                 'amount' => $queryParams['amount'],
-                'redirect_url' =>env('API_URL') . '/api/order/send?order_id='.$queryParams['order_id'] . '&redirect_url=' . $queryParams['redirect_url'],
+                'redirect_url' => 'https://yommotsu.com' . '/api/order/send?order_id='.$queryParams['order_id'] . '&redirect_url=' . $queryParams['redirect_url'],
             ];
             Log::info('Request is successfully');
             return view('paymentPage', $data);
