@@ -149,4 +149,18 @@ class TelegramKeyboardsFactory
         Log::info('Finish preparing "merchant isCorrect" keyboard: ' . $inlineKeyboard->toJson());
         return $inlineKeyboard;
     }
+
+    public function PayOrderStatus(): Keyboard
+    {
+        Log::info('Start preparing "pay order" keyboard');
+        $Button1 = (new Button())
+            ->setText('Оплачено 🟢')
+            ->setCallbackData('pay_order_payed');
+        $Button2 = (new Button())
+            ->setText('Отменить 🔴')
+            ->setCallbackData('pay_order_rejected');
+        $inlineKeyboard = (new Keyboard())->inline()->row([$Button1, $Button2]);
+        Log::info('Finish preparing "start" keyboard: ' . $inlineKeyboard->toJson());
+        return $inlineKeyboard;
+    }
 }

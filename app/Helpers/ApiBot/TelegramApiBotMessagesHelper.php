@@ -10,13 +10,7 @@ class TelegramApiBotMessagesHelper
 {
     public function prepareDataFromRequest(array $data): string
     {
-        $result = [
-            'bot_name' => $data['project_name'],
-            'username' => $data['telegram_username'],
-            'name' => $data['name'],
-            'amount' => $data['amount'],
-        ];
-        Log::info((string)view('TelegramBotApiPayOrder', $result));
-        return (string)view('TelegramBotApiPayOrder', $result);
+        Log::info((string)view('TelegramBotApiPayOrder', $data));
+        return (string)view('TelegramBotApiPayOrder', $data);
     }
 }

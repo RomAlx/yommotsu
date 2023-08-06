@@ -31,8 +31,13 @@
                                             <small class="text-name">Владелец</small>
                                             <h5 class="text-fill">{{$name}}</h5>
                                         </div>
-                                        <div class="col-4 d-flex justify-content-end">
-                                            <img src="{{asset('img/logo.png')}}" alt="Logo" class="logo">
+                                        <div class="col justify-content-center">
+                                            <div class="col d-flex justify-content-center">
+                                                <img src="{{asset('img/logo.png')}}" alt="Logo" class="logo">
+                                            </div>
+                                            <h5 class="text-fill"></h5>
+                                            <small class="text-name">Сумма</small>
+                                            <h5 class="text-fill">{{$amount}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +45,13 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <a class="button" style="margin-top: 5vh; margin-bottom: 5vh;" href={{$url}}>Я оплатил!</a>
+                                <h5 class="text-fill" style="color: #000000; margin-top: 4vh;">Обязательно укажите в комментарии последние 4 символа вашего заказа.</h5>
+                                <h5 class="text-fill" style="color: #000000; margin-top: 4vh;">{{substr($order_id, -4)}} - Ваш комментарий.</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a class="button" style="margin-top: 3vh; margin-bottom: 5vh;" href={{$redirect_url}}>Я оплатил!</a>
                             </div>
                         </div>
                     </div>

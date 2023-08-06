@@ -8,6 +8,7 @@ use App\Repositories\AccountRepository;
 use App\Repositories\OrderExchangeRateRepository;
 use App\Repositories\OrderExchangeRepository;
 use App\Repositories\OrderMerchantRepository;
+use App\Repositories\PayOrderRepository;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
@@ -87,6 +88,12 @@ class TelegramMainBotCallbackDataHelper
                 break;
             case "payed":
                 $this->sendRequestToApiWithOrder($update);
+                break;
+            case "pay_order_payed":
+                $this->changePayOrderStatus($update, $telegram, 'PAID');
+                break;
+            case "pay_order_rejected":
+                $this->changePayOrderStatus($update, $telegram, 'REJECTED');
                 break;
         }
     }
@@ -353,5 +360,13 @@ class TelegramMainBotCallbackDataHelper
             'reply_markup' => (new TelegramKeyboardsFactory)->startInlineKeyboard(),
             'disable_web_page_preview' => true,
         ]);
+    }
+
+    public function changePayOrderStatus(Update $update, Api $telegram, string $status): void
+    {
+        $payOrderRepository = new PayOrderRepository();
+        $order = $payOrderRepository->getOrderByMessageId((string)$update->callbackQuery->message->messageId);
+        $order->status = $status;
+        $order->save();
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Repositories\BotRepository;
 use App\Repositories\MerchantRepository;
+use App\Repositories\PayOrderRepository;
 use App\Services\TelegramApiBotService;
 use App\Services\TelegramMainBotService;
 use Illuminate\Http\Request;
@@ -31,46 +32,83 @@ Route::post('/api/telegram/webhook', function () {
     return response('OK', 200);
 }); 
 
-Route::post('/api/order/webhook', function (Request $request) {
-    Log::info('New Request: ' . $request->getContent());
-    if ($request->has('project_name') && $request->has('name') && $request->has('amount')) {
-        $botRepository = new BotRepository();
-        $bot = $botRepository->getBotByName($request->input('project_name'));
+Route::get('/api/order/status', function (Request $request) {
+    Log::info('New Request: ' . json_encode($request->query()));
+    $queryParams = $request->query();
+    if (array_key_exists('order_id', $queryParams) &&
+        array_key_exists('project_name', $queryParams)) {
+        $bot = (new BotRepository())->getBotByName($queryParams['project_name']);
         if(!is_null($bot)) {
-            $token = env('TELEGRAM_BOT_API_TOKEN');
-            $telegram = new Api($token);
-            $data = [
-                'project_name'=> $request->input('project_name'),
-                'telegram_username'=> $request->input('telegram_username'),
-                'name'=> $request->input('name'),
-                'amount'=> $request->input('amount'),
-            ];
-            (new TelegramApiBotService())->sendOrder($data, $telegram);
-            Log::info('Ending...');
-            return response('OK', 200);
+            $payOrderRepository = new PayOrderRepository();
+            $order = $payOrderRepository->getOrder($queryParams['order_id']);
+            if(!is_null($order)) {
+                $data = [
+                    'project_name' => $order->project_name,
+                    'order_id'=> $order->order_id,
+                    'status' => $order->status,
+                    'created_at' => $order->created_at,
+                    'updated_at' => $order->updated_at,
+                ];
+                return response()->json($data, 200);
+            } else {
+                return response()->json(['status'=>'no order'], 404);
+            }
         } else {
-            return response('There is no project with this name', 404);
+            return response()->json(['status'=>'no project'], 401);
         }
-    } else {
-        return response('Something went wrong', 400);
     }
 });
 
-Route::get('/merchant', function (Request $request) {
+Route::get('/api/order/send', function (Request $request) {
+    Log::info('New Request: ' . json_encode($request->query()));
+    $queryParams = $request->query();
+    if (array_key_exists('order_id', $queryParams) &&
+        array_key_exists('redirect_url', $queryParams)) {
+        $payOrderRepository = new PayOrderRepository();
+        $order = $payOrderRepository->getOrder($queryParams['order_id']);
+        if(!is_null($order)) {
+            $token = env('TELEGRAM_BOT_API_TOKEN');
+            $telegram = new Api($token);
+            $data = [
+                'project_name'=> $order->project_name,
+                'order_id'=> $order->order_id,
+                'amount'=> $order->amount,
+            ];
+            if(is_null($order->message_id)){
+                (new TelegramApiBotService())->sendOrder($data, $telegram);
+            }
+            Log::info('Ending...');
+            return redirect()->to($queryParams['redirect_url']);
+        } else {
+            return redirect()->to($queryParams['redirect_url']);
+        }
+    } else {
+        return redirect()->to($queryParams['redirect_url']);
+    }
+});
+
+Route::get('/pay', function (Request $request) {
     $queryParams = $request->query();
     Log::info('New request for merchant. QueryParams: ' . json_encode($queryParams));
     $merchantRep = new MerchantRepository();
     $botRepository = new BotRepository();
+    $payOrderRepository = new PayOrderRepository();
     $merchant = $merchantRep->getCurrent();
     $merchantRep->setNextMerchant();
-    if (array_key_exists('project_name', $queryParams)) {
+    if (array_key_exists('project_name', $queryParams) && 
+        array_key_exists('order_id', $queryParams) && 
+        array_key_exists('amount', $queryParams) &&
+        array_key_exists('redirect_url', $queryParams)) {
         $bot = $botRepository->getBotByName($queryParams['project_name']);
+        $payOrderRepository->updateOrCreate($queryParams['project_name'],$queryParams['order_id'],$queryParams['amount'], 'WAITING');
         if(!is_null($bot)) {
             $data = [
                 'project_name' => $bot->bot_name,
                 'bank_number' => $merchant['bank_number'],
                 'name' => $merchant['name'],
-                'url' => $bot->bot_url,
+                'order_id' => $queryParams['order_id'],
+                'amount' => $queryParams['amount'],
+                'redirect_url' =>env('API_URL') . '/api/order/send?order_id='.$queryParams['order_id'] . '&redirect_url=' . $queryParams['redirect_url'],
             ];
             Log::info('Request is successfully');
             return view('paymentPage', $data);
