@@ -1,14 +1,17 @@
 <?php
 
+use App\Exports\PayOrdersExport;
 use App\Repositories\BotRepository;
 use App\Repositories\MerchantRepository;
 use App\Repositories\PayOrderRepository;
 use App\Services\TelegramApiBotService;
 use App\Services\TelegramMainBotService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 use Telegram\Bot\Api;
 
 /*
@@ -120,8 +123,15 @@ Route::get('/pay', function (Request $request) {
     return view('errorPage');
 });
 
-Route::get('/binance', function () {
-    $response = Http::get("https://api.binance.com/api/v3/ticker/price?symbol=BTCRUB");
-    $body = json_decode($response->body(), 1);
-    return response($body);
+Route::get('/secret/statistic/export', function (Request $request) {
+    $queryParams = $request->query();
+    if (array_key_exists('password', $queryParams)) {
+        if($queryParams['password'] == 'P2PEXCHANGE') {
+            return Excel::download(new PayOrdersExport, 'Pay Orders Statistic '. Carbon::create(now())->format('Y-m-d H:i:s') .'.xlsx');
+        } else {
+            return response()->json(['status'=>'wrong password'], 401);
+        }
+    } else {
+        return response()->json(['status'=>'something went wrong'], 404);
+    }
 });
