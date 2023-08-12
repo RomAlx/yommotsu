@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\StatisticController;
+use App\Http\Controllers\TelegramController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
