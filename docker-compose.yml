@@ -13,10 +13,10 @@ services:
         volumes:
             - ./:/var/www
             #DEV
-            #- ./nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf
+            #- ./docker/nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf
             #PROD
-            - ./nginx/conf.d/appProd.conf:/etc/nginx/conf.d/app.conf 
-            - ./nginx/ssl:/etc/ssl
+            - ./docker/nginx/conf.d/appProd.conf:/etc/nginx/conf.d/app.conf 
+            - ./docker/nginx/ssl:/etc/ssl
         links:
             - app
 
@@ -26,7 +26,7 @@ services:
         env_file: .env
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: ./docker/backend/Dockerfile
         user: root
         image: php:8.2-fpm
         container_name: p2p_exchange_php
@@ -35,7 +35,7 @@ services:
         working_dir: /var/www
         volumes:
             - ./:/var/www
-            - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+            - ./docker/backend/php/local.ini:/usr/local/etc/php/conf.d/local.ini
         links:
             - db
 
@@ -52,7 +52,20 @@ services:
             MYSQL_DATABASE: p2pExchange
         volumes:
             - dbdata:/var/lib/mysql
-            - ./mysql/my.cnf:/etc/mysql/my.cnf
+            - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+
+    # NodeJS Service
+    node:
+        build:
+            context: .
+            dockerfile: ./docker/nodejs/Dockerfile
+        container_name: p2p_exchange_node
+        tty: true
+        ports:
+            - "5173:5173"
+        working_dir: /var/www
+        volumes:
+            - .:/var/www # Монтируем локальную папку в контейнер как /var/www
 
 #Volumes
 volumes:
