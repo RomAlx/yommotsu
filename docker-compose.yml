@@ -19,7 +19,6 @@ services:
             - ./docker/nginx/ssl:/etc/ssl
         links:
             - app
-            - node
 
 
     #PHP Service
