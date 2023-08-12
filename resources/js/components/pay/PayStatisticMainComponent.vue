@@ -21,7 +21,7 @@
           <option value="WAITING">WAITING</option> 
           <option value="REJECTED">REJECTED</option> 
         </select>
-        <button class="btn btn-danger">Скачать отчет</button> 
+        <button class="btn btn-danger" @click="downloadReport">Скачать отчет</button> 
       </div> 
       <div class="col-lg-9">
         <div class="table-responsive" style="height:100vh; overflow:auto">
@@ -99,7 +99,7 @@ export default {
 
     const downloadReport = async () => {
       const res = await axios.get(`/api/pay/statistic/download`, {
-        responseType: 'blob', // Также важно
+        responseType: 'blob',
         params: {
           password: password, 
           project_name: selectedProject.value, 
