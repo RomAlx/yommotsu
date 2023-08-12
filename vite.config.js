@@ -8,9 +8,7 @@ const host = 'yommotsu.com';
 export default defineConfig({
     server: {
         host,
-        hmr: {
-            host,
-        },
+        hmr: { host },
         https: {
             key: fs.readFileSync(`/etc/ssl/yommotsu.key`),
             cert: fs.readFileSync(`/etc/ssl/yommotsu.crt`),
