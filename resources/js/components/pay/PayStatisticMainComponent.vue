@@ -160,6 +160,7 @@ export default {
   position: sticky;
   top: 0;
   z-index: 2;
+  background-color: #f7bfab;
 }
 
 select {

@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
     server: {
         hmr: {
-          host: 'localhost',
+          host: '185.20.226.72',
         }
       },
     plugins: [
