@@ -1,12 +1,20 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import fs from 'fs'; 
+ 
+const host = 'yommotsu.com'; 
 
 export default defineConfig({
     server: {
+        host,
         hmr: {
-            host: '185.20.226.72',
+            host,
         },
+        https: {
+            key: fs.readFileSync(`/etc/ssl/yommotsu.key`),
+            cert: fs.readFileSync(`/etc/ssl/yommotsu.crt`),
+        }
     },
     plugins: [
         vue(
