@@ -75,7 +75,17 @@ export default {
           status: selectedStatus.value
         }
       })
+      let arr = Object.entries(res.data);
+      arr.forEach(([key, value]) => {
+        console.log(value.created_at)
+        let date = new Date(value.created_at)
+        let dateString = date.toLocaleDateString() 
+        let timeString = date.toLocaleTimeString()
+        value.created_at = dateString + ' ' + timeString
+        console.log(value.created_at)
+      });
       items.value = await res.data
+      
     }
 
     const fetchProjects = async () => {
