@@ -8,7 +8,7 @@ export default defineConfig({
             host: '185.20.226.72',
         },
         https: true,
-        cors: false
+        cors: true,
     },
     plugins: [
         vue(
