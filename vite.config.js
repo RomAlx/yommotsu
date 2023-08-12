@@ -7,8 +7,6 @@ export default defineConfig({
         hmr: {
             host: '185.20.226.72',
         },
-        https: true,
-        cors: true,
     },
     plugins: [
         vue(
