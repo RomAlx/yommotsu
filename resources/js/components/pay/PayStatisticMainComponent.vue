@@ -82,7 +82,6 @@ export default {
         let dateString = date.toLocaleDateString() 
         let timeString = date.toLocaleTimeString()
         value.created_at = dateString + ' ' + timeString
-        console.log(value.created_at)
       });
       items.value = await res.data
       
