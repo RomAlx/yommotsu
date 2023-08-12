@@ -2,26 +2,20 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component. Hello {{ username }}
-                    </div>
-                </div>
+                <h1>I'm an example component. Hello {{ username }}</h1>
             </div>
         </div>
     </div>
 </template>
 
-<script lang="'ts'">
+<script>
     import {defineComponent} from 'vue';
     
     export default defineComponent({
         components: {},
         setup() {
             return {
-                username: 'Михаил'
+                username: 'Jopa'
             }
         },
         mounted() {
@@ -29,3 +23,6 @@
         }
     });
 </script>
+
+<style scoped>
+</style>

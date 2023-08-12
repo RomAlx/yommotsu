@@ -17,14 +17,16 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class PayOrdersExport implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithMapping
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
+    protected $collection;
+
+    public function __construct($collection)
+    {
+        $this->collection = $collection;
+    }
+
     public function collection()
     {
-        $payOrdersExport = PayOrder::all();
-        $payOrdersExport = $payOrdersExport->makeHidden(['message_id', 'updated_at']);
-        return $payOrdersExport;
+        return $this->collection->makeHidden(['message_id', 'updated_at']);
     }
 
     public function columnFormats(): array
