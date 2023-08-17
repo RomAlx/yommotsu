@@ -14,11 +14,8 @@ class PayController extends Controller
     {
         $queryParams = $request->query();
         Log::info('New request for merchant. QueryParams: ' . json_encode($queryParams));
-        $merchantRep = new MerchantRepository();
         $botRepository = new BotRepository();
         $payOrderRepository = new PayOrderRepository();
-        $merchant = $merchantRep->getCurrent();
-        $merchantRep->setNextMerchant();
         if (array_key_exists('project_name', $queryParams) && 
             array_key_exists('order_id', $queryParams) && 
             array_key_exists('amount', $queryParams) &&
@@ -27,12 +24,10 @@ class PayController extends Controller
             $payOrderRepository->updateOrCreate($queryParams['project_name'],$queryParams['order_id'],$queryParams['amount'], 'WAITING');
             if(!is_null($bot)) {
                 $data = [
-                    'project_name' => $bot->bot_name,
-                    'bank_number' => $merchant['bank_number'],
-                    'name' => $merchant['name'],
-                    'order_id' => $queryParams['order_id'],
-                    'amount' => $queryParams['amount'],
-                    'redirect_url' => 'https://yommotsu.com' . '/api/order/send?order_id='.$queryParams['order_id'] . '&redirect_url=' . $queryParams['redirect_url'],
+                    'data' => [
+                        'order_id' => $queryParams['order_id'],
+                        'redirect_url' => 'https://yommotsu.com' . '/api/order/send?order_id='.$queryParams['order_id'] . '&redirect_url=' . $queryParams['redirect_url'],
+                    ]
                 ];
                 Log::info('Request is successfully');
                 return view('paymentPage', $data);
