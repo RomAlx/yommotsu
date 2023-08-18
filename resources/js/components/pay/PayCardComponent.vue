@@ -4,9 +4,9 @@
             <div class="row align-items-center">
                 <div class="col-7 to-left-side">
                     <small class="card-label">Название проекта</small>
-                    <h5 class="card-fill-small">Yommotsu</h5>
+                    <h5 class="card-fill-small">{{this.order.project_name}}</h5>
                     <small class="card-label">Владелец</small>
-                    <h5 class="card-fill-small">Elena</h5>
+                    <h5 class="card-fill-small">{{this.merchant.name}}</h5>
                 </div>
                 <div class="col-5 justify-content-center logo">
                     <div class="logo-div">
@@ -16,64 +16,73 @@
             </div>
             <div class="row second-half">
                 <div class="col-9 to-left-side">
-                    <small class="card-label">Номер карты</small>
-                    <h5 class="card-fill-big">4264 2153 6534 1234</h5>
+                    <div class="row justify-content-start">
+                        <div class="col-5"><small class="card-label">Номер карты</small></div>
+                        <div class="col-1"><img class="card-copy" :src="srcServiceCopyBank" @click="copyToClipboard('bank-number')"></div>
+                    </div>
+                    <h5 class="card-fill-big" id="bank-number">{{this.merchant.bank_number}}</h5>
                 </div>
                 <div class="col-3 justify-content-center">
-                    <small class="card-label">Сумма</small>
-                    <h5 class="card-fill-big">1337</h5>
+                    <div class="row justify-content-center">
+                        <div class="col-6"><small class="card-label">Сумма</small></div>
+                        <div class="col-1"><img class="card-copy" :src="srcServiceCopyAmount" @click="copyToClipboard('amount')"></div>
+                    </div>
+                    <h5 class="card-fill-big" id="amount">{{this.order.amount}}</h5>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <h5 class="label">Обязательно укажите в комментарии последние 4 символа вашего заказа.</h5>
-            <h5 class="label comment">LVc7</h5>
+            <h5 class="label">Обязательно укажите в комментарии последние 4 символа вашего заказа:</h5>
+            <h5 class="label comment">{{this.order.order_id.slice(-4)}}</h5>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col">
-                <button type="button" class="done-button" @click="getBack()">Назад</button>
-        </div>
-        <div class="col">
-            <button class="done-button" @click="checking()">Я оплатил!</button>
+    <div class="container fix-width">
+        <div class="row justify-content-center">
+            <div class="col">
+                    <button type="button" class="done-button" @click="getBack()">Назад</button>
+            </div>
+            <div class="col">
+                <button class="done-button" @click="pay()">Я оплатил!</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import copy from 'clipboard-copy';
+
 export default {
   data() {
     return {
       tinkoff: '/img/paycard/tinkoff.png',
       sber: '/img/paycard/sberbank.png',
       sbp: '/img/paycard/sbp.png',
-      merchant: '',
+      srcServiceCopyBank: "/img/service/copy_white.png",
+      srcServiceCopyAmount: "/img/service/copy_white.png",
     };
   },
-  beforeMount() {
-    axios.get('/api/data')
-    .then(response => {
-        // Обрабатывайте полученные данные
-        console.log(response.data);
-    })
-  },
   props: {
-    bank: {
+    merchant: {
+      type: Object,
+      required: true,
+    },
+    order: {
       type: Object,
       required: true,
     },
   }, 
   computed: {
         bank() {
-            return this.bank.name;
+            console.log(this.merchant);
+            return this.merchant.bank;
         },
         srcLogo () {
-            return '/img/paycard/'+this.bank.name+'.png';
+            return '/img/paycard/'+this.merchant.bank+'.png';
         },
         logobank () {
-            return 'logo-' + this.bank.name;
+            return 'logo-' + this.merchant.bank;
         }
   },
   methods: {
@@ -81,8 +90,25 @@ export default {
         console.log(`Назад`);
         this.$emit("update:Step", 'Form');
       },
-      checking() {
-        console.log(this.srcLogo);
+      copyToClipboard(id) {
+        this.srcServiceCopyBank = "/img/service/copy_white.png";
+        this.srcServiceCopyAmount = "/img/service/copy_white.png";
+        const element = document.getElementById(id);
+        const textToCopy = element.innerText;
+        try {
+            copy(textToCopy);
+            if(id == 'bank-number'){
+                this.srcServiceCopyBank = "/img/service/done_white.png";
+            }
+            if(id == 'amount'){
+                this.srcServiceCopyAmount = "/img/service/done_white.png";
+            }
+        } catch (error) {
+            console.log('Не удалось скопировать.');
+        }
+      },
+      pay() {
+        this.$emit("update:Card", {step: 'Timer'});
       }
     }
 };
@@ -119,6 +145,11 @@ export default {
     font-weight: 600;
     line-height: normal;
 }
+
+.card-copy{
+    height: 0.875rem;
+}
+
 .card-fill-small{
     color: #FFF;
     font-family: Montserrat-SemiBold;
@@ -146,33 +177,45 @@ export default {
 
 .comment{
   font-family: Montserrat-Bold;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .logo-sberbank{
     width: 12rem;
+    height: 3.5rem;
 }
 
 .logo-tinkoff{
-    width: 9rem;
+    width: 10rem;
+    height: 7.8rem;
 }
 
 .logo-sbp{
-    width: 10rem;
+    width: 12rem;
+    height: 6rem;
+}
+
+.fix-width{
+    width: 35rem;
 }
 
 
-@media screen and (max-width: 565px) {
+@media screen and (max-width: 765px) {
     .payment-card{
         width: 28rem;
         height: 15.552rem;
         padding: 1.6rem;
-        border-radius: 1.15rem;
+        border-radius: 1.1788rem;
     }
 
     .card-label{
         font-size: 0.7rem;
     }
+
+    .card-copy{
+        height: 0.875rem;
+    }
+
     .card-fill-small{
         font-size: 1.25rem;
     }
@@ -185,58 +228,76 @@ export default {
     }
 
     .comment{
-        font-size: 1.6rem;
+        font-size: 1.44rem;
     }
 
     .logo-sberbank{
         width: 9.6rem;
+        height: 2.8rem;
     }
 
     .logo-tinkoff{
-        width: 7.2rem;
+        width: 8rem;
+        height: 6.24rem;
     }
 
     .logo-sbp{
-        width: 8rem;
+        width: 9.6rem;
+        height: 4.8rem;
+    }   
+
+    .fix-width{
+        width: 28rem;
     }
 }
 
-@media screen and (max-width: 429px) {
+@media screen and (max-width: 475px) {
     .payment-card{
         width: 22.4rem;
-        height: 12.4416rem;
+        height: 12.44rem;
         padding: 1.28rem;
-        border-radius: 0.92rem;
+        border-radius: 0.96rem;
     }
 
     .card-label{
         font-size: 0.56rem;
     }
+
+    .card-copy{
+        height: 0.7rem;
+    }
+
     .card-fill-small{
         font-size: 1rem;
     }
     .card-fill-big{
         font-size: 1.28rem;
     }
-
     .second-half{
         margin-top: 1rem;
     }
 
     .comment{
-        font-size: 1.28rem;
+        font-size: 1.152rem;
     }
 
     .logo-sberbank{
         width: 7.68rem;
+        height: 2.24rem;
     }
 
     .logo-tinkoff{
-        width: 5.76rem;
+        width: 6.4rem;
+        height: 4.9rem;
     }
 
     .logo-sbp{
-        width: 6.4rem;
+        width: 7.68rem;
+        height: 3.84rem;
+    }   
+
+    .fix-width{
+        width: 22.4rem;
     }
 }
 

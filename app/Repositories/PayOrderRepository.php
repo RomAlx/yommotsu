@@ -8,15 +8,10 @@ use Illuminate\Support\Facades\Log;
 
 class PayOrderRepository
 {
-    public function updateOrCreate(string $projectName, string $orderId, string $amount, string $status): bool
+    public function updateOrCreate(string $order_id, array $data): bool
     {
-        Log::info('Status value:'.$status);
-        return PayOrder::query()->updateOrCreate([
-            'project_name' => $projectName,
-            'order_id' => $orderId,
-            'amount' => $amount,
-            'status' => $status,
-        ])->save();
+        Log::info('Updating orde. Order_id:'.$order_id);
+        return PayOrder::query()->updateOrCreate(['order_id' => $order_id], $data)->save();
     }
 
     public function updateOrderStatus(string $orderId, string $status): bool

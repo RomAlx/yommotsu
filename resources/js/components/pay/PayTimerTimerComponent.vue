@@ -8,48 +8,57 @@
           <img :src="waiting" alt="waiting" class="status-img"> 
         </div>
         <div class="col-8">
-          <p class="fix-top">{{ minutes }}:{{ seconds }}</p> 
+          <p class="fix-top">{{ time }}</p> 
         </div>
       </div>
       <p class="label-comment">Обычно проверка занимает до 5 минут.</p>
+      <h1 class="label">На этой странице вы можете отслеживать статус оплаты</h1>
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   data() {
       return {
           waiting: '/img/payTimer/waiting.gif',
           timeoutId: null,
-          timeRemaining: 300,
-          minutes: 5,
-          seconds: 0
+          timeRemaining: 300000,
+          time: null,
       };
   },
+  props:{
+    order: {
+      type: Object,
+      required: true,
+    },
+  },
   mounted() {
-      this.startTimer();
+    this.startTimer();
   },
   beforeUnmount() {
-      clearTimeout(this.timeoutId);
+    clearTimeout(this.timeoutId);
   },
   methods: {
-      startTimer() {
-          this.timeoutId = setTimeout(() => {
-              this.timeRemaining--;
-              this.minutes = Math.floor((this.timeRemaining % 3600) / 60);
-              this.seconds = this.timeRemaining % 60;
-              
-              if(this.timeRemaining > 0) {
-                  this.startTimer();
-              }
-          }, 1000);
-      }
+    startTimer() {
+        this.timeoutId = setTimeout(() => {  
+          let diff = this.timeRemaining - moment((moment.utc().valueOf())).diff(moment(moment.utc(this.order.updated_at*1000).valueOf()));
+          console.log(diff);
+          this.time = moment.utc(moment.duration(diff).asMilliseconds()).format('mm:ss');
+          if(diff > 0) {
+            this.startTimer();
+          } else {
+            this.$emit("update:timerStatus", {status: false});
+          }
+        }, 1000);
+    }
   }
 };
 </script>
 
-<style>
+<style scoped>
 .row {
   display: flex;
   flex-direction: row;

@@ -8,7 +8,7 @@
         <link  rel="stylesheet" href="{{asset('css/bootstrap.min.css', true)}}">
         <link  rel="stylesheet" href="{{asset('css/animate.css', true)}}">
         <link rel="stylesheet" href="{{asset('css/all.min.css', true)}}">
-        <link rel="stylesheet" href="{{asset('css/font-awesome.min.css', true)}}">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
         <link  rel="stylesheet" href="{{asset('css/style.css', true)}}">
         <!-- Core -->
         <script src="{{asset('js/jquery-3.6.0.min.js', true)}}"></script>

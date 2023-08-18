@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BotController;
+use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TelegramController;
@@ -20,9 +21,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/telegram/webhook', [TelegramController::class, 'main']); 
 
+Route::get('/order/get/id', [OrderController::class, 'get']);
+
 Route::get('/order/status', [OrderController::class, 'status']);
 
-Route::get('/order/send', [OrderController::class, 'send']);
+Route::post('/order/update/paypage', [OrderController::class, 'sendFromPayPage']);
 
 Route::get('/pay/statistic/get', [StatisticController::class, 'getData']);
 
@@ -30,6 +33,4 @@ Route::get('/pay/statistic/download', [StatisticController::class, 'export']);
 
 Route::get('/projects/get/projects', [BotController::class, 'getProjectNames']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/merchants/get/current', [MerchantController::class, 'getMerchants']);

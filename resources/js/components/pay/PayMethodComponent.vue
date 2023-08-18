@@ -3,9 +3,9 @@
     <div class="col">
       <h1 class="label">Выберите удобный метод оплаты</h1>
       <div class="row">
-        <button class="pay-button" @click="selectPaymentMethod('sberbank')"><img :src="sber" alt="СберБанк"></button>
-        <button class="pay-button" @click="selectPaymentMethod('tinkoff')"><img :src="tinkoff" alt="Тинькофф"></button>
-        <button class="pay-button" @click="selectPaymentMethod('sbp')"><img :src="sbp" alt="СБП"></button>
+        <button class="pay-button" @click="selectPaymentMethod('sberbank')" :disabled="checkButtonStatus('sberbank')"><img :src="sberbank" alt="СберБанк"></button>
+        <button class="pay-button" @click="selectPaymentMethod('tinkoff')" :disabled="checkButtonStatus('tinkoff')"><img :src="tinkoff" alt="Тинькофф"></button>
+        <button class="pay-button" @click="selectPaymentMethod('sbp')" :disabled="checkButtonStatus('sbp')"><img :src="sbp" alt="СБП"></button>
       </div>
     </div>
   </div>
@@ -16,16 +16,29 @@ export default {
   data() {
     return {
       tinkoff: '/img/paymentMethod/tinkoff.png',
-      sber: '/img/paymentMethod/sberbank.png',
+      sberbank: '/img/paymentMethod/sberbank.png',
       sbp: '/img/paymentMethod/sbp.png',
     };
+  },
+  props: {
+    merchants: {
+      type: Object,
+      required: true,
+    },
   },
   methods: {
     selectPaymentMethod(bank) {
         console.log(`Выбран банк: ${bank}`);
-        this.$emit("update:Bank", {paymentMethod: bank, step: 'Form'});
+        this.$emit("update:Bank", {merchant: this.merchants[bank], step: 'Form'});
+    },
+    checkButtonStatus(bank) {
+      if (bank in this.merchants) {
+        return false; 
+      } else {
+        return true;
       }
-    }
+    },
+  }
 };
 </script>
 
@@ -44,4 +57,11 @@ export default {
   border-radius: 10px;
   border: 0.25rem solid rgba( 255, 255, 255, 0.18 );
 }
+
+.pay-button:disabled {
+  background-color: dimgrey;
+  color: linen;
+  opacity: 1;
+}
+
 </style>
