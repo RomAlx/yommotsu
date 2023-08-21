@@ -3,46 +3,52 @@
 namespace App\Repositories;
 
 use App\Models\Merchant;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
+
+use function PHPUnit\Framework\isNull;
 
 class MerchantRepository
 {
     public function getCurrent(): array
     {
-        return Merchant::query()
+        $merchants = Merchant::query()
             ->where('isCurrent', "=", "1")
-            ->get()
-            ->first()
-            ->toArray();
+            ->get();
+        $data = [];
+        foreach($merchants as $merchant) {
+            $data[$merchant->bank] = $merchant;
+        }
+        return $data;
     }
 
     public function setNextMerchant(): void
     {
-        if (Merchant::query()->count() != 1) {
-            $currentMerchant = Merchant::query()
-                ->where('isCurrent', "=", "1")
-                ->get()
-                ->first();
+        $currentMerchants = Merchant::query()
+            ->where('isCurrent', "=", "1")
+            ->get();
+        Log::info('Current merchants: ' . json_encode($currentMerchants));
+        foreach($currentMerchants as $currentMerchant){
             Log::info('Current merchant: ' . json_encode($currentMerchant));
-            $flag = false;
-            foreach (Merchant::all() as $merchant) {
-                if ($flag) {
-                    $newCurrentMerchant = $merchant;
+            $merchantsWithBank = Merchant::query()->where('bank', '=', $currentMerchant->bank)->get()->diff($currentMerchants);
+            Log::info('Diffs: ' . json_encode($merchantsWithBank));
+            if(count($merchantsWithBank) > 0){
+                $newMerchant = null;
+                foreach($merchantsWithBank as $merchant){
+                    if($merchant->id > $currentMerchant->id){
+                        $newMerchant = $merchant;
+                    }
                 }
-                if ($currentMerchant->id == $merchant->id) {
-                    $flag = true;
+                if(is_null($newMerchant)){
+                    $newMerchant = $merchantsWithBank[0];
                 }
+                $newMerchant->isCurrent = 1;
+                $currentMerchant->isCurrent = 0;
+                $newMerchant->save();
+                $currentMerchant->save();
+                Log::info('New merchant: ' . json_encode($newMerchant));
             }
-            if (!isset($newCurrentMerchant)) {
-                $newCurrentMerchant = Merchant::query()->orderBy('id')->first();
-            }
-            $currentMerchant->isCurrent = 0;
-            $newCurrentMerchant->isCurrent = 1;
-            $currentMerchant->save();
-            $newCurrentMerchant->save();
-            Log::info('New current merchant: ' . json_encode($newCurrentMerchant));
-        } else {
-            Log::info('Only one merchant');
+            
         }
     }
 }

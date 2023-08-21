@@ -14,5 +14,7 @@ class OrderMerchant extends Model
         'phone',
         'isCorrect',
         'status',
+        'name',
+        'email',
     ];
 }

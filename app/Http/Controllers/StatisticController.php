@@ -28,7 +28,7 @@ class StatisticController extends Controller
         if(array_key_exists('project_name', $params) &&
             array_key_exists('period', $params) &&
             array_key_exists('status', $params)){
-            $collection = PayOrder::all();
+            $collection = PayOrder::orderByDesc('id')->get();
             if ($params['project_name'] != 'all'){
                 $collection = $collection->where('project_name', '=', $params['project_name']);
             }
