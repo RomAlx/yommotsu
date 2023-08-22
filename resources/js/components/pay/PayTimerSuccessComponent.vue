@@ -3,22 +3,42 @@
     <div class="col">
       <h1 class="label">Успешная оплата!</h1>
       <div class="success-card row align-items-center justify-content-center">
-        <div class="col-4">
+        <div class="col-3">
           <img :src="success" alt="success" class="status-img"> 
         </div>
-        <div class="col-8">
-          <p class="fix-top success-label">Вы оплатили</p>
+        <div class="col-9">
           <div class="row justify-content-center">
-            <div class="col-5"><p class="fix-top success-amount">{{ this.order.amount }}</p></div>
-            <div class="col-1"><p class="fix-top success-currency">₽</p></div>
+            <div class="order-card">
+              <p class="success-label">Ваш заказ</p>
+              <div class="row justify-content-start">
+                <div class="col-3"><p class="fix-top success-field-name">Проект</p></div>
+                <div class="col-9"><p class="fix-top success-field-value">{{ this.order.project_name }}</p></div>
+              </div>
+              <div class="row justify-content-start">
+                <div class="col-3"><p class="fix-top success-field-name">Email</p></div>
+                <div class="col-9"><p class="fix-top success-field-value">{{ this.order.email }}</p></div>
+              </div>
+              <div class="row justify-content-start">
+                <div class="col-3"><p class="fix-top success-field-name">ФИО</p></div>
+                <div class="col-9"><p class="fix-top success-field-value">{{ this.order.name }}</p></div>
+              </div>
+              <div class="row justify-content-start">
+                <div class="col-3"><p class="fix-top success-field-name">Сумма</p></div>
+                <div class="col-9"><p class="fix-top success-field-value">{{ this.order.amount }}</p></div>
+              </div>
+              <div class="row justify-content-start">
+                <div class="col-3"><p class="fix-top success-field-name">Заказ</p></div>
+                <div class="col-9"><p class="fix-top success-field-value">{{ this.order.order_id }}</p></div>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
-      <p class="label-comment">Комиссия сервиса 10%</p>
       <div class="container fix-width">
         <div class="row justify-content-center">
             <div class="col">
-                <button class="success-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
+                <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
             </div>
             <div class="col">
                 <button class="help-button" @click="openNewWindow(this.help_url)">Поддержка</button>
@@ -35,7 +55,7 @@ export default {
     return {
       success: '/img/payTimer/done.png',
       redirect_url: window.blade_data.redirect_url,
-      help_url: 'https://t.me/yommotsu',
+      help_url: 'https://t.me/yommotsu_admin',
     };
   },
   props: {
@@ -65,14 +85,19 @@ export default {
   align-items: center;
 }
 
+.label-comment{
+  text-align:start;
+}
+
 .success-card{
-  margin: 1rem;
-  width: 20.4375rem;
-  height: 7.75rem;
+  margin: 2rem;
+  padding: 1rem;
+  width: 32rem;
+  height: 13rem;
   flex-shrink: 0;
   border-radius: 0.9375rem;
-  background: #FFF;
-  box-shadow: 0px 0px 59px 0px rgba(40, 202, 95, 0.25);
+  background: rgba( 255, 255, 255, 0.5 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 }
 
 .status-img{
@@ -85,29 +110,36 @@ export default {
 
 .success-label{
   color: #454545;
-  font-family: Montserrat-Regular;
+  font-family: Montserrat-SemiBold;
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
 }
 
-.success-amount{
-  color: #28CA5F;
+.success-field-name{
+  color: #12724a;
   font-family: Montserrat-SemiBold;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  text-align: start;
 }
 
-.success-currency{
+.success-field-value{
   color: #454545;
   font-family: Montserrat-Regular;
-  font-size: 1.4rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  text-align: start;
+}
+
+.comment-card{
+  margin: 2rem;
+  font-family: Montserrat-Regular;
 }
 
 .fix-width{
@@ -115,34 +147,73 @@ export default {
     width: 25rem;
 }
 
-.success-button{
-  width: 8.8125rem;
-  height: 2.4375rem;
-  flex-shrink: 0;
-  border-radius: 0.5625rem;
-  background: linear-gradient(180deg, #28CA5F 0%, #28CA5F 100%);
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.25);
-  color: #FFF;
-  font-family: Montserrat-Regular;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  text-align: center;
-  text-decoration: none;
-}
+@media screen and (max-width: 685px) {
+  .success-card{
+    margin: 1.6rem;
+    padding: 1rem;
+    width: 25.6rem;
+    height: 11rem;
+    border-radius: 0.72rem;
+  }
 
-.help-button{
-  width: 8.8125rem;
-  height: 2.4375rem;
-  flex-shrink: 0;
-  border-radius: 0.5625rem;
-  border: 2px solid #28CA5F;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
-  font-family: Montserrat-Regular;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  .status-img{
+    height: 3rem;
+  }
+
+  .success-label{
+    font-size: 0.96rem;
+  }
+
+  .success-field-name{
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .success-field-value{
+    font-size: 0.8rem;
+  }
+
+  .comment-card{
+    margin: 1.6rem;
+  }
+
+  .fix-width{
+      margin-top: 0.8rem;
+      width: 25rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  .success-card{
+    margin: 1.6rem;
+    padding: 1.2rem;
+    width: 20rem;
+    height: 9rem;
+    border-radius: 0.72rem;
+  }
+
+  .status-img{
+    height: 2.4rem;
+  }
+
+  .success-label{
+    font-size: 0.76rem;
+  }
+
+  .success-field-name{
+    font-size: 0.64rem;
+  }
+
+  .success-field-value{
+    font-size: 0.64rem;
+  }
+
+  .comment-card{
+    margin: 1.28rem;
+  }
+
+  .fix-width{
+      margin-top: 0.64rem;
+      width: 20rem;
+  }
 }
 </style>

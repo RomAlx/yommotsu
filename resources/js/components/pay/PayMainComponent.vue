@@ -100,6 +100,7 @@ export default {
           name: this.form.name,
           email: this.form.email, 
           status: 'WAITING',
+          bank: this.bank,
         }
       });
     },
@@ -148,12 +149,33 @@ export default {
   line-height: normal;
 }
 
-@media screen and (max-width: 475px) {
+.help-button{
+  width: 8.8125rem;
+  height: 2.4375rem;
+  flex-shrink: 0;
+  border-radius: 0.5625rem;
+  border: 2px solid #E83F3F;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
+  font-family: Montserrat-Regular;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+@media screen and (max-width: 685px) {
   .done-button{
-    width: 7.05rem;
-    height: 1.95rem;
-    border-radius: 0.45rem;
-    font-size: 0.8rem;
+    width: 6.6rem;
+    height: 1.8rem;
+    border-radius: 0.42rem;
+    font-size: 0.75rem;
+  }
+
+  .help-button{
+    width: 6.6rem;
+    height: 1.8rem;
+    border-radius: 0.42rem;
+    font-size: 0.75rem;
   }
 }
 </style>

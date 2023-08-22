@@ -30,19 +30,19 @@
               <div class="col-9"><p class="fix-top warning-field-value">{{ this.order.order_id }}</p></div>
             </div>
           </div>
-          <div class="comment-card">
-            <p class="label-comment">Вы можете отслеживать статус заказа на этой странице - она автоматически изменит статус оплаты. </p>
-            <p class="label-comment">Также вы можете написать в поддержку узнать статус заказа, передав данные о нем.</p>
-          </div>
+        </div>
+        <div class="comment-card">
+          <p class="label-comment">Вы можете отслеживать статус заказа на этой странице - она автоматически изменит статус оплаты. </p>
+          <p class="label-comment">Также вы можете написать в поддержку узнать статус заказа, передав данные о нем.</p>
         </div>
       </div>
       <div class="container fix-width">
         <div class="row justify-content-center">
             <div class="col">
-                <button class="warning-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
+                <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
             </div>
             <div class="col">
-                <button class="warning-help-button" @click="openNewWindow(this.help_url)">Поддержка</button>
+                <button class="help-button" @click="openNewWindow(this.help_url)">Поддержка</button>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@ export default {
     return {
       warning: '/img/payTimer/warning.png',
       redirect_url: window.blade_data.redirect_url,
-      help_url: 'https://t.me/yommotsu',
+      help_url: 'https://t.me/yommotsu_admin',
     };
   },
   props:{
@@ -88,17 +88,19 @@ export default {
 }
 
 .label-comment{
+  font-size: 1rem;
   text-align:start;
 }
 
 .warning-card{
   margin: 1rem;
-  width: 40rem;
-  height: 25rem;
+  padding: 2rem;
+  width: 41rem;
+  height: 21rem;
   flex-shrink: 0;
   border-radius: 0.9375rem;
-  background: #FFF;
-  box-shadow: 0px 0px 59px 0px rgb(204, 211, 6);
+  background: rgba( 255, 255, 255, 0.5 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 }
 
 .status-img{
@@ -116,10 +118,6 @@ export default {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-}
-
-.order-card{
-  margin: 2rem;
 }
 
 .warning-field-name{
@@ -143,7 +141,7 @@ export default {
 }
 
 .comment-card{
-  margin: 2rem;
+  padding: 2rem;
   text-align: start;
 }
 
@@ -152,36 +150,7 @@ export default {
     width: 25rem;
 }
 
-.warning-button{
-  width: 8.8125rem;
-  height: 2.4375rem;
-  flex-shrink: 0;
-  border-radius: 0.5625rem;
-  background: linear-gradient(180deg, #f6ff00 0%, #cad101 100%);
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.25);
-  color: #FFF;
-  font-family: Montserrat-SemiBold;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  text-align: center;
-  text-decoration: none;
-}
 
-.warning-help-button{
-  width: 8.8125rem;
-  height: 2.4375rem;
-  flex-shrink: 0;
-  border-radius: 0.5625rem;
-  border: 2px solid #DFE800;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
-  font-family: Montserrat-Regular;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
 
 @media screen and (max-width: 685px) {
   .label-comment{
@@ -190,8 +159,9 @@ export default {
 
   .warning-card{
     margin: 1rem;
+    padding: 2rem;
     width: 30rem;
-    height: 20rem;
+    height: 19rem;
     border-radius: 0.9375rem;
   }
 
@@ -203,10 +173,6 @@ export default {
     font-size: 0.9rem;
   }
 
-  .order-card{
-    margin: 1.5rem;
-  }
-
   .warning-field-name{
     font-size: 0.7rem;
   }
@@ -215,44 +181,27 @@ export default {
     font-size: 0.75rem;
   }
 
-  .comment-card{
-    margin: 1.5rem;
-  }
-
   .fix-width{
       margin-top: 0.75rem;
       width: 18.75rem;
-  }
-
-  .warning-button{
-    width: 6.6rem;
-    height: 1.8rem;
-    border-radius: 0.42rem;
-    font-size: 0.75rem;
-  }
-
-  .warning-help-button{
-    width: 6.6rem;
-    height: 1.8rem;
-    border-radius: 0.42rem;
-    font-size: 0.75rem;
   }
 }
 @media screen and (max-width: 510px) {
   .label-comment{
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .warning-card{
     margin: 1rem;
+    padding: 1.5rem;
     width: 19rem;
-    height: 27rem;
+    height: 25rem;
     border-radius: 0.9375rem;
   }
 
   .status-img{
     height: 3rem;
-    margin-top: 1.5rem;
+    width: 3rem;
   }
 
   .warning-label{
@@ -260,7 +209,8 @@ export default {
   }
 
   .order-card{
-    margin: 1.5rem;
+    margin: 1rem;
+    margin-left: 0rem;
   }
 
   .warning-field-name{
@@ -272,26 +222,12 @@ export default {
   }
 
   .comment-card{
-    margin: 1.5rem;
+    padding: 1rem;
   }
 
   .fix-width{
       margin-top: 0.75rem;
       width: 18.75rem;
-  }
-
-  .warning-button{
-    width: 6.6rem;
-    height: 1.8rem;
-    border-radius: 0.42rem;
-    font-size: 0.75rem;
-  }
-
-  .warning-help-button{
-    width: 6.6rem;
-    height: 1.8rem;
-    border-radius: 0.42rem;
-    font-size: 0.75rem;
   }
 }
 </style>

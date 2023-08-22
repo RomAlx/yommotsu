@@ -96,8 +96,8 @@ export default {
   height: 20rem;
   flex-shrink: 0;
   border-radius: 0.9375rem;
-  background: #FFF;
-  box-shadow: 0px 0px 59px 0px rgba(211, 6, 6, 0.39);
+  background: rgba( 255, 255, 255, 0.5 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 }
 
 .form-component{

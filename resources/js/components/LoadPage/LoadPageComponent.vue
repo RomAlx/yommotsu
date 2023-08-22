@@ -11,7 +11,7 @@
 export default {
   data() {
     return {
-      logo: '/img/logo.png',
+      logo: '/img/loading.png',
     };
   },
 };
@@ -19,13 +19,14 @@ export default {
 
 <style scoped>
 .logo {
-  height: 30rem;
-  animation: blink 2s infinite;
+  height: 15rem;
+  animation: blink 4s infinite;
 }
 
 @keyframes blink {
   50% {
-    opacity: 0.5;
+    opacity: 0.1;
+    transform: scale(0.7);
   }
 }
 </style>

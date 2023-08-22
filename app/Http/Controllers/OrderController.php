@@ -63,6 +63,9 @@ class OrderController extends Controller
                         if (array_key_exists('email', $data)) {
                             $order->email = $data['email'];
                         }
+                        if (array_key_exists('email', $data)) {
+                            $order->bank = $data['bank'];
+                        }
                         $order->save();
                         $token = env('TELEGRAM_BOT_API_TOKEN');
                         $telegram = new Api($token);
@@ -72,6 +75,7 @@ class OrderController extends Controller
                             'email' => $order->email,
                             'order_id'=> $order->order_id,
                             'amount'=> $order->amount,
+                            'bank' => $order->bank,
                         ];
                     if(is_null($order->message_id)){
                         (new TelegramApiBotService())->sendOrder($data, $telegram);

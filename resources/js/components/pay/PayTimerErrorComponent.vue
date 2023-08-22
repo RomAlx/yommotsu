@@ -38,10 +38,10 @@
       <div class="container fix-width">
         <div class="row justify-content-center">
             <div class="col">
-                <button class="error-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
+                <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
             </div>
             <div class="col">
-                <button class="error-help-button" @click="openNewWindow(this.help_url)">Поддержка</button>
+                <button class="help-button" @click="openNewWindow(this.help_url)">Поддержка</button>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@ export default {
     return {
       error: '/img/payTimer/error.png',
       redirect_url: window.blade_data.redirect_url,
-      help_url: 'https://t.me/yommotsu',
+      help_url: 'https://t.me/yommotsu_admin',
     };
   },
   props:{
@@ -97,8 +97,8 @@ export default {
   height: 20rem;
   flex-shrink: 0;
   border-radius: 0.9375rem;
-  background: #FFF;
-  box-shadow: 0px 0px 59px 0px rgb(211, 6, 6);
+  background: rgba( 255, 255, 255, 0.5 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 }
 
 .status-img{
@@ -152,37 +152,6 @@ export default {
     width: 25rem;
 }
 
-.error-button{
-  width: 8.8125rem;
-  height: 2.4375rem;
-  flex-shrink: 0;
-  border-radius: 0.5625rem;
-  background: linear-gradient(180deg, #ff0000 0%, #d10101 100%);
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.25);
-  color: #FFF;
-  font-family: Montserrat-SemiBold;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  text-align: center;
-  text-decoration: none;
-}
-
-.error-help-button{
-  width: 8.8125rem;
-  height: 2.4375rem;
-  flex-shrink: 0;
-  border-radius: 0.5625rem;
-  border: 2px solid #e80000;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
-  font-family: Montserrat-Regular;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
-
 @media screen and (max-width: 685px) {
   .label-comment{
     font-size: 0.9rem;
@@ -223,20 +192,6 @@ export default {
   .fix-width{
     margin-top: 0.75rem;
     width: 18.75rem;
-  }
-
-  .error-button{
-    width: 6.6rem;
-    height: 1.8rem;
-    border-radius: 0.42rem;
-    font-size: 0.75rem;
-  }
-
-  .error-help-button{
-    width: 6.6rem;
-    height: 1.8rem;
-    border-radius: 0.42rem;
-    font-size: 0.75rem;
   }
 }
 @media screen and (max-width: 510px) {
@@ -280,20 +235,6 @@ export default {
   .fix-width{
       margin-top: 0.75rem;
       width: 18.75rem;
-  }
-
-  .error-button{
-    width: 6.6rem;
-    height: 1.8rem;
-    border-radius: 0.42rem;
-    font-size: 0.75rem;
-  }
-
-  .error-help-button{
-    width: 6.6rem;
-    height: 1.8rem;
-    border-radius: 0.42rem;
-    font-size: 0.75rem;
   }
 }
 </style>

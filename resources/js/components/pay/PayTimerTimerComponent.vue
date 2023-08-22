@@ -82,7 +82,8 @@ export default {
   height: 5.1875rem;
   flex-shrink: 0;
   border-radius: 0.9375rem;
-  background: #FFF;
+  background: rgba( 255, 255, 255, 0.5 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   display: flex;
   justify-content: center;
   padding: 1rem;

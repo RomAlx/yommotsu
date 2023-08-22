@@ -13,5 +13,8 @@ class PayOrder extends Model
         'order_id',
         'amount',
         'status',
+        'name',
+        'email',
+        'bank',
     ];
 }
