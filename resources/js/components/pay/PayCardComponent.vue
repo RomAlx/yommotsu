@@ -1,50 +1,63 @@
 <template>
     <div class="row wow fadeIn">
-        <div class="container payment-card" :class="bank">
-            <div class="row align-items-center">
-                <div class="col-7 to-left-side">
-                    <small class="card-label">Название проекта</small>
-                    <h5 class="card-fill-small">{{this.order.project_name}}</h5>
-                    <small class="card-label">Владелец</small>
-                    <h5 class="card-fill-small">{{this.merchant.name}}</h5>
-                </div>
-                <div class="col-5 justify-content-center logo">
-                    <div class="logo-div">
-                        <img :src="srcLogo" alt="bank" :class="logobank">
+        <div class="row align-items-center">
+            <div class="col align-items-center">
+                <div class="container rules-card">
+                    <h5 class="label-rules">Правила</h5>
+                    <h5 class="rules">1. Перевод осуществляются строго с выборного банка на банк.</h5>
+                    <h5 class="rules">2. ФИО которое вы указываете, должно полностью совпадать с ФИО отправителя.</h5>
+                    <h5 class="rules">3. Всегда указывайте в комментарий к платежу последние 4 символа вашего заказа.</h5>
+                    <h5 class="rules">4. Если вы нарушаете правила - обратитесь в поддержку для уточнения статуса вашего платежа.</h5>
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="label">Ваш комментарий:</h5>
+                            <h5 class="label comment">{{this.order.order_id.slice(-4)}}</h5>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row second-half">
-                <div class="col-9 to-left-side">
-                    <div class="row justify-content-start">
-                        <div class="col-5"><small class="card-label">Номер карты</small></div>
-                        <div class="col-1"><img class="card-copy" :src="srcServiceCopyBank" @click="copyToClipboard('bank-number')"></div>
+            <div class="col">
+                <div class="container payment-card" :class="bank">
+                    <div class="row align-items-center">
+                        <div class="col-7 to-left-side">
+                            <small class="card-label">Название проекта</small>
+                            <h5 class="card-fill-small">{{this.order.project_name}}</h5>
+                            <small class="card-label">Владелец</small>
+                            <h5 class="card-fill-small">{{this.merchant.name}}</h5>
+                        </div>
+                        <div class="col-5 justify-content-center logo">
+                            <div class="logo-div">
+                                <img :src="srcLogo" alt="bank" :class="logobank">
+                            </div>
+                        </div>
                     </div>
-                    <h5 class="card-fill-big" id="bank-number">{{this.merchant.bank_number}}</h5>
-                </div>
-                <div class="col-3 justify-content-center">
-                    <div class="row justify-content-center">
-                        <div class="col-6"><small class="card-label">Сумма</small></div>
-                        <div class="col-1"><img class="card-copy" :src="srcServiceCopyAmount" @click="copyToClipboard('amount')"></div>
+                    <div class="row second-half">
+                        <div class="col-9 to-left-side">
+                            <div class="row justify-content-start">
+                                <div class="col-5"><small class="card-label">Номер карты</small></div>
+                                <div class="col-1"><img class="card-copy" :src="srcServiceCopyBank" @click="copyToClipboard('bank-number')"></div>
+                            </div>
+                            <h5 class="card-fill-big" id="bank-number">{{this.merchant.bank_number}}</h5>
+                        </div>
+                        <div class="col-3 justify-content-center">
+                            <div class="row justify-content-center">
+                                <div class="col-6"><small class="card-label">Сумма</small></div>
+                                <div class="col-1"><img class="card-copy" :src="srcServiceCopyAmount" @click="copyToClipboard('amount')"></div>
+                            </div>
+                            <h5 class="card-fill-big" id="amount">{{this.order.amount}}</h5>
+                        </div>
                     </div>
-                    <h5 class="card-fill-big" id="amount">{{this.order.amount}}</h5>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h5 class="label">Обязательно укажите в комментарии последние 4 символа вашего заказа:</h5>
-            <h5 class="label comment">{{this.order.order_id.slice(-4)}}</h5>
-        </div>
-    </div>
-    <div class="container fix-width">
-        <div class="row justify-content-center">
-            <div class="col">
-                    <button type="button" class="done-button" @click="getBack()">Назад</button>
-            </div>
-            <div class="col">
-                <button class="done-button" @click="pay()">Я оплатил!</button>
+        <div class="container fix-width">
+            <div class="row justify-content-center">
+                <div class="col">
+                        <button type="button" class="done-button" @click="getBack()">Назад</button>
+                </div>
+                <div class="col">
+                    <button class="done-button" @click="pay()">Я оплатил!</button>
+                </div>
             </div>
         </div>
     </div>
@@ -115,6 +128,36 @@ export default {
 </script>
 
 <style scoped>
+.rules-card{
+    margin: 1rem;
+    width: 35rem;
+    height: 22rem;
+    padding: 2rem;
+    flex-shrink: 0;
+    border-radius: 0.9375rem;
+    background: rgba( 255, 255, 255, 0.5 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
+
+.label-rules{
+    color: #262626;
+    font-family: Montserrat-SemiBold;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.rules{
+    text-align: start;
+    color: #262626;
+    font-family: Montserrat-Regular;
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
 .payment-card{
     width: 35rem;
     height: 19.44rem;
@@ -177,7 +220,7 @@ export default {
 
 .comment{
   font-family: Montserrat-Bold;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 .logo-sberbank{
@@ -196,11 +239,27 @@ export default {
 }
 
 .fix-width{
+    margin: 2rem;
     width: 35rem;
 }
 
 
 @media screen and (max-width: 765px) {
+    .rules-card{
+        margin-bottom: 1rem;
+        width: 28rem;
+        height: 20rem;
+        padding: 2rem;
+        border-radius: 0.9375rem;
+    }
+
+    .label-rules{
+        font-size: 0.96rem;
+    }
+
+    .rules{
+        font-size: 0.72rem;
+    }
     .payment-card{
         width: 28rem;
         height: 15.552rem;
@@ -252,6 +311,22 @@ export default {
 }
 
 @media screen and (max-width: 475px) {
+    .rules-card{
+        margin-bottom: 1rem;
+        width: 22.4rem;
+        height: 21rem;
+        padding: 2rem;
+        border-radius: 0.9375rem;
+    }
+
+    .label-rules{
+        font-size: 0.96rem;
+    }
+
+    .rules{
+        font-size: 0.72rem;
+    }
+
     .payment-card{
         width: 22.4rem;
         height: 12.44rem;
