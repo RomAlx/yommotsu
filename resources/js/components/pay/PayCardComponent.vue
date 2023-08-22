@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col align-items-center">
                 <div class="container payment-card" :class="bank">
                     <div class="row align-items-center">
                         <div class="col-7 to-left-side">
@@ -128,6 +128,17 @@ export default {
 </script>
 
 <style scoped>
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .rules-card{
     margin: 1rem;
     width: 35rem;
@@ -374,6 +385,48 @@ export default {
     .fix-width{
         width: 22.4rem;
     }
+}
+
+@media screen and (max-width: 405px) {
+    .payment-card{
+        width: 19.04rem;
+        height: 10.574rem;
+        padding: 1rem;
+        border-radius: 0.8rem;
+    }
+
+    .card-label{
+        font-size: 0.476rem;
+    }
+
+    .card-copy{
+        height: 0.6rem;
+    }
+
+    .card-fill-small{
+        font-size: 0.85rem;
+    }
+    .card-fill-big{
+        font-size: 1rem;
+    }
+    .second-half{
+        margin-top: 0.2rem;
+    }
+
+    .logo-sberbank{
+        width: 6.528rem;
+        height: 1.9rem;
+    }
+
+    .logo-tinkoff{
+        width: 5.44rem;
+        height: 4.165rem;
+    }
+
+    .logo-sbp{
+        width: 6.528rem;
+        height: 3.264rem;
+    }   
 }
 
 </style>
