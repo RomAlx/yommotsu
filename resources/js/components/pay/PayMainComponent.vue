@@ -36,6 +36,7 @@ export default {
       form: {
         name: '',
         email: '',
+        agreement: null,
       },
       bank: null,
       logo: '/img/logo.png',
@@ -89,6 +90,7 @@ export default {
     updateFromForm(form) {
       this.form.name = form.name;
       this.form.email = form.email;
+      this.form.agreement = form.agreement;
       this.data.step = form.step;
     },
     updateFromCard(card) {
