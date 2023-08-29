@@ -27,6 +27,8 @@ Route::get('/order/status', [OrderController::class, 'status']);
 
 Route::post('/order/update/paypage', [OrderController::class, 'sendFromPayPage']);
 
+Route::post('/order/update/paypagestatic', [OrderController::class, 'sendFromPayStaticPage']);
+
 Route::get('/pay/statistic/get', [StatisticController::class, 'getData']);
 
 Route::get('/pay/statistic/download', [StatisticController::class, 'export']);

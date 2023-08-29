@@ -8,9 +8,18 @@ use Illuminate\Support\Facades\Log;
 
 class PayOrderRepository
 {
+
+    public function updateOrCreateFromStaticPayPage(string $order_id, array $data): PayOrder
+    {
+        Log::info('Updating order. Order_id:'.$order_id);
+        $order = PayOrder::query()->updateOrCreate(['order_id' => $order_id], $data);
+        $order->save();
+        return $order;
+    }
+
     public function updateOrCreate(string $order_id, array $data): bool
     {
-        Log::info('Updating orde. Order_id:'.$order_id);
+        Log::info('Updating order. Order_id:'.$order_id);
         return PayOrder::query()->updateOrCreate(['order_id' => $order_id], $data)->save();
     }
 

@@ -93,6 +93,47 @@ class OrderController extends Controller
         }
     }
 
+    public function sendFromPayStaticPage(Request $request)
+    {
+        Log::info('New Request: ' . json_encode($request->input('data')));
+        $data = $request->input('data');
+        if (array_key_exists('password', $data)) {
+            if($data['password'] == 'P2PEXCHANGE'){
+                if (array_key_exists('order_id', $data)) {
+                    $order = (new PayOrderRepository())->updateOrCreateFromStaticPayPage($data['order_id'], [
+                        'project_name' => $data['project_name'],
+                        'amount' => $data['amount'], 
+                        'status' => $data['status'],
+                        'name' => $data['name'],
+                        'email' => $data['email'],
+                    ]);
+                    $order->bank = $data['bank'];
+                    $order->save();
+                    $token = env('TELEGRAM_BOT_API_TOKEN');
+                    $telegram = new Api($token);
+                    $data = [
+                        'project_name'=> $order->project_name,
+                        'name' => $order->name,
+                        'email' => $order->email,
+                        'order_id'=> $order->order_id,
+                        'amount'=> $order->amount,
+                        'bank' => $order->bank,
+                    ];
+                    if(is_null($order->message_id)){
+                        (new TelegramApiBotService())->sendOrder($data, $telegram);
+                    }
+                    Log::info('Ending...');
+                } else {
+                    return response()->json(['status'=>'no order'], 400);
+                }
+            } else {
+                return response()->json(['status'=>'wrong password'], 401);
+            }
+        } else {
+            return response()->json(['status'=>'something went wrong'], 400);
+        }
+    }
+
     public function get(Request $request)
     {
         Log::info('New Request: ' . json_encode($request->query()));

@@ -21,7 +21,7 @@
             <div class="tg_cont text-center">
                 <div class="row">
                     <div class="col">
-                        <img src="{{asset('img/logo.png')}}" alt="Logo" class="logo">
+                        <img src="{{asset('img/logo.png')}}" alt="Logo" class="logo" style="max-width: 50vw">
                         <h1>Oops... Something went wrong</h1>
                     </div>
                 </div>

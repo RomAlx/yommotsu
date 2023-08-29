@@ -22,4 +22,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('/pay', [PayController::class, 'pay']);
 
+Route::get('/pay/static', [PayController::class, 'pay_static']);
+
 Route::get('/secret/statistic', [StatisticController::class, 'getPage']);
