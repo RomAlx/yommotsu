@@ -36,16 +36,6 @@
           <p class="label-comment">Также вы можете написать в поддержку узнать статус заказа, передав данные о нем.</p>
         </div>
       </div>
-      <div class="container fix-width">
-        <div class="row justify-content-center">
-            <div class="col">
-                <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
-            </div>
-            <div class="col">
-                <button class="help-button" @click="openNewWindow(this.help_url)">Поддержка</button>
-            </div>
-        </div>
-    </div>
     </div>
   </div>
 </template>
@@ -56,8 +46,6 @@ export default {
   data() {
     return {
       warning: '/img/payTimer/warning.png',
-      redirect_url: window.blade_data.redirect_url,
-      help_url: 'https://t.me/yommotsu_admin',
     };
   },
   props:{
