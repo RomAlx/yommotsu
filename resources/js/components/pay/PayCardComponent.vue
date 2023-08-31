@@ -1,19 +1,47 @@
 <template>
+    <div id="modal" class="modal wow fadeIn">
+      <div class="modal-content">
+        <span class="close" @click="closeModal">&times;</span>
+        <h2 class="modal-label">Правила</h2>
+        <p class="modal-text">
+            1. Перевод осуществляются строго с выборного банка на банк.<br>
+            2. ФИО которое вы указываете, должно полностью совпадать с ФИО отправителя.<br>
+            3. Всегда указывайте в комментарий к платежу последние 4 символа вашего заказа.<br>
+            4. Если вы нарушаете правила - обратитесь в поддержку для уточнения статуса вашего платежа.
+        </p>
+      </div>
+    </div>
     <div class="row wow fadeIn">
         <div class="row align-items-center">
             <div class="col align-items-center">
-                <div class="container rules-card">
-                    <h5 class="label-rules">Правила</h5>
-                    <h5 class="rules">1. Перевод осуществляются строго с выборного банка на банк.</h5>
-                    <h5 class="rules">2. ФИО которое вы указываете, должно полностью совпадать с ФИО отправителя.</h5>
-                    <h5 class="rules">3. Всегда указывайте в комментарий к платежу последние 4 символа вашего заказа.</h5>
-                    <h5 class="rules">4. Если вы нарушаете правила - обратитесь в поддержку для уточнения статуса вашего платежа.</h5>
-                    <div class="row">
-                        <div class="col">
-                            <h5 class="label">Ваш комментарий:</h5>
-                            <h5 class="label comment">{{this.order.order_id.slice(-4)}}</h5>
-                        </div>
+                <div class="container order-card">
+                    <p class="order-label">Ваш заказ</p>
+                    <div class="row justify-content-start">
+                        <div class="col-3"><p class="fix-top order-field-name">Проект</p></div>
+                        <div class="col-9"><p class="fix-top order-field-value">{{ this.order.project_name }}</p></div>
                     </div>
+                    <div class="row justify-content-start">
+                        <div class="col-3"><p class="fix-top order-field-name">Email</p></div>
+                        <div class="col-9"><p class="fix-top order-field-value">{{ this.form.email }}</p></div>
+                    </div>
+                    <div class="row justify-content-start">
+                        <div class="col-3"><p class="fix-top order-field-name">ФИО</p></div>
+                        <div class="col-9"><p class="fix-top order-field-value">{{ this.form.name }}</p></div>
+                    </div>
+                    <div class="row justify-content-start">
+                        <div class="col-3"><p class="fix-top order-field-name">Сумма</p></div>
+                        <div class="col-9"><p class="fix-top order-field-value">{{ this.order.amount }}</p></div>
+                    </div>
+                    <div class="row justify-content-start">
+                        <div class="col-3"><p class="fix-top order-field-name">Заказ</p></div>
+                        <div class="col-9"><p class="fix-top order-field-value">{{ this.order.order_id }}</p></div>
+                    </div>
+                    <p class="fix-top comment-field-name">Ваш комментарий к переводу</p>
+                    <div class="row justify-content-center">
+                        <div class="col-1"><p class="fix-top comment-field-value" id="comment">{{ this.order.order_id.slice(-4) }}</p></div>
+                        <div class="col-2"><img class="comment-copy" :src="srcServiceCopyComment" @click="copyToClipboard('comment')"></div>
+                    </div>
+                    <p class="fix-top comment-field-name"><a href="#" @click="openModal">Правила</a></p>
                 </div>
             </div>
             <div class="col align-items-center">
@@ -50,6 +78,26 @@
                 </div>
             </div>
         </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col">
+                    <img class="manual-img" :src="srcManualBank">
+                    <p class="fix-top manual-field-value">Откройте приложение банка. Скопируйте с этой страницы реквизиты, сумму и комментарий.</p>
+                </div>
+                <div class="col">
+                    <img class="manual-img" :src="srcManualCard">
+                    <p class="fix-top manual-field-value">Проверьте владельца карты. Нажмите "Перевести".</p>
+                </div>
+                <div class="col">
+                    <img class="manual-img" :src="srcManualSend">
+                    <p class="fix-top manual-field-value">На этой странице нажмите кнопку "Я оплатил!", чтобы ваш заказ поступил в обработку.</p>
+                </div>
+                <div class="col">
+                    <img class="manual-img" :src="srcManualDone">
+                    <p class="fix-top manual-field-value">Ожидайте подтверждения операции.</p>
+                </div>
+            </div>
+        </div>
         <div class="container fix-width">
             <div class="row justify-content-center">
                 <div class="col">
@@ -74,6 +122,11 @@ export default {
       sbp: '/img/paycard/sbp.png',
       srcServiceCopyBank: "/img/service/copy_white.png",
       srcServiceCopyAmount: "/img/service/copy_white.png",
+      srcServiceCopyComment: "/img/service/copy_fill_red.png",
+      srcManualBank: "/img/paycard/manual/mobile_bank.png",
+      srcManualCard: "/img/paycard/manual/card.png",
+      srcManualSend: "/img/paycard/manual/send.png",
+      srcManualDone: "/img/paycard/manual/done.png",
     };
   },
   props: {
@@ -85,6 +138,10 @@ export default {
       type: Object,
       required: true,
     },
+    form: {
+      type: Object,
+      required: true,
+    }
   }, 
   computed: {
         bank() {
@@ -99,13 +156,22 @@ export default {
         }
   },
   methods: {
+      openModal() {
+          let modal = document.getElementById("modal");
+          modal.style.display = "block";
+      },
+      closeModal() {
+          let modal = document.getElementById("modal");
+          modal.style.display = "none";
+      },
       getBack() {
         console.log(`Назад`);
-        this.$emit("update:Step", 'Form');
+        this.$emit("update:Step", 'PaymentMethod');
       },
       copyToClipboard(id) {
         this.srcServiceCopyBank = "/img/service/copy_white.png";
         this.srcServiceCopyAmount = "/img/service/copy_white.png";
+        this.srcServiceCopyComment = "/img/service/copy_fill_red.png";
         const element = document.getElementById(id);
         const textToCopy = element.innerText;
         try {
@@ -115,6 +181,9 @@ export default {
             }
             if(id == 'amount'){
                 this.srcServiceCopyAmount = "/img/service/done_white.png";
+            }
+            if(id == 'comment'){
+                this.srcServiceCopyComment = "/img/service/done_red.png";
             }
         } catch (error) {
             console.log('Не удалось скопировать.');
@@ -139,34 +208,133 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.rules-card{
-    margin: 1rem;
-    width: 35rem;
-    height: 22rem;
+
+a{
+  color:#b82d2d;
+}
+
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 20% auto;
     padding: 2rem;
-    flex-shrink: 0;
-    border-radius: 0.9375rem;
-    background: rgba( 255, 255, 255, 0.5 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    border: 1px solid #888;
+    width: 30rem;
+}
+.modal-label{
+  padding-left: 1rem;
+  font-family: Montserrat-SemiBold;
+  color: #252525;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
-.label-rules{
-    color: #262626;
-    font-family: Montserrat-SemiBold;
-    font-size: 1.2rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+.modal-text{
+  padding-left: 1rem;
+  font-family: Montserrat-Regular;
+  color: #252525;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: start;
+}
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    color: #aaa;
+    float: right;
+    font-size: 1.8rem;
+    font-weight: bold;
 }
 
-.rules{
-    text-align: start;
-    color: #262626;
-    font-family: Montserrat-Regular;
-    font-size: 0.9rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+.close:hover,
+.close:focus {
+    color:#b82d2d;
+    text-decoration: none;
+    cursor: pointer;
+}
+.order-card{
+  margin: 1rem;
+  padding: 1.5rem;
+  width: 35rem;
+  height: 20rem;
+  flex-shrink: 0;
+  border-radius: 0.9375rem;
+  background: rgba( 255, 255, 255, 0.5 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
+
+.order-label{
+  color: #454545;
+  font-family: Montserrat-SemiBold;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.order-card{
+  margin: 2rem;
+}
+
+.order-field-name{
+  color: #454545;
+  font-family: Montserrat-SemiBold;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: start;
+}
+
+.order-field-value{
+  color: #454545;
+  font-family: Montserrat-Regular;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: start;
+}
+
+.comment-field-name{
+  margin: 1.1rem 0rem 0rem 0rem;
+  color: #454545;
+  font-family: Montserrat-SemiBold;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.comment-field-value{
+  color: #b82d2d;
+  font-family: Montserrat-SemiBold;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: end;
+}
+
+.comment-copy{
+    height: 1.3rem;
 }
 
 .payment-card{
@@ -229,11 +397,6 @@ export default {
     margin-top: 3rem;
 }
 
-.comment{
-  font-family: Montserrat-Bold;
-  font-size: 1.6rem;
-}
-
 .logo-sberbank{
     width: 12rem;
     height: 3.5rem;
@@ -249,6 +412,21 @@ export default {
     height: 6rem;
 }
 
+.manual-field-value{
+  color: #252525;
+  font-family: Montserrat-Regular;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.manual-img{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 4rem;
+}
+
 .fix-width{
     margin: 2rem;
     width: 35rem;
@@ -256,21 +434,43 @@ export default {
 
 
 @media screen and (max-width: 765px) {
-    .rules-card{
-        margin-bottom: 1rem;
+    
+    .order-card{
+        margin: 0.8rem;
+        padding: 1.2rem;
         width: 28rem;
-        height: 20rem;
-        padding: 2rem;
-        border-radius: 0.9375rem;
+        height: 17rem;
     }
 
-    .label-rules{
+    .order-label{
         font-size: 0.96rem;
     }
 
-    .rules{
-        font-size: 0.72rem;
+    .order-card{
+        margin: 1.6rem;
     }
+
+    .order-field-name{
+        font-size: 0.96rem;
+    }
+
+    .order-field-value{
+        font-size: 0.96rem;
+    }
+
+    .comment-field-name{
+        margin: 0.88rem 0rem 0rem 0rem;
+        font-size: 0.96rem;
+    }
+
+    .comment-field-value{
+        font-size: 1rem;
+    }
+
+    .comment-copy{
+        height: 1rem;
+    }
+
     .payment-card{
         width: 28rem;
         height: 15.552rem;
@@ -315,6 +515,14 @@ export default {
         width: 9.6rem;
         height: 4.8rem;
     }   
+    .manual-field-value{
+        font-size: 0.8rem;
+    }
+
+    .manual-img{
+        margin-bottom: 0.8rem;
+        width: 3.2rem;
+    }
 
     .fix-width{
         width: 28rem;
@@ -322,20 +530,59 @@ export default {
 }
 
 @media screen and (max-width: 475px) {
-    .rules-card{
-        margin-bottom: 1rem;
+
+    .modal-content {
+        width: 21rem;
+    }
+    .modal-label{
+        padding-left: 0.8rem;
+        font-size: 1.1rem;
+    }
+
+    .modal-text{
+        padding-left: 0rem;
+        font-size: 0.8rem;
+    }
+    .close {
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    .order-card{
+        margin: 0.64rem;
+        padding: 0.96rem;
         width: 22.4rem;
-        height: 21rem;
-        padding: 2rem;
-        border-radius: 0.9375rem;
+        height: 14rem;
     }
 
-    .label-rules{
-        font-size: 0.96rem;
+    .order-label{
+        font-size: 0.76rem;
     }
 
-    .rules{
-        font-size: 0.72rem;
+    .order-card{
+        margin: 1.28rem;
+    }
+
+    .order-field-name{
+        font-size: 0.76rem;
+    }
+
+    .order-field-value{
+        font-size: 0.76rem;
+    }
+
+    .comment-field-name{
+        margin: 0.7rem 0rem 0rem 0rem;
+        font-size: 0.76rem;
+    }
+
+    .comment-field-value{
+        font-size: 0.8rem;
+    }
+
+    .comment-copy{
+        height: 0.8rem;
     }
 
     .payment-card{
@@ -382,12 +629,58 @@ export default {
         height: 3.84rem;
     }   
 
+    .manual-field-value{
+        font-size: 0.64rem;
+    }
+
+    .manual-img{
+        margin-bottom: 0.64rem;
+        width: 2.56rem;
+    }
+
     .fix-width{
         width: 22.4rem;
     }
 }
 
 @media screen and (max-width: 405px) {
+
+    .order-card{
+        margin: 0.5rem;
+        padding: 0.81rem;
+        width: 19.04rem;
+        height: 11.5rem;
+    }
+
+    .order-label{
+        font-size: 0.6rem;
+    }
+
+    .order-card{
+        margin: 1rem;
+    }
+
+    .order-field-name{
+        font-size: 0.6rem;
+    }
+
+    .order-field-value{
+        font-size: 0.6rem;
+    }
+
+    .comment-field-name{
+        margin: 0.6rem 0rem 0rem 0rem;
+        font-size: 0.6rem;
+    }
+
+    .comment-field-value{
+        font-size: 0.68rem;
+    }
+
+    .comment-copy{
+        height: 0.68rem;
+    }
+
     .payment-card{
         width: 19.04rem;
         height: 10.574rem;

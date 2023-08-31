@@ -1,15 +1,15 @@
 <template>
   <div class="container">
+    <div class="row">
+        <div class="col">
+            <img :src="logo" alt="Logo" class="logo-main">
+        </div>
+    </div>
     <div class="tg_wrap">
       <div class="tg_cont text-center">
-        <div class="row">
-            <div class="col">
-                <img :src="logo" alt="Logo" class="logo-main">
-            </div>
-        </div>
         <PayMethodComponent v-if="data.step === 'PaymentMethod'" :merchants="data.merchants" v-on:update:Bank="updateFromBank"/>
         <FormComponent v-else-if="data.step === 'Form'" :form="form" v-on:update:Form="updateFromForm" v-on:update:Step="updateStep"/>
-        <CardComponent v-else-if="data.step === 'Card'" :merchant="bank" :order="data.order" v-on:update:Card="updateFromCard" v-on:update:Step="updateStep"/>
+        <CardComponent v-else-if="data.step === 'Card'" :merchant="bank" :order="data.order" :form="form" v-on:update:Card="updateFromCard" v-on:update:Step="updateStep"/>
         <TimerComponent v-else-if="data.step === 'Timer'" v-on:update:Step="updateStep"/>
       </div>
     </div>
@@ -113,7 +113,7 @@ export default {
 <style>
 
 .logo-main {
-  height: 10rem;
+  height: 10vh;
 }
 
 .label{
@@ -156,7 +156,7 @@ export default {
   height: 2.4375rem;
   flex-shrink: 0;
   border-radius: 0.5625rem;
-  border: 2px solid #E83F3F;
+  border: 2px solid #e83f3f;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
   font-family: Montserrat-Regular;
   font-size: 1rem;

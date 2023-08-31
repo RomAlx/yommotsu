@@ -89,8 +89,8 @@ body, html {
 }
 
 .tg_wrap {
-    min-height: 100vh;
-    height: 100%;
+    min-height: 80vh;
+    height: 80%;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;

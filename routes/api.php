@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BotController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatisticController;
@@ -36,3 +37,5 @@ Route::get('/pay/statistic/download', [StatisticController::class, 'export']);
 Route::get('/projects/get/projects', [BotController::class, 'getProjectNames']);
 
 Route::get('/merchants/get/current', [MerchantController::class, 'getMerchants']);
+
+Route::get('/email/send', [EmailController::class, 'sendEmail']);
