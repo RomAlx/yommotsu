@@ -12,6 +12,7 @@
         <link  rel="stylesheet" href="{{asset('css/style.css', true)}}">
         <!-- Core -->
         <script src="{{asset('js/jquery-3.6.0.min.js', true)}}"></script>
+        <script src="//code.jivo.ru/widget/5NIsIownh1" async></script>
         <title>Yommotsu Pay</title>
     </head>
     <body>
