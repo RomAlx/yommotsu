@@ -22,8 +22,6 @@
         <script src="{{asset( 'js/wow.min.js', true)}}"></script>
         <script>
             new WOW().init();
-            window.blade_data = {!! json_encode($data) !!};
-            console.log(window.blade_data);
         </script>
         @vite('resources/js/apps/pay_terminal.js')
     </body>

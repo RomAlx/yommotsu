@@ -13,22 +13,6 @@ class TerminalController extends Controller
     {
         $queryParams = $request->query();
         Log::info('New request for merchant. QueryParams: ' . json_encode($queryParams));
-        $botRepository = new BotRepository();
-        if (array_key_exists('project_name', $queryParams)) {
-            $bot = $botRepository->getBotByName($queryParams['project_name']);
-            if(!is_null($bot)) {
-                $data = [
-                    'data' => [
-                        'project_name' => $queryParams['project_name'],
-                    ]
-                ];
-                Log::info('Request is successfully');
-                return view('terminalPage', $data);
-            }
-            Log::ERROR('Request wasn`t successfully. Project doesn`t exist.');
-            return view('errorPage');
-        }
-        Log::ERROR('Request wasn`t successfully. Project wasn`t in query parameters.');
-        return view('errorPage');
+        return view('terminalPage');
     }
 }

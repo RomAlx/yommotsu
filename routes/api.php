@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\MerchantController;
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/telegram/webhook', [TelegramController::class, 'main']); 
+
+Route::get('/auth/terminal', [AuthController::class, 'authTerminal']);
 
 Route::get('/order/get/id', [OrderController::class, 'get']);
 
