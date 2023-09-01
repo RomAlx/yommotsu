@@ -12,11 +12,11 @@
         <link  rel="stylesheet" href="{{asset('css/style.css', true)}}">
         <!-- Core -->
         <script src="{{asset('js/jquery-3.6.0.min.js', true)}}"></script>
-        <script src="//code.jivo.ru/widget/5NIsIownh1" async></script>
+        <!--<script src="//code.jivo.ru/widget/5NIsIownh1" async></script>-->
         <title>Yommotsu Pay</title>
     </head>
     <body>
-        <div id="pay">
+        <div id="pay-terminal">
 
         </div>
         <script src="{{asset( 'js/wow.min.js', true)}}"></script>
@@ -25,6 +25,6 @@
             window.blade_data = {!! json_encode($data) !!};
             console.log(window.blade_data);
         </script>
-        @vite('resources/js/apps/pay.js')
+        @vite('resources/js/apps/pay_terminal.js')
     </body>
 </html>

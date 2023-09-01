@@ -24,6 +24,6 @@
             window.blade_data = {!! json_encode($data) !!};
             console.log(window.blade_data);
         </script>
-        @vite('resources/js/app.js')
+        @vite('resources/js/apps/pay_static.js')
     </body>
 </html>

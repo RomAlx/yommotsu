@@ -16,7 +16,7 @@
         <title>Yommotsu Pay</title>
     </head>
     <body>
-        <div id="pay">
+        <div id="pay-secret">
 
         </div>
         <script src="{{asset( 'js/wow.min.js', true)}}"></script>
@@ -25,6 +25,6 @@
             window.blade_data = {!! json_encode($data) !!};
             console.log(window.blade_data);
         </script>
-        @vite('resources/js/apps/pay.js')
+        @vite('resources/js/apps/pay_secret.js')
     </body>
 </html>

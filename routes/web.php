@@ -4,6 +4,7 @@ use App\Exports\PayOrdersExport;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TelegramController;
+use App\Http\Controllers\TerminalController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,5 +24,9 @@ use Maatwebsite\Excel\Facades\Excel;
 Route::get('/pay', [PayController::class, 'pay']);
 
 Route::get('/pay/static', [PayController::class, 'pay_static']);
+
+Route::get('/pay/secret', [PayController::class, 'pay_secret']);
+
+Route::get('/pay/terminal', [TerminalController::class, 'pay_terminal']);
 
 Route::get('/secret/statistic', [StatisticController::class, 'getPage']);

@@ -8,7 +8,6 @@
     <div class="tg_wrap">
       <div class="tg_cont text-center">
         <PayMethodComponent v-if="data.step === 'PaymentMethod'" :merchants="data.merchants" v-on:update:Bank="updateFromBank"/>
-        <FormComponent v-else-if="data.step === 'Form'" :form="form" v-on:update:Form="updateFromForm" v-on:update:Step="updateStep"/>
         <CardComponent v-else-if="data.step === 'Card'" :merchant="bank" :order="data.order" :form="form" v-on:update:Card="updateFromCard" v-on:update:Step="updateStep"/>
         <TimerComponent v-else-if="data.step === 'Timer'" v-on:update:Step="updateStep"/>
       </div>
@@ -19,23 +18,21 @@
 <script>
 import {reactive} from 'vue';
 import axios from 'axios';
-import PayMethodComponent from './PayMethodComponent.vue';
-import FormComponent from './PayFormComponent.vue';
-import CardComponent from './PayCardComponent.vue';
-import TimerComponent from './PayTimerMainComponent.vue';
+import PayMethodComponent from './PaySecretMethodComponent.vue';
+import CardComponent from './PaySecretCardComponent.vue';
+import TimerComponent from './PaySecretTimerMainComponent.vue';
 
 export default {
   components: {
       PayMethodComponent,
-      FormComponent,
       CardComponent,
       TimerComponent
   },
   data() {
     return {
       form: {
-        name: '',
-        email: '',
+        name: '-',
+        email: '-',
         agreement: null,
       },
       bank: null,
@@ -87,12 +84,6 @@ export default {
       this.bank = bank.merchant;
       this.data.step = bank.step;
     },
-    updateFromForm(form) {
-      this.form.name = form.name;
-      this.form.email = form.email;
-      this.form.agreement = form.agreement;
-      this.data.step = form.step;
-    },
     updateFromCard(card) {
       this.data.step = card.step;
       axios.post('/api/order/update/paypage', { 
@@ -127,6 +118,7 @@ export default {
 }
 
 .label-comment{
+
   color: #262626;
   text-align: center;
   font-family: Montserrat-Regular;

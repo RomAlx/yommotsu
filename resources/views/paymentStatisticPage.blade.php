@@ -18,6 +18,6 @@
         <div id="pay-statistic">
 
         </div>
-        @vite('resources/js/app.js')
+        @vite('resources/js/apps/statistic.js')
     </body>
 </html>

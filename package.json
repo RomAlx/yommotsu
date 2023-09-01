@@ -19,6 +19,8 @@
         "dotenv": "^16.3.1",
         "less": "^4.2.0",
         "moment": "^2.29.4",
+        "qrcode-generator": "^1.4.4",
+        "qrcode.vue": "^3.4.1",
         "sass": "^1.65.1",
         "vue": "^3.2.36",
         "vue-moment": "^4.1.0",
