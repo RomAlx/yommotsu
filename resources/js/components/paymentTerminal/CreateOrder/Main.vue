@@ -5,7 +5,7 @@
   
 <script>
 import Form from './Form.vue';
-import QRCode from './QRCode.vue';
+import QRCode from './CreateQRCode.vue';
 
 export default {
     components:{
@@ -99,5 +99,46 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+}
+
+@media screen and (max-width: 989px) {
+    .label{
+        margin: 0.4rem;
+        font-size: 1.04rem;
+    }
+
+    .form-text{
+        margin: 0.2rem 1rem 1rem 1.1rem;
+        width: 21.1875rem;
+        text-align: start;
+    }
+
+    .form-component{
+        margin: 1.6rem;
+        width: 16.8rem;
+        height: 2rem;
+        font-size: 0.8rem;
+        padding: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 445px) {
+    .label{
+        margin: 0.32rem;
+        font-size: 0.8rem;
+    }
+
+    .form-text{
+        margin: 0.16rem 0.8rem 0.8rem 0.88rem;
+        width: 16.88rem;
+    }
+
+    .form-component{
+        margin: 1.28rem;
+        width: 13.44rem;
+        height: 1.6rem;
+        font-size: 0.64rem;
+        padding: 0.64rem;
+    }
 }
 </style>

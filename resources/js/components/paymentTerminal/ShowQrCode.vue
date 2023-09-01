@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-content">
+    <div class="modal-content wow fadeIn">
         <span class="close" @click="closeModal">&times;</span>
         <div class="row">
             <div class="col">
@@ -27,31 +27,37 @@ export default {
     data() {
         return {
             url: '',
-            order_id: [...crypto.getRandomValues(new Uint8Array(16))].map((x) => x.toString(36)).join('').substr(0, 22),
             qrCodeData: '',
         }
     },
     props: {
-        amount: {
-            type: String,
+        order: {
+            type: Object,
             required: true,
         },
     },
     mounted(){
         this.generateUrl();
-        const qr = QRCode(0, 'L');
-        qr.addData(this.url);
-        qr.make();
-        const cellSize = 10; // Размер ячейки (пиксели)
-        const margin = 4; // Отступ от границы (пиксели)
-        const colorDark = '#b82d2d'; // Цвет темных ячеек
-        const colorLight = '#ffffff'; // Цвет светлых ячеек
-        this.qrCodeData = qr.createDataURL(cellSize, margin, colorDark, colorLight);
+    },
+    watch: {
+        order: {
+            handler: function(newOrder) {
+            this.generateUrl();
+            },
+            deep: true
+        }
     },
     methods: {
         generateUrl(){
-            let amount = this.amount.split(' ').filter(Boolean).join('');
-            this.url = 'https://yommotsu.com/pay/secret?project_name='+window.blade_data.project_name+'&order_id='+this.order_id+'&amount='+amount;
+            this.url = 'https://yommotsu.com/pay/secret?project_name='+window.blade_data.project_name+'&order_id='+this.order.order_id+'&amount='+this.order.amount;
+            const qr = QRCode(0, 'L');
+            qr.addData(this.url);
+            qr.make();
+            const cellSize = 10; // Размер ячейки (пиксели)
+            const margin = 4; // Отступ от границы (пиксели)
+            const colorDark = '#b82d2d'; // Цвет темных ячеек
+            const colorLight = '#ffffff'; // Цвет светлых ячеек
+            this.qrCodeData = qr.createDataURL(cellSize, margin, colorDark, colorLight);
         },
         openNewWindow(url){
             window.open(url, "_blank");
@@ -101,5 +107,35 @@ a{
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+}
+
+@media screen and (max-width: 989px) {
+    .payment-qrcode{
+        margin: 0.8rem;
+        width: 12.8rem;
+        border-radius: 1rem;
+    }
+
+    .main-button {
+        width: 7.2rem;
+        height: 2.16rem;
+        padding: 0.4rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 445px) {
+    .payment-qrcode{
+        margin: 0.64rem;
+        width: 11rem;
+        border-radius: 0.8rem;
+    }
+
+    .main-button {
+        width: 5.76rem;
+        height: 1.72rem;
+        padding: 0.32rem;
+        font-size: 0.64rem;
+    }
 }
 </style>

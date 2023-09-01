@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-content">
+    <div class="modal-content wow fadeIn">
         <span class="close" @click="closeModal">&times;</span>
         <div class="row">
             <div class="col">
@@ -62,11 +62,6 @@ export default {
 .modal-content{
     width: 50vh;
 }
-.form-text{
-  margin: 0.2rem 1rem 1rem 1.1rem;
-  width: 21.1875rem;
-  text-align: start;
-}
 
 .form-component{
   margin: 1rem;
@@ -106,5 +101,48 @@ export default {
 
 .invalid{
   border: 3px solid rgba(255, 2, 2, 0.493);
+}
+
+@media screen and (max-width: 989px) {
+    .form-component{
+        margin: 0.8rem;
+        width: 16.8rem;
+        height: 2rem;
+        box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.25) inset; 
+        font-size: 0.8rem;
+        padding: 0.8rem;
+    }
+
+    .main-button {
+        width: 7.2rem;
+        height: 2.16rem;
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .invalid{
+        border: 2px solid rgba(255, 2, 2, 0.493);
+    }
+}
+
+@media screen and (max-width: 445px) {
+    .form-component{
+        margin: 0.64rem;
+        width: 13.44rem;
+        height: 1.6rem; 
+        font-size: 0.64rem;
+        padding: 0.64rem;
+    }
+
+    .main-button {
+        width: 5.76rem;
+        height: 1.72rem;
+        padding: 0.4rem;
+        font-size: 0.64rem;
+    }
+
+    .invalid{
+        border: 1px solid rgba(255, 2, 2, 0.493);
+    }
 }
 </style>

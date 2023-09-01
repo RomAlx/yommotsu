@@ -44,6 +44,27 @@ class OrderController extends Controller
         }
     }
 
+    public function getForTerminal(Request $request)
+    {
+        Log::info('New Request for today orders: ' . json_encode($request->query()));
+        $queryParams = $request->query();
+        if (array_key_exists('project_name', $queryParams) &&
+            array_key_exists('password', $queryParams)) {
+            $bot = (new BotRepository())->getBotByName($queryParams['project_name']);
+            if(!is_null($bot) && $bot->password === $queryParams['password']) {
+                $payOrderRepository = new PayOrderRepository();
+                $orders = $payOrderRepository->getOrders($queryParams['project_name']);
+                if(!is_null($orders)) {
+                    return response()->json($orders, 200);
+                } else {
+                    return response()->json(['status'=>'no orders'], 404);
+                }
+            } else {
+                return response()->json(['status'=>'wrong project or password'], 401);
+            }
+        }
+    }
+
     public function sendFromPayPage(Request $request)
     {
         Log::info('New Request: ' . json_encode($request->input('data')));

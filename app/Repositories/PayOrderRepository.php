@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\OrderMerchant;
 use App\Models\PayOrder;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class PayOrderRepository
@@ -39,6 +40,28 @@ class PayOrderRepository
             ->where('order_id', '=', $orderId)
             ->orderBy('updated_at', 'DESC')
             ->first();
+    }
+
+    public function getOrders(string $project_name): array
+    {
+        $orders = PayOrder::query()
+            ->whereDate('created_at', today())
+            ->where('project_name', "=", $project_name)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+        $data = [];
+        $i = 0;
+        foreach($orders as $order) {
+            $data[] =(object) [
+                'number' => $orders->count() - $i,
+                'time' => Carbon::parse($order->created_at)->timestamp,
+                'order_id' => $order->order_id,
+                'amount' => $order->amount,
+                'status' => $order->status,
+            ];
+            $i++;
+        }
+        return $data;
     }
 
     public function getOrderByMessageId(string $messageId): PayOrder|null

@@ -2,15 +2,19 @@
     <div id="createOrder" class="modal wow fadeIn">
         <CreateOrder v-on:Close="closeModal('createOrder')"></CreateOrder>
     </div>
+    <div id="QrCode" class="modal wow fadeIn">
+        <ShowQrCode v-on:Close="closeModal('QrCode')" :order="this.order"></ShowQrCode>
+    </div>
     <div class="container text-center">
         <div class="row my_nav justify-content-evenly">
-            <div class="col-3 align-self-center">
+            <div class="col align-self-center">
                 <img :src="logo" alt="Logo" class="logo">
             </div>
-            <div class="col-6 align-self-center">
-                <p class="date">Чт, 31 августа 13:49</p>       
+            <div class="col align-self-center">
+                <p class="date">{{ this.currentDateTime }}</p>    
+                <h1 class="project_name">{{ this.projectName }}</h1>   
             </div>
-            <div class="col-3 align-self-center">
+            <div class="col align-self-center">
                 <MainButton @click="openModal('createOrder')">Создать заказ</MainButton>
             </div>
         </div>
@@ -28,28 +32,137 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="table-value">
+                <tr class="table-value" v-for="order in data.orders" :key="order.number">
+                    <td>{{ order.number }}</td>
+                    <td>{{ order.time }}</td>
+                    <td>{{ order.order_id.slice(-4) }}</td>
+                    <td>{{ order.amount }}</td>
+                    <td><a href = "#" @click="showQrCode(order, 'QrCode')">Смотреть</a></td>
+                    <td>{{ order.status }}</td>
                 </tr>
-                <!-- Здесь будут данные таблицы -->
             </tbody>
         </table>
     </div>
 </template>
   
 <script>
+import { reactive, onBeforeUnmount, onMounted } from 'vue';
+import axios from 'axios';
 import CreateOrder from './CreateOrder/Main.vue';
+import ShowQrCode from './ShowQrCode.vue';
 
 export default {
   components: {
-    CreateOrder
+    CreateOrder,
+    ShowQrCode,
   },
   data() {
     return {
       logo: '/img/logo.png',
-      orders: [],
+      currentDateTime: '',
+      projectName: window.blade_data.project_name,
+      order: {
+        projectName: window.blade_data.project_name,
+        order_id: 'nope',
+        amount: 'nope',
+      },
     };
   },
+  setup() {
+        const data = reactive({
+            orders: null,
+        });
+        let axiosIntervalId;
+
+        const options = {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+
+        const dateFormatter = new Intl.DateTimeFormat('default', options);
+
+        const processData = (response) => {
+            data.orders = response.data;
+            for (let i = 0; i < data.orders.length; i++) {
+                const timestamp = new Date(data.orders[i].time * 1000);
+                const formattedTime = dateFormatter.format(timestamp);
+
+                data.orders[i].time = formattedTime;
+
+                switch (data.orders[i].status) {
+                    case 'CREATED':
+                        data.orders[i].status = 'Создан'
+                        break;
+                    case 'WAITING':
+                        data.orders[i].status = 'Ожидает'
+                        break;
+                    case 'PAID':
+                        data.orders[i].status = 'Оплачен'
+                        break;
+                    case 'REJECTED':
+                        data.orders[i].status = 'Отклонен'
+                        break;
+                }
+            }
+        };
+
+        const makeAxiosRequest = () => {
+            axios.get('/api/order/get/today', {
+                params: {
+                    project_name: window.blade_data.project_name,
+                    password: window.blade_data.project_name,
+                }
+            })
+            .then(response => {
+                processData(response);
+            });
+        };
+
+        onMounted(() => {
+            axiosIntervalId = setInterval(makeAxiosRequest, 5000);
+            makeAxiosRequest();
+        });
+
+        onBeforeUnmount(() => {
+            clearInterval(axiosIntervalId);
+        });
+
+        return {
+            data
+        };
+  },
+  mounted() {
+    this.getCurrentDateTime();
+    setInterval(this.getCurrentDateTime, 1000);
+  },
   methods: {
+    getCurrentDateTime() {
+        const now = new Date();
+
+        const days = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+        const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+        const dayOfWeek = now.getDay();
+        const dayOfMonth = now.getDate();
+        const month = now.getMonth();
+        let hour = now.getHours();
+        let minute = now.getMinutes();
+
+        hour = hour < 10 ? `0${hour}` : hour;
+        minute = minute < 10 ? `0${minute}` : minute;
+
+        const formattedDateTime = `${days[dayOfWeek - 1]}, ${dayOfMonth} ${months[month]} ${hour}:${minute}`;
+
+        this.currentDateTime = formattedDateTime;
+    },
+    showQrCode(order, id) {
+        console.log(order);
+        console.log(id);
+        this.order = order;
+        let modal = document.getElementById(id);
+        console.log(modal);
+        modal.style.display = "block";
+    },
     openModal(id) {
         let modal = document.getElementById(id);
         modal.style.display = "block";
@@ -71,9 +184,19 @@ export default {
 }
 
 .logo{
-    height: 15vh;
+    width:15rem;
 }
 
+.project_name{
+  margin: 0.5rem;
+  color: #262626;
+  font-family: Montserrat-SemiBold;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: uppercase;
+}
 
 .modal {
     display: none;
@@ -149,6 +272,7 @@ export default {
 }
 
 .table {
+  margin-top: 1rem;
   border-collapse: collapse;
   width: 100%;
 }
@@ -184,6 +308,122 @@ export default {
 
 th, td{
     border: 1px solid #303030;
+}
+
+a{
+    color:#b82d2d;
+}
+a:hover{
+    color:#811515;
+}
+
+@media screen and (max-width: 989px) {
+
+    .logo{
+        width: 12rem;
+    }
+    .modal-content {
+        margin: 20% auto;
+    }
+
+    .project_name{
+        margin: 0.5rem;
+        font-size: 1.04rem;
+    }
+
+    .modal-content {
+        padding: 1.6rem;
+    }
+
+    .modal-text{
+        padding-left: 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .close {
+        top: 0.8rem;
+        right: 1.2rem;
+        font-size: 1.6rem;
+    }
+
+    .date{
+        font-size: 0.8rem;
+    }
+
+    .table-field {
+        padding: 7px;
+        font-size: 0.8rem;
+    }
+
+    .table-value {
+        padding: 7px;
+        font-size: 0.8rem;
+    }
+
+    th, td{
+        border: 1px solid #303030;
+    }
+}
+
+@media screen and (max-width: 769px) {
+
+    .logo{
+        width: 9.6rem;
+    }
+
+    .modal-content {
+        padding: 1.6rem;
+    }
+
+    .modal-text{
+        padding-left: 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .close {
+        top: 0.8rem;
+        right: 1.2rem;
+        font-size: 1.6rem;
+    }
+
+    .date{
+        font-size: 0.8rem;
+    }
+
+    .table-field {
+        padding: 7px;
+        font-size: 0.64rem;
+    }
+
+    .table-value {
+        padding: 7px;
+        font-size: 0.64rem;
+    }
+
+    th, td{
+        border: 1px solid #303030;
+    }
+}
+
+@media screen and (max-width: 567px) {
+    .modal-content {
+        max-width: 20rem;
+    }
+
+    .table-field {
+        padding: 7px;
+        font-size: 0.5rem;
+    }
+
+    .table-value {
+        padding: 7px;
+        font-size: 0.5rem;
+    }
+
+    th, td{
+        border: 1px solid #303030;
+    }
+
 }
   
 </style>
