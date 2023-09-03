@@ -140,7 +140,7 @@ export default {
     getCurrentDateTime() {
         const now = new Date();
 
-        const days = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+        const days = ['Вс','Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
         const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
         const dayOfWeek = now.getDay();
         const dayOfMonth = now.getDate();
@@ -150,8 +150,7 @@ export default {
 
         hour = hour < 10 ? `0${hour}` : hour;
         minute = minute < 10 ? `0${minute}` : minute;
-
-        const formattedDateTime = `${days[dayOfWeek - 1]}, ${dayOfMonth} ${months[month]} ${hour}:${minute}`;
+        const formattedDateTime = `${days[dayOfWeek]}, ${dayOfMonth} ${months[month]} ${hour}:${minute}`;
 
         this.currentDateTime = formattedDateTime;
     },
