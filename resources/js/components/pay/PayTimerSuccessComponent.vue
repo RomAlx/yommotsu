@@ -40,11 +40,8 @@
             <div class="col">
                 <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
             </div>
-            <div class="col">
-                <button class="help-button" @click="openNewWindow(this.help_url)">Поддержка</button>
-            </div>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 </template>
