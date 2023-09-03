@@ -13,6 +13,9 @@
         <TimerComponent v-else-if="data.step === 'Timer'" v-on:update:Step="updateStep"/>
       </div>
     </div>
+    <div class="footer">
+
+    </div>
   </div>
 </template>
 
@@ -116,6 +119,10 @@ export default {
   height: 15vh;
 }
 
+.footer {
+  height: 5vh;
+}
+
 .label{
   margin: 1rem;
   color: #262626;
@@ -166,10 +173,10 @@ export default {
 
 @media screen and (max-width: 685px) {
   .done-button{
-    width: 6.6rem;
-    height: 1.8rem;
+    width: 7rem;
+    height: 2rem;
     border-radius: 0.42rem;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 
   .help-button{

@@ -37,6 +37,7 @@ class MerchantRepository
                 foreach($merchantsWithBank as $merchant){
                     if($merchant->id > $currentMerchant->id){
                         $newMerchant = $merchant;
+                        break;
                     }
                 }
                 if(is_null($newMerchant)){

@@ -15,17 +15,17 @@
           <div class="col">
             <h1 class="label">Заполните данные</h1>
             <form @submit.prevent="validateForm" class="form">
-                <input id="name" type="text" class="form-component" placeholder="ФИО отправителя" v-model="name" :class="{ 'invalid': (v$.name.$dirty && v$.name.required.$invalid) }">
-                <div id="nameHelp" class="form-text">Эта информация поможет нам быстрее обработать ваш платеж.</div>
+                <input id="name" type="text" class="form-component" placeholder="Имя" v-model="name" :class="{ 'invalid': (v$.name.$dirty && v$.name.required.$invalid) }">
+                <div id="nameHelp" class="form-text">Имя, которые Вы указали, должно совпадать с именем держателя карты.</div>
                 <input id="email" type="text" class="form-component" placeholder="Email" v-model.trim="email" :class="{ 'invalid': (v$.email.$dirty && v$.email.required.$invalid || v$.email.$dirty && v$.email.email.$invalid)}">
-                <div id="emailHelp" class="form-text">Чтобы мы могли отправить вам чек на почту</div>
+                <div id="emailHelp" class="form-text">Чтобы мы могли отправить вам чек на почту.</div>
                 <div class="check-group">
-                  <div class="row align-items-start">
+                  <div class="row align-items-center">
                     <div class="col-1">
                       <input class="form-check-input btn-outline-danger" type="checkbox" id="checkPrivacy" v-model="agreement.val" :class="{ 'invalid': (agreement.status) }">
                     </div>
                     <div class="col">
-                      <label class="form-check-label" for="checkPrivacy" >Даю согласие на <a href="#" @click="openModal">обработку персональных данных</a></label>
+                      <label class="form-check-label" for="checkPrivacy" >Принимаю условия сервиса </label>
                     </div>
                   </div>
                 </div>
@@ -232,7 +232,7 @@ a{
   box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.25) inset; 
   border:#F43B3B;
   font-family: Montserrat-Regular;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -243,10 +243,10 @@ a{
 }
 
 .form-check-label{
-  padding-left: 1rem;
+  width: 100%;
   font-family: Montserrat-Regular;
   color: #252525;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -258,7 +258,7 @@ a{
 }
 
 
-@media screen and (max-width: 475px) {
+@media screen and (max-width: 685px) {
 
   .modal-content {
       padding: 2rem;
@@ -316,10 +316,9 @@ a{
   }
 
   .form-check-label{
-    padding-left: 0.8rem;
     font-family: Montserrat-Regular;
     color: #252525;
-    font-size: 0.72rem;
+    font-size: 0.76rem;
   }
 }
 

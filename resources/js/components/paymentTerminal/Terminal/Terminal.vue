@@ -38,7 +38,7 @@
                     <td>{{ order.order_id.slice(-4) }}</td>
                     <td>{{ order.amount }}</td>
                     <td><a href = "#" @click="showQrCode(order, 'QrCode')">Смотреть</a></td>
-                    <td>{{ order.status }}</td>
+                    <td :class="this.statusClass(order.status)">{{ order.status }}</td>
                 </tr>
             </tbody>
         </table>
@@ -171,9 +171,18 @@ export default {
         let modal = document.getElementById(id);
         modal.style.display = "none";
     },
-    getTypeOf(value) {
-      return typeof value;
-    },
+    statusClass(status) {
+        switch (status) {
+            case 'Создан':
+                return 'status-created';
+            case 'Ожидает':
+                return 'status-waiting';
+            case 'Оплачен':
+                return 'status-success';
+            case 'Отклонен':
+                return 'status-rejected';
+        }
+    }
   },
 }
 </script>
@@ -305,6 +314,23 @@ export default {
     font-weight: 300;
     line-height: normal;
 }
+
+.status-created{
+    color: #262626;
+}
+
+.status-success{
+    color: #226d00;
+}
+
+.status-waiting{
+    color: #979500;
+}
+
+.status-rejected{
+    color: #6b0000;
+}
+
 
 th, td{
     border: 1px solid #303030;

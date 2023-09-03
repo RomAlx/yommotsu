@@ -5,14 +5,22 @@
         <h2 class="modal-label">Правила</h2>
         <p class="modal-text">
             1. Перевод осуществляются строго с выборного банка на банк.<br>
-            2. ФИО которое вы указываете, должно полностью совпадать с ФИО отправителя.<br>
-            3. Всегда указывайте в комментарий к платежу последние 4 символа вашего заказа.<br>
-            4. Если вы нарушаете правила - обратитесь в поддержку для уточнения статуса вашего платежа.
+            <span class="modal-text-important">2. Всегда указывайте в комментарий к платежу последние 4 символа вашего заказа.</span><br>
+            3. Если вы нарушаете правила - обратитесь в поддержку для уточнения статуса вашего платежа.
         </p>
       </div>
     </div>
     <div class="row wow fadeIn">
         <div class="row align-items-center">
+            <div class="col align-items-center">
+                <div class="container info-card">
+                    <p class="info-field"> Для зачисления Вашего депозита, оплатите одним платежом {{ this.order.amount }} ₽.<br> 
+                        В противном случае <span class="info-field-important">мы не сможем индентифицироваать</span> Ваш платеж.</p>
+                    <p class="info-field"> Реквизиты для оплаты меняются с каждой оплатой.</p>
+                    <p class="info-field"> Комментарий к платежу писать обязательно.<br> 
+                        <span class="info-field-important">Ваш комментарий к переводу: <span style="color: #f70505;">{{ this.order.order_id.slice(-4) }}</span></span></p>
+                </div>
+            </div>
             <div class="col align-items-center">
                 <div class="container order-card">
                     <p class="order-label">Ваш заказ</p>
@@ -253,6 +261,11 @@ a{
   line-height: normal;
   text-align: start;
 }
+.modal-text-important{
+    color:#b82d2d;
+    font-family: Montserrat-SemiBold;
+}
+
 .close {
     position: absolute;
     top: 1rem;
@@ -269,6 +282,43 @@ a{
     text-decoration: none;
     cursor: pointer;
 }
+
+
+.info-card{
+    margin: 1rem;
+    padding: 1.5rem;
+    width: 35rem;
+    height: 20rem;
+    flex-shrink: 0;
+    border-radius: 0.9375rem;
+    background: rgba( 255, 26, 26, 0.3 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 2px );
+    -webkit-backdrop-filter: blur( 2px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.info-field{
+  color: #000000;
+  font-family: Montserrat-Regular;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: start;
+}
+
+.info-field-important{
+  color: #ffffff;
+  font-family: Montserrat-SemiBold;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: start;
+}
+
 .order-card{
   margin: 1rem;
   padding: 1.5rem;
@@ -338,6 +388,7 @@ a{
 }
 
 .payment-card{
+    margin: 1rem;
     width: 35rem;
     height: 19.44rem;
     padding: 2rem;
@@ -434,9 +485,23 @@ a{
 
 
 @media screen and (max-width: 765px) {
-    
-    .order-card{
+    .info-card{
         margin: 0.8rem;
+        padding: 1.2rem;
+        width: 28rem;
+        height: 16rem;
+    }
+
+    .info-field{
+        font-size: 0.96rem;
+    }
+
+    .info-field-important{
+        font-size: 0.96rem;
+    }
+
+    .order-card{
+        margin: 1.6rem;
         padding: 1.2rem;
         width: 28rem;
         height: 17rem;
@@ -472,6 +537,7 @@ a{
     }
 
     .payment-card{
+        margin: 1.6rem;
         width: 28rem;
         height: 15.552rem;
         padding: 1.6rem;
@@ -548,6 +614,20 @@ a{
         right: 1.5rem;
         font-size: 1.8rem;
     }
+    .info-card{
+        margin: 0.64rem;
+        padding: 0.96rem;
+        width: 22.4rem;
+        height: 12.8rem;
+    }
+
+    .info-field{
+        font-size: 0.76rem;
+    }
+
+    .info-field-important{
+        font-size: 0.76rem;
+    }
 
     .order-card{
         margin: 0.64rem;
@@ -586,6 +666,7 @@ a{
     }
 
     .payment-card{
+        margin: 0.64rem;
         width: 22.4rem;
         height: 12.44rem;
         padding: 1.28rem;
@@ -645,6 +726,22 @@ a{
 
 @media screen and (max-width: 405px) {
 
+
+    .info-card{
+        margin: 0.5rem;
+        padding: 0.81rem;
+        width: 19.04rem;
+        height: 11.5rem;
+    }
+
+    .info-field{
+        font-size: 0.6rem;
+    }
+
+    .info-field-important{
+        font-size: 0.6rem;
+    }
+    
     .order-card{
         margin: 0.5rem;
         padding: 0.81rem;
@@ -682,6 +779,7 @@ a{
     }
 
     .payment-card{
+        margin: 0.5rem;
         width: 19.04rem;
         height: 10.574rem;
         padding: 1rem;

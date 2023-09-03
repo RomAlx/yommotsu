@@ -2,10 +2,16 @@
   <div class="row wow fadeIn">
     <div class="col">
       <h1 class="label">Выберите удобный метод оплаты</h1>
-      <div class="row">
-        <button class="pay-button" @click="selectPaymentMethod('sberbank')" :disabled="checkButtonStatus('sberbank')"><img :src="sberbank" alt="СберБанк"></button>
-        <button class="pay-button" @click="selectPaymentMethod('tinkoff')" :disabled="checkButtonStatus('tinkoff')"><img :src="tinkoff" alt="Тинькофф"></button>
-        <button class="pay-button" @click="selectPaymentMethod('sbp')" :disabled="checkButtonStatus('sbp')"><img :src="sbp" alt="СБП"></button>
+      <div class="row justify-content-center">
+          <div class="col">
+            <button class="pay-button" @click="selectPaymentMethod('sberbank')" :disabled="checkButtonStatus('sberbank')"><img class="bank-img" :src="sberbank" alt="СберБанк"></button>
+          </div>
+          <div class="col">
+            <button class="pay-button" @click="selectPaymentMethod('tinkoff')" :disabled="checkButtonStatus('tinkoff')"><img class="bank-img" :src="tinkoff" alt="Тинькофф"></button>
+          </div>
+          <div class="col">
+            <button class="pay-button" @click="selectPaymentMethod('sbp')" :disabled="checkButtonStatus('sbp')"><img class="bank-img" :src="sbp" alt="СБП"></button>
+          </div>
       </div>
     </div>
   </div>
@@ -62,6 +68,10 @@ export default {
   background-color: dimgrey;
   color: linen;
   opacity: 1;
+}
+
+.bank-img{
+  width: 60%;
 }
 
 </style>
