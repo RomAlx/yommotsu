@@ -38,6 +38,7 @@
       </div>
       <div class="container fix-width">
         <div class="row justify-content-center">
+            <!--<button class="done-button button-send"  @click="sendEmail(this.order.order_id)">Отправить чек на почту</button>-->
             <div class="col">
                 <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
             </div>
@@ -48,6 +49,7 @@
 </template>
 
 <script scoped>
+import axios from 'axios';
 
 export default {
   data() {
@@ -64,6 +66,14 @@ export default {
     },
   },
   methods: {
+    sendEmail(order_id){
+      axios.post('/api/order/status/email', {
+        data: {
+          password: 'P2PEXCHANGE',
+          order_id: order_id,
+        },
+      });
+    },
     openNewWindow(url){
       window.open(url, "_blank");
     }
@@ -147,6 +157,11 @@ export default {
 .fix-width{
     margin-top: 1rem;
     width: 25rem;
+}
+
+.button-send{
+  margin: 1rem;
+  width: 16rem;
 }
 
 

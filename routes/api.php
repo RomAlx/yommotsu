@@ -35,6 +35,8 @@ Route::post('/order/update/paypagestatic', [OrderController::class, 'sendFromPay
 
 Route::get('/order/get/today', [OrderController::class, 'getForTerminal']);
 
+Route::post('/order/status/email', [EmailController::class, 'sendEmail']);
+
 Route::get('/pay/statistic/get', [StatisticController::class, 'getData']);
 
 Route::get('/pay/statistic/download', [StatisticController::class, 'export']);
@@ -43,4 +45,3 @@ Route::get('/projects/get/projects', [BotController::class, 'getProjectNames']);
 
 Route::get('/merchants/get/current', [MerchantController::class, 'getMerchants']);
 
-Route::get('/email/send', [EmailController::class, 'sendEmail']);

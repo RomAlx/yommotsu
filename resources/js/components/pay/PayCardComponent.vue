@@ -89,7 +89,7 @@
                                 <div class="col-1"><img class="card-copy" :src="srcServiceCopyAmount" @click="copyToClipboard('amount')"></div>
                             </div>
                             <h5 v-if="this.merchant.bank == 'btc'" class="card-fill-big-btc" id="amount">{{amountString}}</h5>
-                            <h5 v-else class="card-fill-big" id="amount">{{amountString}}</h5>
+                            <h5 v-else class="card-fill-big" id="amount">{{amountString.slice(0, -2)}}</h5>
                         </div>
                     </div>
                 </div>
@@ -463,6 +463,11 @@ a{
     box-shadow: 0px 2px 19px 3px rgba(0, 0, 0, 0.31); 
 }
 
+.mir{
+    background: linear-gradient(289deg, #15151D 17.96%, #3DA536 277.49%);
+    box-shadow: 0px 2px 19px 3px rgba(0, 0, 0, 0.31); 
+}
+
 .card-label{
     color: #DDD;
     font-family: Montserrat-Regular;
@@ -557,6 +562,11 @@ a{
 .logo-usdt_trc_20, .logo-usdt_erc_20, .logo-btc{
     width: 5.5rem;
     height: 5.5rem;
+}
+
+.logo-mir{
+    width: 12rem;
+    height: 3.36rem;
 }
 
 .manual-field-value{
@@ -697,6 +707,11 @@ a{
     .logo-alfa{
         width: 8.8rem;
         height: 1.8rem;
+    }
+
+    .logo-mir{
+        width: 9.6rem;
+        height: 2.69rem;
     }
 
 
@@ -860,6 +875,11 @@ a{
         height: 3.5rem;
     }
 
+    .logo-mir{
+        width: 7.44rem;
+        height: 2.15rem;
+    }
+
     .manual-field-value{
         font-size: 0.64rem;
     }
@@ -972,6 +992,11 @@ a{
     .logo-usdt_trc_20, .logo-usdt_erc_20, .logo-btc{
         width: 3.5rem;
         height: 3.5rem;
+    }
+
+    .logo-mir{
+        width: 5.95rem;
+        height: 1.72rem;
     }
 }
 

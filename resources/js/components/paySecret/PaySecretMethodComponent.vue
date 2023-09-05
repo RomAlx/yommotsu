@@ -11,13 +11,13 @@
             <button class="pay-button" @click="selectPaymentMethod('tinkoff')" :disabled="checkButtonStatus('tinkoff')"><img class="bank-img" :src="tinkoff" alt="Тинькофф"></button>
           </div>
           <div class="col">
-            <button class="pay-button" @click="selectPaymentMethod('sbp')" :disabled="checkButtonStatus('sbp')"><img class="bank-img" :src="sbp" alt="СБП"></button>
-          </div>
-          <div class="col">
             <button class="pay-button" @click="selectPaymentMethod('alfa')" :disabled="checkButtonStatus('alfa')"><img class="bank-img" :src="alfa" alt="Альфа-банк"></button>
           </div>
           <div class="col">
             <button class="pay-button" @click="selectPaymentMethod('raiffeisen')" :disabled="checkButtonStatus('raiffeisen')"><img class="bank-img" :src="raiffeisen" alt="Райффайзен"></button>
+          </div>
+          <div class="col">
+            <button class="pay-button" @click="selectPaymentMethod('sbp')" :disabled="checkButtonStatus('sbp')"><img class="bank-img" :src="sbp" alt="СБП"></button>
           </div>
           <div class="col">
             <button class="pay-button" @click="selectPaymentMethod('mastercard')" :disabled="checkButtonStatus('mastercard')"><img class="bank-img" :src="mastercard" alt="Мастер-кард РФ"></button>
