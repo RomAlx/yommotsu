@@ -30,9 +30,9 @@
               <div class="col-9"><p class="fix-top error-field-value">{{ this.order.order_id }}</p></div>
             </div>
           </div>
-          <div class="error-label comment-card">
+        </div>
+        <div class="error-label comment-card">
             <p class="fix-top">Вы можете написать в поддержку узнать детали заказа и причину отмены.</p>
-          </div>
         </div>
       </div>
       <div class="container fix-width">
@@ -102,9 +102,6 @@ export default {
   height: 3rem;
 }
 
-.fix-top{
-  margin-bottom: 0;
-}
 
 .error-label{
   color: #454545;
@@ -120,6 +117,7 @@ export default {
 }
 
 .error-field-name{
+  margin-right: 2rem;
   color: #b90101;
   font-family: Montserrat-SemiBold;
   font-size: 1rem;
@@ -130,6 +128,7 @@ export default {
 }
 
 .error-field-value{
+  margin-left: 2rem;
   color: #454545;
   font-family: Montserrat-Regular;
   font-size: 1rem;
@@ -140,7 +139,8 @@ export default {
 }
 
 .comment-card{
-  margin: 2rem;
+  margin-top: 0rem;
+  margin-bottom: 2rem;
   font-family: Montserrat-Regular;
 }
 

@@ -18,7 +18,7 @@
                 <input id="name" type="text" class="form-component" placeholder="Имя" v-model="name" :class="{ 'invalid': (v$.name.$dirty && v$.name.required.$invalid) }">
                 <div id="nameHelp" class="form-text">Имя, которые Вы указали, должно совпадать с именем держателя карты.</div>
                 <input id="email" type="text" class="form-component" placeholder="Email" v-model.trim="email" :class="{ 'invalid': (v$.email.$dirty && v$.email.required.$invalid || v$.email.$dirty && v$.email.email.$invalid)}">
-                <div id="emailHelp" class="form-text">Чтобы мы могли отправить вам чек на почту.</div>
+                <div id="emailHelp" class="form-text">Укажите email для получения уведомлений о статусе заказа.</div>
                 <div class="check-group">
                   <div class="row align-items-center">
                     <div class="col-1">

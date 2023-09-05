@@ -118,6 +118,7 @@ export default {
 }
 
 .warning-field-name{
+  margin-right: 2rem;
   color: #b3b901;
   font-family: Montserrat-SemiBold;
   font-size: 1rem;
@@ -128,6 +129,7 @@ export default {
 }
 
 .warning-field-value{
+  margin-left: 2rem;
   color: #454545;
   font-family: Montserrat-Regular;
   font-size: 1rem;

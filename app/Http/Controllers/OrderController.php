@@ -88,6 +88,7 @@ class OrderController extends Controller
                             $order->bank = $data['bank'];
                         }
                         $order->save();
+                    if(is_null($order->message_id)){
                         $token = env('TELEGRAM_BOT_API_TOKEN');
                         $telegram = new Api($token);
                         $data = [
@@ -98,7 +99,6 @@ class OrderController extends Controller
                             'amount'=> $order->amount,
                             'bank' => $order->bank,
                         ];
-                    if(is_null($order->message_id)){
                         (new TelegramApiBotService())->sendOrder($data, $telegram);
                     }
                     Log::info('Ending...');
@@ -130,17 +130,17 @@ class OrderController extends Controller
                     ]);
                     $order->bank = $data['bank'];
                     $order->save();
-                    $token = env('TELEGRAM_BOT_API_TOKEN');
-                    $telegram = new Api($token);
-                    $data = [
-                        'project_name'=> $order->project_name,
-                        'name' => $order->name,
-                        'email' => $order->email,
-                        'order_id'=> $order->order_id,
-                        'amount'=> $order->amount,
-                        'bank' => $order->bank,
-                    ];
                     if(is_null($order->message_id)){
+                        $token = env('TELEGRAM_BOT_API_TOKEN');
+                        $telegram = new Api($token);
+                        $data = [
+                            'project_name'=> $order->project_name,
+                            'name' => $order->name,
+                            'email' => $order->email,
+                            'order_id'=> $order->order_id,
+                            'amount'=> $order->amount,
+                            'bank' => $order->bank,
+                        ];
                         (new TelegramApiBotService())->sendOrder($data, $telegram);
                     }
                     Log::info('Ending...');

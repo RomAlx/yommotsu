@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Binance\BinanceHelper;
 use App\Repositories\BotRepository;
 use App\Repositories\MerchantRepository;
 use App\Repositories\PayOrderRepository;
@@ -16,11 +17,13 @@ class PayController extends Controller
         Log::info('New request for merchant. QueryParams: ' . json_encode($queryParams));
         $botRepository = new BotRepository();
         $payOrderRepository = new PayOrderRepository();
+        $binance = new BinanceHelper();
         if (array_key_exists('project_name', $queryParams) && 
             array_key_exists('order_id', $queryParams) && 
             array_key_exists('amount', $queryParams) &&
             array_key_exists('redirect_url', $queryParams)) {
             $bot = $botRepository->getBotByName($queryParams['project_name']);
+            $currency = $binance->getCurrencies();
             if (is_null($payOrderRepository->getOrder($queryParams['order_id']))){
                 $payOrderRepository->updateOrCreate($queryParams['order_id'], [
                     'project_name' => $queryParams['project_name'],
@@ -34,6 +37,7 @@ class PayController extends Controller
                         'project_name' => $queryParams['project_name'],
                         'order_id' => $queryParams['order_id'],
                         'redirect_url' => $queryParams['redirect_url'],
+                        'currency' => $currency,
                     ]
                 ];
                 Log::info('Request is successfully');
@@ -52,10 +56,12 @@ class PayController extends Controller
         Log::info('New request for merchant. QueryParams: ' . json_encode($queryParams));
         $botRepository = new BotRepository();
         $payOrderRepository = new PayOrderRepository();
+        $binance = new BinanceHelper();
         if (array_key_exists('project_name', $queryParams) && 
             array_key_exists('order_id', $queryParams) && 
             array_key_exists('amount', $queryParams)) {
             $bot = $botRepository->getBotByName($queryParams['project_name']);
+            $currency = $binance->getCurrencies();
             if (is_null($payOrderRepository->getOrder($queryParams['order_id']))){
                 $payOrderRepository->updateOrCreate($queryParams['order_id'], [
                     'project_name' => $queryParams['project_name'],
@@ -68,6 +74,7 @@ class PayController extends Controller
                     'data' => [
                         'project_name' => $queryParams['project_name'],
                         'order_id' => $queryParams['order_id'],
+                        'currency' => $currency,
                     ]
                 ];
                 Log::info('Request is successfully');

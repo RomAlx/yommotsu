@@ -24,6 +24,15 @@
           <div class="col">
             <button class="pay-button" @click="selectPaymentMethod('mir')" :disabled="checkButtonStatus('mir')"><img class="bank-img" :src="mir" alt="Мир"></button>
           </div>
+          <div class="col">
+            <button class="pay-button" @click="selectPaymentMethod('usdt_trc_20')" :disabled="checkButtonStatus('usdt_trc_20')"><img class="bank-img" :src="usdt_trc_20" alt="USDT TRC 20"></button>
+          </div>
+          <div class="col">
+            <button class="pay-button" @click="selectPaymentMethod('usdt_erc_20')" :disabled="checkButtonStatus('usdt_erc_20')"><img class="bank-img" :src="usdt_erc_20" alt="USDT ERC 20"></button>
+          </div>
+          <div class="col">
+            <button class="pay-button" @click="selectPaymentMethod('btc')" :disabled="checkButtonStatus('btc')"><img class="bank-img" :src="btc" alt="BTC"></button>
+          </div>
         </div>
     </div>
   </div>
@@ -40,6 +49,9 @@ export default {
       raiffeisen: '/img/paymentMethod/raiffeisen.png',
       mastercard: '/img/paymentMethod/mastercard.png',
       mir: '/img/paymentMethod/mir.png',
+      usdt_trc_20: '/img/paymentMethod/usdt_trc_20.png',
+      usdt_erc_20: '/img/paymentMethod/usdt_erc_20.png',
+      btc: '/img/paymentMethod/btc.png',
     };
   },
   props: {

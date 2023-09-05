@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Factories\TelegramKeyboardsFactory;
 use App\Helpers\ApiBot\TelegramApiBotMessagesHelper;
+use App\Repositories\BotRepository;
 use App\Repositories\PayOrderRepository;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
@@ -15,8 +16,15 @@ class TelegramApiBotService
         Log::info('Preparing data');
         $text = (new TelegramApiBotMessagesHelper())->prepareDataFromRequest($data);
         Log::info('Data was prepared: ' . $text);
+        $bot = (new BotRepository())->getBotByName($data['project_name']);
+        $channel = $bot->channel;
+        Log::info('Sending to channel: ' . $bot);
+        if(is_null($channel)){
+            $channel = env('TELEGRAM_BOT_PAY_PUSH');
+        }
+        Log::info('Sending to channel: ' . $channel);
         $result = $telegram->sendMessage([
-            'chat_id'=>env('TELEGRAM_BOT_PAY_PUSH'),
+            'chat_id'=> $channel,
             'text'=>$text,
             'parse_mode' => 'HTML',
             'reply_markup' => (new TelegramKeyboardsFactory())->PayOrderStatus(),

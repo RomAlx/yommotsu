@@ -10,6 +10,7 @@
         <PayMethodComponent v-if="data.step === 'PaymentMethod'" :merchants="data.merchants" v-on:update:Bank="updateFromBank"/>
         <FormComponent v-else-if="data.step === 'Form'" :form="form" v-on:update:Form="updateFromForm" v-on:update:Step="updateStep"/>
         <CardComponent v-else-if="data.step === 'Card'" :merchant="bank" :order="data.order" :form="form" v-on:update:Card="updateFromCard" v-on:update:Step="updateStep"/>
+        <CanceledComponent v-else-if="data.step === 'Canceled'"/>
         <TimerComponent v-else-if="data.step === 'Timer'" v-on:update:Step="updateStep"/>
       </div>
     </div>
@@ -26,12 +27,14 @@ import PayMethodComponent from './PayMethodComponent.vue';
 import FormComponent from './PayFormComponent.vue';
 import CardComponent from './PayCardComponent.vue';
 import TimerComponent from './PayTimerMainComponent.vue';
+import CanceledComponent from './PayCanceledComponent.vue';
 
 export default {
   components: {
       PayMethodComponent,
       FormComponent,
       CardComponent,
+      CanceledComponent,
       TimerComponent
   },
   data() {
@@ -143,7 +146,8 @@ export default {
   line-height: normal;
 }
 .done-button{
-  width: 8.8125rem;
+  padding: 0.2rem 1rem;
+  min-width: 8rem;
   height: 2.4375rem;
   flex-shrink: 0;
   border-radius: 0.5625rem;
@@ -173,10 +177,11 @@ export default {
 
 @media screen and (max-width: 685px) {
   .done-button{
-    width: 7rem;
+    padding: 0.2rem 1rem;
+    min-width: 7rem;
     height: 2rem;
     border-radius: 0.42rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .help-button{

@@ -5,22 +5,14 @@
         <h2 class="modal-label">Правила</h2>
         <p class="modal-text">
             1. Перевод осуществляются строго с выборного банка на банк.<br>
-            <span class="modal-text-important">2. Всегда указывайте в комментарий к платежу последние 4 символа вашего заказа.</span><br>
-            3. Если вы нарушаете правила - обратитесь в поддержку для уточнения статуса вашего платежа.
+            2. Имя которое вы указываете, должно полностью совпадать с именем держателя карты.<br>
+            <span class="modal-text-important">3. Всегда указывайте в комментарий к платежу последние 4 символа вашего заказа.</span><br>
+            4. Если вы нарушаете правила - обратитесь в поддержку для уточнения статуса вашего платежа.
         </p>
       </div>
     </div>
     <div class="row wow fadeIn">
         <div class="row align-items-center">
-            <div class="col align-items-center">
-                <div class="container info-card">
-                    <p class="info-field"> Для зачисления Вашего депозита, оплатите одним платежом {{ this.order.amount }} ₽.<br> 
-                        В противном случае <span class="info-field-important">мы не сможем индентифицироваать</span> Ваш платеж.</p>
-                    <p class="info-field"> Реквизиты для оплаты меняются с каждой оплатой.</p>
-                    <p class="info-field"> Комментарий к платежу писать обязательно.<br> 
-                        <span class="info-field-important">Ваш комментарий к переводу: <span style="color: #f70505;">{{ this.order.order_id.slice(-4) }}</span></span></p>
-                </div>
-            </div>
             <div class="col align-items-center">
                 <div class="container order-card">
                     <p class="order-label">Ваш заказ</p>
@@ -38,7 +30,7 @@
                     </div>
                     <div class="row justify-content-start">
                         <div class="col-3"><p class="fix-top order-field-name">Сумма</p></div>
-                        <div class="col-9"><p class="fix-top order-field-value">{{ this.order.amount }}</p></div>
+                        <div class="col-9"><p class="fix-top order-field-value">{{ amountString}}</p></div>
                     </div>
                     <div class="row justify-content-start">
                         <div class="col-3"><p class="fix-top order-field-name">Заказ</p></div>
@@ -55,64 +47,90 @@
             <div class="col align-items-center">
                 <div class="container payment-card" :class="bank">
                     <div class="row align-items-center">
-                        <div class="col-7 to-left-side">
-                            <small class="card-label">Название проекта</small>
+                        <div class="col-4 to-left-side">
+                            <small class="card-label">Проект</small>
                             <h5 class="card-fill-small">{{this.order.project_name}}</h5>
-                            <small class="card-label">Владелец</small>
-                            <h5 class="card-fill-small">{{this.merchant.name}}</h5>
+                            <small v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-label">Владелец</small>
+                            <h5 v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-fill-small">{{this.merchant.name}}</h5>
                         </div>
-                        <div class="col-5 justify-content-center logo">
-                            <div class="logo-div">
-                                <img :src="srcLogo" alt="bank" :class="logobank">
+                        <div class="col-8 to-right-side">
+                            <div class="row align-items-center to-right-side">
+                                <div v-if="this.merchant.qrcode !== null" class="col-7 justify-content-end logo">
+                                    <div class="logo-div">
+                                        <img :src="srcQrCode" alt="bank" class="qrcode">
+                                    </div>
+                                </div>
+                                <div class="col-4 justify-content-end logo">
+                                    <div class="logo-div">
+                                        <img :src="srcLogo" alt="bank" :class="logobank">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row second-half">
-                        <div class="col-9 to-left-side">
+                        <div v-if="['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="col-9 to-left-side">
+                            <div class="row justify-content-start">
+                                <div class="col-3"><small class="card-label">Кошелек</small></div>
+                                <div class="col-1"><img class="card-copy" :src="srcServiceCopyBank" @click="copyToClipboard('bank-number')"></div>
+                            </div>
+                            <h5 class="card-fill-big-crypto" id="bank-number">{{this.merchant.bank_number.slice(0, 20)}}<br>{{this.merchant.bank_number.length > 20 ? this.merchant.bank_number.slice(20): ''}}</h5>
+                        </div>
+                        <div v-else class="col-9 to-left-side">
                             <div class="row justify-content-start">
                                 <div class="col-5"><small class="card-label">Номер карты</small></div>
                                 <div class="col-1"><img class="card-copy" :src="srcServiceCopyBank" @click="copyToClipboard('bank-number')"></div>
                             </div>
-                            <h5 class="card-fill-big" id="bank-number">{{this.merchant.bank_number}}</h5>
+                            <h5 class="card-fill-big-bank" id="bank-number">{{this.merchant.bank_number}}</h5>
                         </div>
                         <div class="col-3 justify-content-center">
                             <div class="row justify-content-center">
                                 <div class="col-6"><small class="card-label">Сумма</small></div>
                                 <div class="col-1"><img class="card-copy" :src="srcServiceCopyAmount" @click="copyToClipboard('amount')"></div>
                             </div>
-                            <h5 class="card-fill-big" id="amount">{{this.order.amount}}</h5>
+                            <h5 v-if="this.merchant.bank == 'btc'" class="card-fill-big-btc" id="amount">{{amountString}}</h5>
+                            <h5 v-else class="card-fill-big" id="amount">{{amountString}}</h5>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col">
-                    <img class="manual-img" :src="srcManualBank">
-                    <p class="fix-top manual-field-value">Откройте приложение банка. Скопируйте с этой страницы реквизиты, сумму и комментарий.</p>
-                </div>
-                <div class="col">
-                    <img class="manual-img" :src="srcManualCard">
-                    <p class="fix-top manual-field-value">Проверьте владельца карты. Нажмите "Перевести".</p>
-                </div>
-                <div class="col">
-                    <img class="manual-img" :src="srcManualSend">
-                    <p class="fix-top manual-field-value">На этой странице нажмите кнопку "Я оплатил!", чтобы ваш заказ поступил в обработку.</p>
-                </div>
-                <div class="col">
-                    <img class="manual-img" :src="srcManualDone">
-                    <p class="fix-top manual-field-value">Ожидайте подтверждения операции.</p>
+            <div class="col align-items-center">
+                <div class="container info-card">
+                    <p class="info-field"> Для зачисления Вашего депозита, оплатите одним платежом {{amountString}}.<br>
+                        В противном случае мы не сможем ИНДИФИЦИРОВАТЬ  Ваш платёж.</p>
+                    <p class="info-field"> Реквизиты для оплаты меняются с каждой оплатой.</p>
+                    <p class="info-field"> Обязательно пашите КОММЕНТРАТИЙ к ваше платежу. <br>
+                        Ваш комментарий к переводу: <span class="info-field-important">{{ this.order.order_id.slice(-4) }}</span></p>
                 </div>
             </div>
-        </div>
-        <div class="container fix-width">
-            <div class="row justify-content-center">
-                <div class="col">
-                        <button type="button" class="done-button" @click="getBack()">Назад</button>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <img class="manual-img" :src="srcManualBank">
+                        <p class="fix-top manual-field-value">Откройте приложение банка. Скопируйте с этой страницы реквизиты, сумму и комментарий.</p>
+                    </div>
+                    <div class="col">
+                        <img class="manual-img" :src="srcManualCard">
+                        <p class="fix-top manual-field-value">Проверьте владельца карты. Нажмите "Перевести".</p>
+                    </div>
+                    <div class="col">
+                        <img class="manual-img" :src="srcManualSend">
+                        <p class="fix-top manual-field-value">На этой странице нажмите кнопку "Я оплатил!", чтобы ваш заказ поступил в обработку.</p>
+                    </div>
+                    <div class="col">
+                        <img class="manual-img" :src="srcManualDone">
+                        <p class="fix-top manual-field-value">Ожидайте подтверждения операции.</p>
+                    </div>
                 </div>
-                <div class="col">
-                    <button class="done-button" @click="pay()">Я оплатил!</button>
+            </div>
+            <div class="container fix-width">
+                <div class="row justify-content-center">
+                    <div class="col">
+                            <button type="button" class="done-button" @click="openNewWindow(this.redirect_url)">Отменить заказ</button>
+                    </div>
+                    <div class="col">
+                        <button class="done-button" @click="pay()">Я оплатил!</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,6 +143,8 @@ import copy from 'clipboard-copy';
 export default {
   data() {
     return {
+      qrCode: '',
+      currency: window.blade_data.currency,
       tinkoff: '/img/paycard/tinkoff.png',
       sber: '/img/paycard/sberbank.png',
       sbp: '/img/paycard/sbp.png',
@@ -159,8 +179,20 @@ export default {
         srcLogo () {
             return '/img/paycard/'+this.merchant.bank+'.png';
         },
+        srcQrCode () {
+            return '/img/paycard/qr-codes/'+this.merchant.qrcode+'.png';
+        },
         logobank () {
             return 'logo-' + this.merchant.bank;
+        },
+        amountString () {
+            if (['usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)) {
+                return (this.order.amount / this.currency.USDTRUB * 1.05).toFixed(2) + " ₮";
+            } else if (this.merchant.bank == 'btc') {
+                return (this.order.amount / this.currency.BTCRUB * 1.05).toFixed(7) + " ₿";
+            } else {
+                return this.order.amount  + " ₽";
+            }
         }
   },
   methods: {
@@ -172,9 +204,9 @@ export default {
           let modal = document.getElementById("modal");
           modal.style.display = "none";
       },
-      getBack() {
-        console.log(`Назад`);
-        this.$emit("update:Step", 'PaymentMethod');
+      openNewWindow(url){
+        console.log(`Заказ отменен`);
+        this.$emit("update:Step", 'Canceled');
       },
       copyToClipboard(id) {
         this.srcServiceCopyBank = "/img/service/copy_white.png";
@@ -183,14 +215,16 @@ export default {
         const element = document.getElementById(id);
         const textToCopy = element.innerText;
         try {
-            copy(textToCopy);
             if(id == 'bank-number'){
+                copy(textToCopy);
                 this.srcServiceCopyBank = "/img/service/done_white.png";
             }
-            if(id == 'amount'){
+            if(id == 'amount'){      
+                copy(textToCopy.slice(0, -2));
                 this.srcServiceCopyAmount = "/img/service/done_white.png";
             }
             if(id == 'comment'){
+                copy(textToCopy);
                 this.srcServiceCopyComment = "/img/service/done_red.png";
             }
         } catch (error) {
@@ -261,6 +295,7 @@ a{
   line-height: normal;
   text-align: start;
 }
+
 .modal-text-important{
     color:#b82d2d;
     font-family: Montserrat-SemiBold;
@@ -283,7 +318,6 @@ a{
     cursor: pointer;
 }
 
-
 .info-card{
     margin: 1rem;
     padding: 1.5rem;
@@ -300,7 +334,7 @@ a{
 }
 
 .info-field{
-  color: #000000;
+  color: #ff0303;
   font-family: Montserrat-Regular;
   font-size: 1.2rem;
   font-style: normal;
@@ -310,7 +344,7 @@ a{
 }
 
 .info-field-important{
-  color: #ffffff;
+  color: #ff0303;
   font-family: Montserrat-SemiBold;
   font-size: 1.2rem;
   font-style: normal;
@@ -397,6 +431,12 @@ a{
     display: block;
 }
 
+.qrcode{
+    border-radius: 0.5rem;
+    width: 9.5rem;
+    height: 9.5rem;
+}
+
 .sberbank{
     background: var(--grad-1, linear-gradient(319deg, #15151D 17.71%, #6ecf6d 100%));
     box-shadow: 0px 2px 19px 3px rgba(0, 0, 0, 0.31);
@@ -408,6 +448,21 @@ a{
 .sbp{
     background: linear-gradient(319deg, #15151D 17.71%, #5271a1 100%);
     box-shadow: 0px 2px 19px 3px rgba(0, 0, 0, 0.31);
+}
+
+.alfa{
+    background: linear-gradient(289deg, #15151D 17.96%, #FF1012 277.49%);
+    box-shadow: 0px 2px 19px 3px rgba(0, 0, 0, 0.31); 
+}
+
+.usdt_trc_20, .usdt_erc_20{
+    background: linear-gradient(289deg, #15151D 17.96%, #00A376 277.49%);
+    box-shadow: 0px 2px 19px 3px rgba(0, 0, 0, 0.31); 
+}
+
+.btc{
+    background: linear-gradient(289deg, #15151D 17.96%, #F99400 277.49%);
+    box-shadow: 0px 2px 19px 3px rgba(0, 0, 0, 0.31); 
 }
 
 .card-label{
@@ -431,10 +486,38 @@ a{
     font-weight: 600;
     line-height: normal;
 }
+
 .card-fill-big{
     color: #FFF;
     font-family: Montserrat-SemiBold;
-    font-size: 2rem;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.card-fill-big-bank{
+    color: #FFF;
+    font-family: Montserrat-SemiBold;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.card-fill-big-crypto{
+    color: #FFF;
+    font-family: Montserrat-SemiBold;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.card-fill-big-btc{
+    color: #FFF;
+    font-family: Montserrat-SemiBold;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -442,6 +525,10 @@ a{
 
 .to-left-side{
     text-align: left
+}
+
+.to-right-side{
+    text-align: right;
 }
 
 .second-half{
@@ -459,8 +546,19 @@ a{
 }
 
 .logo-sbp{
-    width: 12rem;
-    height: 6rem;
+    width: 7rem;
+    height: 3.5rem;
+}
+
+.logo-alfa{
+    width: 11rem;
+    height: 2.26rem;
+}
+
+
+.logo-usdt_trc_20, .logo-usdt_erc_20, .logo-btc{
+    width: 5.5rem;
+    height: 5.5rem;
 }
 
 .manual-field-value{
@@ -499,9 +597,9 @@ a{
     .info-field-important{
         font-size: 0.96rem;
     }
-
+    
     .order-card{
-        margin: 1.6rem;
+        margin: 0.8rem;
         padding: 1.2rem;
         width: 28rem;
         height: 17rem;
@@ -537,11 +635,16 @@ a{
     }
 
     .payment-card{
-        margin: 1.6rem;
+        margin: 0.8rem;
         width: 28rem;
         height: 15.552rem;
         padding: 1.6rem;
         border-radius: 1.1788rem;
+    }
+
+    .qrcode{
+        width: 7.5rem;
+        height: 7.5rem;
     }
 
     .card-label{
@@ -556,7 +659,18 @@ a{
         font-size: 1.25rem;
     }
     .card-fill-big{
-        font-size: 1.6rem;
+        font-size: 1.4rem;
+    }
+
+    .card-fill-big-bank{
+        font-size: 1.4rem;
+    }
+
+    .card-fill-big-crypto{
+        font-size: 0.8rem;
+    }
+    .card-fill-big-btc{
+        font-size: 0.8rem;
     }
 
     .second-half{
@@ -578,9 +692,21 @@ a{
     }
 
     .logo-sbp{
-        width: 9.6rem;
-        height: 4.8rem;
-    }   
+        width: 5.6rem;
+        height: 2.8rem;
+    }  
+
+    .logo-alfa{
+        width: 8.8rem;
+        height: 1.8rem;
+    }
+
+
+    .logo-usdt_trc_20, .logo-usdt_erc_20, .logo-btc{
+        width: 4.4rem;
+        height: 4.4rem;
+    }
+
     .manual-field-value{
         font-size: 0.8rem;
     }
@@ -614,6 +740,7 @@ a{
         right: 1.5rem;
         font-size: 1.8rem;
     }
+
     .info-card{
         margin: 0.64rem;
         padding: 0.96rem;
@@ -672,6 +799,10 @@ a{
         padding: 1.28rem;
         border-radius: 0.96rem;
     }
+    .qrcode{
+        width: 6rem;
+        height: 6rem;
+    }
 
     .card-label{
         font-size: 0.56rem;
@@ -685,8 +816,18 @@ a{
         font-size: 1rem;
     }
     .card-fill-big{
-        font-size: 1.28rem;
+        font-size: 1rem;
     }
+    .card-fill-big-bank{
+        font-size: 1rem;
+    }
+    .card-fill-big-crypto{
+        font-size: 0.64rem;
+    }
+    .card-fill-big-btc{
+        font-size: 0.6rem;
+    }
+
     .second-half{
         margin-top: 1rem;
     }
@@ -706,9 +847,20 @@ a{
     }
 
     .logo-sbp{
-        width: 7.68rem;
-        height: 3.84rem;
+        width: 4.48rem;
+        height: 2.24rem;
     }   
+
+    .logo-alfa{
+        width: 7.04rem;
+        height: 1.44rem;
+    }
+
+
+    .logo-usdt_trc_20, .logo-usdt_erc_20, .logo-btc{
+        width: 3.5rem;
+        height: 3.5rem;
+    }
 
     .manual-field-value{
         font-size: 0.64rem;
@@ -726,22 +878,6 @@ a{
 
 @media screen and (max-width: 405px) {
 
-
-    .info-card{
-        margin: 0.5rem;
-        padding: 0.81rem;
-        width: 19.04rem;
-        height: 11.5rem;
-    }
-
-    .info-field{
-        font-size: 0.6rem;
-    }
-
-    .info-field-important{
-        font-size: 0.6rem;
-    }
-    
     .order-card{
         margin: 0.5rem;
         padding: 0.81rem;
@@ -779,11 +915,15 @@ a{
     }
 
     .payment-card{
-        margin: 0.5rem;
         width: 19.04rem;
         height: 10.574rem;
         padding: 1rem;
         border-radius: 0.8rem;
+    }
+
+    .qrcode{
+        width: 4.8rem;
+        height: 4.8rem;
     }
 
     .card-label{
@@ -798,7 +938,13 @@ a{
         font-size: 0.85rem;
     }
     .card-fill-big{
-        font-size: 1rem;
+        font-size: 0.8rem;
+    }
+    .card-fill-big-bank{
+        font-size: 0.8rem;
+    }
+    .card-fill-big-crypto{
+        font-size: 0.5rem;
     }
     .second-half{
         margin-top: 0.2rem;
@@ -815,9 +961,20 @@ a{
     }
 
     .logo-sbp{
-        width: 6.528rem;
-        height: 3.264rem;
-    }   
+        width: 3.58rem;
+        height: 1.79rem;
+    }    
+
+    .logo-alfa{
+        width: 7.04rem;
+        height: 1.44rem;
+    }
+
+
+    .logo-usdt_trc_20, .logo-usdt_erc_20, .logo-btc{
+        width: 3.5rem;
+        height: 3.5rem;
+    }
 }
 
 </style>
