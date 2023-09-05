@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Log;
 
 class TelegramMainBotMessageHelper
 {
-    const MARGESELL = 0.9925;
+    const MARGESELL = 1.04;
 
-    const MARGEBUY = 0.973;
+    const MARGEBUY = 0.96;
 
     public function makeOrderRates(Update $updates, Api $telegram): void
     {
@@ -36,13 +36,13 @@ class TelegramMainBotMessageHelper
             Log::info('Amount: '. $amount);
             switch ($order->currency_pair) {
                 case "RUBBTC":
-                    $currency =  ((new BinanceHelper)->getCurrency('BTCRUB')) / self::MARGEBUY;
+                    $currency =  ((new BinanceHelper)->getCurrency('BTCRUB')) * self::MARGEBUY;
                     $amount = round($amount/$currency, 7);
                     $currency = round($currency, 2);
                     $symbol = '₿';
                     break;
                 case "RUBUSDT":
-                    $currency = ((new BinanceHelper)->getCurrency('USDTRUB')) / self::MARGEBUY;
+                    $currency = ((new BinanceHelper)->getCurrency('USDTRUB')) * self::MARGEBUY;
                     $amount = round($amount/$currency, 2);
                     $currency = round($currency, 2);
                     $symbol = '₮';
