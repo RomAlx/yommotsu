@@ -21,11 +21,37 @@ class EmailController extends Controller
                     $order = (new PayOrderRepository)->getOrder($data['order_id']);
                     if(!is_null($order)){
                         Log::info('Order for email: ' . json_encode($order));
+                        $status = 'в обработке';
+                        switch ($order->status){
+                            case 'PAID':
+                                $status = 'Оплачен';
+                                break;
+                            case 'WAITING':
+                                $status = 'В обработке';
+                                break;
+                            case 'REJECTED':
+                                $status = 'Отклонен';
+                                break;
+                        }
+                        $bank = json_decode($order->bank, 1);
+                        Log::info('Order for bank: ' . $bank['bank']);
+                        $currency = ' ₽';
+                        switch ($bank['bank']){
+                            case 'usdt_trc_20':
+                                $currency = ' ₮';
+                                break;
+                            case 'usdt_erc_20':
+                                $currency = ' ₮';
+                                break;
+                            case 'btc':
+                                $currency = ' ₿';
+                                break;
+                        }
                         $mailData = [
                             'project_name' => $order->project_name,
                             'order_id'=> $order->order_id,
-                            'status' => $order->status,
-                            'amount' => $order->amount,
+                            'status' => $status,
+                            'amount' => (string)$order->amount . $currency,
                             'name' => $order->name,
                             'email' => $order->email,
                             'created_at' => Carbon::parse($order->created_at)->formatLocalized('%a, %e %B %H:%M'),

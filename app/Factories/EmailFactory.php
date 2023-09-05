@@ -16,18 +16,8 @@ class EmailFactory extends Mailable
         Log::info('Mail data: ' .json_encode($mailData));
         $this
             ->from(env('MAIL_FROM_ADDRESS'))
-            ->subject('Статус заказа');
-        switch ($mailData['status']){
-            case 'PAID':
-                $this->view('emails.status.success', $mailData);
-                break;    
-            case 'WAITING':
-                $this->view('emails.status.waiting', $mailData);
-                break;
-            case 'REJECTED':
-                $this->view('emails.status.rejected', $mailData);
-                break;
-        }
+            ->subject('Статус заказа')
+            ->view('emails.status', $mailData);
         Log::info('email: ' . json_encode($this));
         return $this;
     }

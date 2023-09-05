@@ -37,6 +37,8 @@
       </div>
       <div class="container fix-width">
         <div class="row justify-content-center">
+            <h1 v-if="this.send" class="label">Письмо успешно отправлено.</h1>
+            <button class="done-button button-send"  @click="sendEmail(this.order.order_id)">Отправить чек на почту</button>
             <div class="col">
                 <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
             </div>
@@ -54,6 +56,7 @@ export default {
       error: '/img/payTimer/error.png',
       redirect_url: window.blade_data.redirect_url,
       help_url: 'https://t.me/yommotsu_admin',
+      send: false,
     };
   },
   props:{
@@ -63,6 +66,15 @@ export default {
     },
   },
   methods: {
+    sendEmail(order_id){
+      axios.post('/api/order/status/email', {
+        data: {
+          password: 'P2PEXCHANGE',
+          order_id: order_id,
+        },
+      });
+      this.send = true;
+    },
     openNewWindow(url){
       window.open(url, "_blank");
     }

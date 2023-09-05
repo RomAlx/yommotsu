@@ -38,7 +38,8 @@
       </div>
       <div class="container fix-width">
         <div class="row justify-content-center">
-            <!--<button class="done-button button-send"  @click="sendEmail(this.order.order_id)">Отправить чек на почту</button>-->
+            <h1 v-if="this.send" class="label">Письмо успешно отправлено.</h1>
+            <button class="done-button button-send"  @click="sendEmail(this.order.order_id)">Отправить чек на почту</button>
             <div class="col">
                 <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
             </div>
@@ -57,6 +58,7 @@ export default {
       warning: '/img/payTimer/warning.png',
       redirect_url: window.blade_data.redirect_url,
       help_url: 'https://t.me/yommotsu_admin',
+      send: false,
     };
   },
   props:{
@@ -73,6 +75,7 @@ export default {
           order_id: order_id,
         },
       });
+      this.send = true;
     },
     openNewWindow(url){
       window.open(url, "_blank");
@@ -158,13 +161,6 @@ export default {
     margin-top: 1rem;
     width: 25rem;
 }
-
-.button-send{
-  margin: 1rem;
-  width: 16rem;
-}
-
-
 
 @media screen and (max-width: 685px) {
   .label-comment{

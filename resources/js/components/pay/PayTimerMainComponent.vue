@@ -119,4 +119,16 @@ export default {
 .fix-top{
   margin-bottom: 0;
 }
+
+.button-send{
+  margin: 1rem;
+  width: 16rem;
+}
+
+@media screen and (max-width: 685px) {
+  .button-send{
+    margin: 0.8rem;
+    width: 14rem;
+  }
+}
 </style>
