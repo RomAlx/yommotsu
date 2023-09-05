@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Log;
 
 class TelegramMainBotMessageHelper
 {
-    const MARGESELL = 1.04;
+    const MARGESELL = 1.03;
 
-    const MARGEBUY = 0.96;
+    const MARGEBUY = 0.97;
 
     public function makeOrderRates(Update $updates, Api $telegram): void
     {
