@@ -41,9 +41,6 @@
             <div class="col">
                 <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
             </div>
-            <div class="col">
-                <button class="done-button"  @click="sendEmail(this.order.order_id)">Send</button>
-            </div>
         </div>
       </div>
     </div>
