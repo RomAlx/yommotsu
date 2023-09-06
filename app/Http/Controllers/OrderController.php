@@ -88,7 +88,7 @@ class OrderController extends Controller
                             $order->bank = $data['bank'];
                         }
                         $order->save();
-                    if(is_null($order->message_id)){
+                    if(is_null($order->message_id) && $order->order_id != 'CREATED'){
                         $token = env('TELEGRAM_BOT_API_TOKEN');
                         $telegram = new Api($token);
                         $data = [
