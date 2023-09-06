@@ -98,6 +98,16 @@ export default {
       this.form.email = form.email;
       this.form.agreement = form.agreement;
       this.data.step = form.step;
+      axios.post('/api/order/update/paypage', { 
+        data: {
+          password: 'P2PEXCHANGE',
+          order_id: this.data.order.order_id,
+          name: this.form.name,
+          email: this.form.email, 
+          status: 'CREATED',
+          bank: this.bank,
+        }
+      });
       axios.post('/api/order/status/email', {
         data: {
           password: 'P2PEXCHANGE',
