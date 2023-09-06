@@ -368,5 +368,11 @@ class TelegramMainBotCallbackDataHelper
         $order = $payOrderRepository->getOrderByMessageId((string)$update->callbackQuery->message->messageId);
         $order->status = $status;
         $order->save();
+        Http::post(env('API_URL') . '/api/order/status/email', [
+            'data' => [
+                'password'=> 'P2PEXCHANGE',
+                'order_id'=> $order->order_id,
+            ]
+        ]);
     }
 }
