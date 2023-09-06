@@ -38,8 +38,6 @@
       </div>
       <div class="container fix-width">
         <div class="row justify-content-center">
-            <h1 v-if="this.send" class="label">Письмо успешно отправлено.</h1>
-            <button class="done-button button-send"  @click="sendEmail(this.order.order_id)">Отправить чек на почту</button>
             <div class="col">
                 <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
             </div>
