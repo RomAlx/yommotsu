@@ -84,24 +84,24 @@ class OrderController extends Controller
                         if (array_key_exists('email', $data)) {
                             $order->email = $data['email'];
                         }
-                        if (array_key_exists('email', $data)) {
+                        if (array_key_exists('bank', $data)) {
                             $order->bank = $data['bank'];
                         }
                         $order->save();
-                    if(is_null($order->message_id) && $order->status != 'CREATED'){
-                        $token = env('TELEGRAM_BOT_API_TOKEN');
-                        $telegram = new Api($token);
-                        $data = [
-                            'project_name'=> $order->project_name,
-                            'name' => $order->name,
-                            'email' => $order->email,
-                            'order_id'=> $order->order_id,
-                            'amount'=> $order->amount,
-                            'bank' => $order->bank,
-                        ];
-                        (new TelegramApiBotService())->sendOrder($data, $telegram);
-                    }
-                    Log::info('Ending...');
+                        if(is_null($order->message_id) && $order->status != 'CREATED'){
+                            $token = env('TELEGRAM_BOT_API_TOKEN');
+                            $telegram = new Api($token);
+                            $data = [
+                                'project_name'=> $order->project_name,
+                                'name' => $order->name,
+                                'email' => $order->email,
+                                'order_id'=> $order->order_id,
+                                'amount'=> $order->amount,
+                                'bank' => $order->bank,
+                            ];
+                            (new TelegramApiBotService())->sendOrder($data, $telegram);
+                        }
+                        Log::info('Ending...');
                     } else {
                         return response()->json(['status'=>'no order'], 400);
                     }
