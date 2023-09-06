@@ -21,13 +21,16 @@ class EmailController extends Controller
                     $order = (new PayOrderRepository)->getOrder($data['order_id']);
                     if(!is_null($order)){
                         Log::info('Order for email: ' . json_encode($order));
-                        $status = 'в обработке';
+                        $status = 'Создан';
                         switch ($order->status){
-                            case 'PAID':
-                                $status = 'Оплачен';
+                            case 'CREATED':
+                                $status = 'Создан';
                                 break;
                             case 'WAITING':
                                 $status = 'В обработке';
+                                break;
+                            case 'PAID':
+                                $status = 'Оплачен';
                                 break;
                             case 'REJECTED':
                                 $status = 'Отклонен';

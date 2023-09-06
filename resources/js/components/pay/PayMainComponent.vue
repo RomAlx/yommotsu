@@ -98,6 +98,12 @@ export default {
       this.form.email = form.email;
       this.form.agreement = form.agreement;
       this.data.step = form.step;
+      axios.post('/api/order/status/email', {
+        data: {
+          password: 'P2PEXCHANGE',
+          order_id: this.data.order.order_id,
+        },
+      });
     },
     updateFromCard(card) {
       this.data.step = card.step;
@@ -110,6 +116,12 @@ export default {
           status: 'WAITING',
           bank: this.bank,
         }
+      });
+      axios.post('/api/order/status/email', {
+        data: {
+          password: 'P2PEXCHANGE',
+          order_id: this.data.order.order_id,
+        },
       });
     },
   }
