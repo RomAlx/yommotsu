@@ -17,10 +17,21 @@
     </div>
     <div v-if="this.copied" class="modal-copy">
         <div class="modal-content-copy">
-            <h2 class="modal-text-copy">Скопировано!</h2>
+            <h2 class="modal-text-copy">Скопированo</h2>
+            <img class="modal-img-copy" :src="srcServiceCopyDone">
         </div>
     </div>
     <div class="row wow fadeIn">
+        <div class="col align-items-center">
+            <div class="container info-card">
+                <h1 class="info-label">Внимание!</h1>
+                <p class="info-field"> Для зачисления Вашего депозита, <span class="info-field-important">оплатите одним платежом {{amountString}}</span>.<br>
+                    В противном случае мы не сможем <span class="info-field-important">ИНДИФИЦИРОВАТЬ</span>  Ваш платёж.</p>
+                <p class="info-field"> Реквизиты для оплаты меняются с каждым новым заказом.</p>
+                <p class="info-field"> Обязательно пишите <span class="info-field-important">КОММЕНТРАТИЙ</span> к ваше платежу. <br>
+                    Ваш комментарий к переводу: <span id="comment2" class="info-field-important">{{ this.order.order_id.slice(-4) }}</span> <span class="info-field-important"><img class="comment-copy" :src="srcServiceCopyComment2" @click="copyToClipboard('comment2')"></span></p>
+            </div>
+        </div>
         <div class="row align-items-center">
             <div class="col align-items-center">
                 <div class="container order-card">
@@ -61,8 +72,8 @@
                             <h5 class="card-fill-small">{{this.order.project_name}}</h5>
                             <small v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-label">Владелец</small>
                             <h5 v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-fill-small">{{this.merchant.name}}</h5>
-                            <small v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-label">Комментарий</small>
-                            <h5 v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-fill-small">{{this.order.order_id.slice(-4)}}</h5>
+                            <small v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-label">Комментарий <span><img class="card-copy" :src="srcServiceCopyComment3" @click="copyToClipboard('comment3')"></span></small>
+                            <h5 v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-fill-small" id="comment3">{{this.order.order_id.slice(-4)}}</h5>
                         </div>
                         <div class="col-7 to-right-side">
                             <div class="row align-items-center to-right-side">
@@ -95,23 +106,12 @@
                         </div>
                         <div class="col-3 justify-content-center">
                             <div class="row justify-content-center">
-                                <div class="col-6"><small class="card-label">Сумма</small><span></span></div>
-                                <div class="col-1"><img class="card-copy" :src="srcServiceCopyAmount" @click="copyToClipboard('amount')"></div>
+                                <div class="col-10"><small class="card-label">Сумма </small><span><img class="card-copy" :src="srcServiceCopyAmount" @click="copyToClipboard('amount')"></span></div>
                             </div>
                             <h5 v-if="this.merchant.bank == 'btc'" class="card-fill-big-btc" id="amount">{{amountString}}</h5>
                             <h5 v-else class="card-fill-big" id="amount">{{amountString.slice(0, -2)}}</h5>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col align-items-center">
-                <div class="container info-card">
-                    <h1 class="info-label">Внимание!</h1>
-                    <p class="info-field"> Для зачисления Вашего депозита, оплатите одним платежом <span class="info-field-important">{{amountString}}</span>.<br>
-                        В противном случае мы не сможем <span class="info-field-important">ИНДИФИЦИРОВАТЬ</span>  Ваш платёж.</p>
-                    <p class="info-field"> Реквизиты для оплаты меняются с каждым новым заказом.</p>
-                    <p class="info-field"> Обязательно пишите <span class="info-field-important">КОММЕНТРАТИЙ</span> к ваше платежу. <br>
-                        Ваш комментарий к переводу: <span id="comment2" class="info-field-important">{{ this.order.order_id.slice(-4) }}</span><span class="info-field-important"><img class="comment-copy" :src="srcServiceCopyComment2" @click="copyToClipboard('comment2')"></span></p>
                 </div>
             </div>
             <div class="container">
@@ -160,7 +160,9 @@ export default {
       srcServiceCopyBank: "/img/service/copy_white.png",
       srcServiceCopyAmount: "/img/service/copy_white.png",
       srcServiceCopyComment: "/img/service/copy_fill_red.png",
-      srcServiceCopyComment2: "/img/service/copy_fill_red.png",
+      srcServiceCopyComment2: "/img/service/copy_white.png",
+      srcServiceCopyComment3: "/img/service/copy_white.png",
+      srcServiceCopyDone: '/img/service/done_green.png',
       srcManualBank: "/img/paycard/manual/mobile_bank.png",
       srcManualCard: "/img/paycard/manual/card.png",
       srcManualSend: "/img/paycard/manual/send.png",
@@ -218,12 +220,14 @@ export default {
       openNewWindow(url){
         console.log(`Заказ отменен`);
         this.$emit("update:Step", 'Canceled');
+        window.open(url, "_blank");    
       },
       copyToClipboard(id) {
         this.srcServiceCopyBank = "/img/service/copy_white.png";
         this.srcServiceCopyAmount = "/img/service/copy_white.png";
         this.srcServiceCopyComment = "/img/service/copy_fill_red.png";
-        this.srcServiceCopyComment2 = "/img/service/copy_fill_red.png";
+        this.srcServiceCopyComment2 = "/img/service/copy_white.png";
+        this.srcServiceCopyComment3 = "/img/service/copy_white.png";
         const element = document.getElementById(id);
         const textToCopy = element.innerText;
         try {
@@ -241,7 +245,11 @@ export default {
             }
             if(id == 'comment2'){
                 copy(textToCopy);
-                this.srcServiceCopyComment2 = "/img/service/done_red.png";
+                this.srcServiceCopyComment2 = "/img/service/done_white.png";
+            }
+            if(id == 'comment3'){
+                copy(textToCopy);
+                this.srcServiceCopyComment3 = "/img/service/done_white.png";
             }
             this.copied = true;
             setTimeout(() => {
@@ -289,10 +297,10 @@ a{
 .modal-content-copy {
     position: relative;
     background-color: #fefefe;
-    margin: 28% auto;
+    margin: 20% auto;
     padding: 1.6rem;
     border-radius: 0.8rem;
-    width: 14rem;
+    width: 16rem;
 }
 
 .modal-text-copy{
@@ -303,6 +311,10 @@ a{
   font-weight: 600;
   line-height: normal;
   text-align: center;
+}
+
+.modal-img-copy{
+    height: 6rem;
 }
 
 .modal {
@@ -320,7 +332,7 @@ a{
 .modal-content {
     position: relative;
     background-color: #fefefe;
-    margin: 20% auto;
+    margin: 15% auto;
     padding: 2rem;
     border: 1px solid #888;
     width: 30rem;
@@ -375,7 +387,7 @@ a{
     height: 21rem;
     flex-shrink: 0;
     border-radius: 0.9375rem;
-    background: rgba( 255, 26, 26, 0.3 );
+    background: rgba(241, 22, 22, 0.712);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 2px );
     -webkit-backdrop-filter: blur( 2px );
@@ -384,7 +396,7 @@ a{
 }
 
 .info-field{
-  color: #ff0303;
+  color: #070707;
   font-family: Montserrat-Regular;
   font-size: 1.2rem;
   font-style: normal;
@@ -394,7 +406,7 @@ a{
 }
 
 .info-field-important{
-  color: #ff0303;
+  color: #ffffff;
   font-family: Montserrat-SemiBold;
   font-size: 1.2rem;
   font-style: normal;
@@ -404,7 +416,7 @@ a{
 }
 
 .info-label{
-  color: #ff0303;
+  color: #ffffff;
   font-family: Montserrat-SemiBold;
   font-size: 1.4rem;
   font-style: normal;
@@ -478,6 +490,7 @@ a{
 }
 
 .comment-copy{
+    margin-top: -5px;
     height: 1.3rem;
 }
 
@@ -540,7 +553,8 @@ a{
 }
 
 .card-copy{
-    height: 0.875rem;
+    margin-top: -0.1rem;
+    height: 1.1rem;
 }
 
 .card-fill-small{
@@ -830,6 +844,9 @@ a{
         font-weight: 600;
         line-height: normal;
         text-align: center;
+    }
+    .modal-img-copy{
+        height: 3rem;
     }
 
     .modal-content {
