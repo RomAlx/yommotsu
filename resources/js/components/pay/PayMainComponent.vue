@@ -183,6 +183,10 @@ export default {
   line-height: normal;
 }
 
+.done-button:disabled{
+  background: linear-gradient(39deg, #464646 10.94%, #7a7a7a 47.88%, #757575 84.38%);
+}
+
 .help-button{
   width: 8.8125rem;
   height: 2.4375rem;

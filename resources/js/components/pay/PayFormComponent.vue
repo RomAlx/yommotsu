@@ -3,10 +3,22 @@
     <div id="modal" class="modal">
       <div class="modal-content">
         <span class="close" @click="closeModal">&times;</span>
-        <h2 class="modal-label">Основания обработки.</h2>
+        <h2 class="modal-label">Условия сервиса.</h2>
         <p class="modal-text">
-          Основанием Обработки Ваших персональных данных всегда является Ваше согласие. Без согласия с условиями настоящей Политики, мы не будем способны в полной мере обеспечить исполнения обязательств по заключаемым с Вами договорам - поэтому мы сделали невозможным их заключение без обязательного условия согласия с настоящей Политикой.
+          Наша компания собирает Ваши персональные данные, такие как Имя и Email.<br><br>
+          Имя необходимо, для идентификации вашего перевода.<br> 
+          Обязательно должно совпадать с Именем держателя карты, с который вы совершили перевод<br><br>
+          Email необходим для отправки вам уведомлений о статусе вашего заказа. <br>
+          Внимательно заполняйте ваш email адрес. Дальнейшая смена почтового адреса будет не возможна<br>
         </p>
+        <div class="row">
+          <div class="col">
+            <button type="button" class="done-button" @click="getBack()">Назад</button>
+          </div>
+          <div class="col">
+            <button type="submit" class="done-button" @click="accept()">Принять</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row wow fadeIn">
@@ -25,7 +37,7 @@
                       <input class="form-check-input btn-outline-danger" type="checkbox" id="checkPrivacy" v-model="agreement.val" :class="{ 'invalid': (agreement.status) }">
                     </div>
                     <div class="col">
-                      <label class="form-check-label" for="checkPrivacy" >Принимаю условия сервиса </label>
+                      <label class="form-check-label" for="checkPrivacy" >Принимаю <a href="#" @click="openModal">условия сервиса</a> </label>
                     </div>
                   </div>
                 </div>
@@ -34,7 +46,7 @@
                     <button type="button" class="done-button" @click="getBack()">Назад</button>
                   </div>
                   <div class="col">
-                    <button type="submit" class="done-button">Готово</button>
+                    <button type="submit" class="done-button" :disabled="!this.agreement.val">Готово</button>
                   </div>
                 </div>
             </form>
@@ -100,6 +112,10 @@ export default {
           console.log(`FAIL TO SUBMIT`);
         }
       },
+      accept(){
+        this.agreement.val = true;
+        this.closeModal();
+      },
       openModal() {
           let modal = document.getElementById("modal");
           modal.style.display = "block";
@@ -130,7 +146,7 @@ a{
 }
 
 .modal {
-    display: none;
+    display: block;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -144,7 +160,7 @@ a{
 .modal-content {
     position: relative;
     background-color: #fefefe;
-    margin: 20% auto;
+    margin: 15% auto;
     padding: 2rem;
     border: 1px solid #888;
     width: 30rem;
