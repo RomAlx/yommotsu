@@ -56,7 +56,7 @@
             <div class="col align-items-center">
                 <div class="container payment-card" :class="bank">
                     <div class="row align-items-center">
-                        <div class="col-4 to-left-side">
+                        <div class="col-5 to-left-side">
                             <small class="card-label">Проект</small>
                             <h5 class="card-fill-small">{{this.order.project_name}}</h5>
                             <small v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-label">Владелец</small>
@@ -64,7 +64,7 @@
                             <small v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-label">Комментарий</small>
                             <h5 v-if="!['btc', 'usdt_trc_20', 'usdt_erc_20'].includes(this.merchant.bank)" class="card-fill-small">{{this.order.order_id.slice(-4)}}</h5>
                         </div>
-                        <div class="col-8 to-right-side">
+                        <div class="col-7 to-right-side">
                             <div class="row align-items-center to-right-side">
                                 <div v-if="this.merchant.qrcode !== null" class="col-7 justify-content-end logo">
                                     <div class="logo-div">
