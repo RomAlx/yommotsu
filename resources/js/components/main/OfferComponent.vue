@@ -182,7 +182,7 @@ export default {
 
 @media screen and (max-width: 475px) {
     .offer-img {
-        width: 22rem;
+        width: 18rem;
   }
 }
 
