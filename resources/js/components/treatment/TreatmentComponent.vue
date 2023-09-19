@@ -87,7 +87,7 @@ export default {
 .label{
     color: var(--gray-900, #18181B);
     font-family: Montserrat-SemiBold;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-style: normal;
     font-weight: 700;
     line-height: 2.21875rem; /* 147.917% */
