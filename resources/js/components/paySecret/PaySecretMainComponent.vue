@@ -13,10 +13,8 @@
         <TimerComponent v-else-if="data.step === 'Timer'" v-on:update:Step="updateStep"/>
       </div>
     </div>
-    <div class="footer">
-
-    </div>
   </div>
+  <FooterComponent></FooterComponent>
 </template>
 
 <script>
@@ -26,13 +24,15 @@ import PayMethodComponent from './PaySecretMethodComponent.vue';
 import CardComponent from './PaySecretCardComponent.vue';
 import TimerComponent from './PaySecretTimerMainComponent.vue';
 import CanceledComponent from './PaySecretCanceledComponent.vue';
+import FooterComponent from '../Footer/FooterComponent.vue';
 
 export default {
   components: {
       PayMethodComponent,
       CardComponent,
       TimerComponent,
-      CanceledComponent
+      CanceledComponent,
+      FooterComponent
   },
   data() {
     return {
@@ -113,10 +113,6 @@ export default {
   height: 15vh;
 }
 
-.footer {
-  height: 5vh;
-}
-
 .label{
   margin: 1rem;
   color: #262626;
@@ -152,6 +148,8 @@ export default {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  border: none;
+  outline: none;
 }
 
 .help-button{
@@ -166,6 +164,8 @@ export default {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  border: none;
+  outline: none;
 }
 
 @media screen and (max-width: 685px) {

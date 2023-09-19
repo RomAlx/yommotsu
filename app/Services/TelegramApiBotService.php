@@ -33,4 +33,31 @@ class TelegramApiBotService
         $order->message_id = $result->messageId;
         $order->save();
     }
+
+    public function sendOrderExchange(array $data, Api $telegram): void
+    {
+        Log::info('Preparing data');
+        $text = (new TelegramApiBotMessagesHelper())->prepareExchangeOrderMainPage($data);
+        Log::info('Data was prepared: ' . $text);
+        $channel = env('TELEGRAM_BOT_EXCHANGE_PUSH');
+        Log::info('Sending to channel: ' . $channel);
+        $telegram->sendMessage([
+            'chat_id'=> $channel,
+            'text'=>$text,
+            'parse_mode' => 'HTML',
+        ]);
+    }
+    public function sendOrderPurchase(array $data, Api $telegram): void
+    {
+        Log::info('Preparing data');
+        $text = (new TelegramApiBotMessagesHelper())->preparePurchaseOrderMainPage($data);
+        Log::info('Data was prepared: ' . $text);
+        $channel = env('TELEGRAM_BOT_EXCHANGE_PUSH');
+        Log::info('Sending to channel: ' . $channel);
+        $telegram->sendMessage([
+            'chat_id'=> $channel,
+            'text'=>$text,
+            'parse_mode' => 'HTML',
+        ]);
+    }
 }

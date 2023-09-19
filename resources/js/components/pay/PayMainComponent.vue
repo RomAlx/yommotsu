@@ -14,9 +14,7 @@
         <TimerComponent v-else-if="data.step === 'Timer'" v-on:update:Step="updateStep"/>
       </div>
     </div>
-    <div class="footer">
-
-    </div>
+    <FooterComponent></FooterComponent>
   </div>
 </template>
 
@@ -28,6 +26,7 @@ import FormComponent from './PayFormComponent.vue';
 import CardComponent from './PayCardComponent.vue';
 import TimerComponent from './PayTimerMainComponent.vue';
 import CanceledComponent from './PayCanceledComponent.vue';
+import FooterComponent from '../Footer/FooterComponent.vue';
 
 export default {
   components: {
@@ -35,7 +34,8 @@ export default {
       FormComponent,
       CardComponent,
       CanceledComponent,
-      TimerComponent
+      TimerComponent,
+      FooterComponent
   },
   data() {
     return {
@@ -181,6 +181,8 @@ export default {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  border: none;
+  outline: none;
 }
 
 .done-button:disabled{

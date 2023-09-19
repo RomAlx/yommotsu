@@ -1,6 +1,7 @@
 <?php
 
 use App\Exports\PayOrdersExport;
+use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TelegramController;
@@ -20,6 +21,11 @@ use Maatwebsite\Excel\Facades\Excel;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', [MainPageController::class, 'main']);
+
+Route::get('/policy', [MainPageController::class, 'privacy']);
+
+Route::get('/treatment', [MainPageController::class, 'treatment']);
 
 Route::get('/pay', [PayController::class, 'pay']);
 

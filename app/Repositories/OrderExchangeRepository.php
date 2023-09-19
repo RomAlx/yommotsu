@@ -23,4 +23,18 @@ class OrderExchangeRepository
             ->orderBy('updated_at', 'DESC')
             ->first();
     }
+
+    public function CreateFromMainPage(array $data): bool
+    {
+        Log::info('Data: '. json_encode($data));
+        return OrderExchange::query()->Create([
+            'status' => 'done',
+            'buy' => $data['buy'],
+            'sell' => $data['sell'],
+            'amount' => $data['amount'],
+            'name' => $data['name'],
+            'connect' => $data['connect'],
+            'phone' => $data['phone'],
+        ])->save();
+    }
 }

@@ -1,20 +1,20 @@
 <template>
   <div id="modal" class="modal wow fadeIn">
-      <div class="modal-content">
-        <h2 class="modal-label">Правила</h2>
-        <p class="modal-text">
-            1. Перевод осуществляются строго с выборного банка на банк.<br>
-            2. Имя которое вы указываете, должно полностью совпадать с именем держателя карты.<br>
-            <span class="modal-text-important">3. Всегда указывайте в комментарий к платежу последние 4 символа вашего заказа.</span><br>
-            4. Если вы нарушаете правила - обратитесь в поддержку для уточнения статуса вашего платежа.
-        </p>
-        <div class="row">
-          <div class="col">
-            <button type="submit" class="done-button" @click="closeModal()">Принять</button>
-          </div>
+    <div class="modal-content">
+      <h2 class="modal-label">Правила</h2>
+      <p class="modal-text">
+          1. Перевод осуществляются строго с выборного банка на банк.<br>
+          2. Имя которое вы указываете, должно полностью совпадать с именем держателя карты.<br>
+          <span class="modal-text-important">3. Всегда указывайте в комментарий к платежу последние 4 символа вашего заказа.</span><br>
+          4. Если вы нарушаете правила - обратитесь в поддержку для уточнения статуса вашего платежа.
+      </p>
+      <div class="row">
+        <div class="col">
+          <button type="submit" class="done-button" @click="closeModal()">Принять</button>
         </div>
       </div>
     </div>
+  </div>
   <div class="row wow fadeIn">
     <div class="col">
       <h1 class="label">Выберите удобный метод оплаты</h1>

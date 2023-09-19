@@ -17,6 +17,7 @@ class OrderExchange extends Model
         'amount',
         'location',
         'name',
+        'connect',
         'phone',
         'status',
         'isCorrect',

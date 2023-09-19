@@ -16,4 +16,16 @@ class TelegramApiBotMessagesHelper
         Log::info((string)view('TelegramBotApiPayOrder', $data));
         return (string)view('TelegramBotApiPayOrder', $data);
     }
+
+    public function prepareExchangeOrderMainPage(array $data): string
+    {
+        Log::info((string)view('TelegramBotApiOrderExchange', $data));
+        return (string)view('TelegramBotApiOrderExchange', $data);
+    }
+
+    public function preparePurchaseOrderMainPage(array $data): string
+    {
+        Log::info((string)view('TelegramBotApiOrderPurchase', $data));
+        return (string)view('TelegramBotApiOrderPurchase', $data);
+    }
 }

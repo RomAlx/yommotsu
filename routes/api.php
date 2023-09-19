@@ -3,8 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TelegramController;
 use Illuminate\Http\Request;
@@ -44,4 +46,8 @@ Route::get('/pay/statistic/download', [StatisticController::class, 'export']);
 Route::get('/projects/get/projects', [BotController::class, 'getProjectNames']);
 
 Route::get('/merchants/get/current', [MerchantController::class, 'getMerchants']);
+
+Route::post('/exchange/create/', [ExchangeController::class, 'sendFromMainPage']);
+
+Route::post('/purchase/create/', [PurchaseController::class, 'sendFromMainPage']);
 
