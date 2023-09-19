@@ -185,4 +185,10 @@ header{
   }
 }
 
+@media screen and (max-width: 423px) {
+  .logo-main {
+    height: 2rem;
+  }
+}
+
 </style>
