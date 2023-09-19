@@ -150,8 +150,11 @@ export default {
 }
 
 
-@media screen and (max-width: 996px) {
-    
+@media screen and (max-width: 992px) {
+    .merchant {
+        padding: 2rem;
+        height: auto;
+    }
     .merchant-label{
         font-size: 1.8rem;
         font-weight: 700;
@@ -220,10 +223,6 @@ export default {
 }
 
 @media screen and (max-width: 769px) {
-    .merchant {
-        padding: 2rem;
-        height: 32rem;
-    }
     .merchant-label{
         font-size: 1.8rem;
         font-weight: 700;

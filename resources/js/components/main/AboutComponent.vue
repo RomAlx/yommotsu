@@ -21,10 +21,10 @@
                         </div>
                     </div>
                     <div class="row justify-content-center roller">
-                        <div class="col-5 align-items-center">
+                        <div class="col-6 align-items-center">
                             <h1 class="about-roller-value  on-left"><span ref="turnover"></span> THB</h1>
                         </div>
-                        <div class="col-7 align-items-center">
+                        <div class="col-6 align-items-center">
                             <h1 class="about-roller-field on-right">Месячный оборот</h1>
                         </div>
                     </div>
