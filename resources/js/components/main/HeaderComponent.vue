@@ -2,14 +2,14 @@
   <header class="p-3 border-bottom fixed-top header wow fadeInDown">
       <div class="container">
         <div class="row header-height justify-content-center">
-          <div class="col align-items-center">
+          <div class="col-6 align-items-center">
             <div class="d-flex flex-wrap justify-content-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
                     <img :src="logo" alt="Logo" class="logo-main">
                 </a>
             </div>
           </div>
-          <div v-if="screenWidth>=992" class="col">
+          <div v-if="screenWidth>=992" class="col-6">
             <ul class="nav d-flex justify-content-center">
               <li><a href="#merchant" class="nav-link px-2 header-link">Мерчант</a></li>
               <li><a href="#use" class="nav-link px-2 header-link">Обмен Валют</a></li>
@@ -17,7 +17,7 @@
               <li><a href="#about" class="nav-link px-2 header-link">О нас</a></li>
             </ul>
           </div>
-          <div v-else class="col">
+          <div v-else class="col-6">
             <div v-if="!this.isMenuOpen" class="d-flex flex-wrap justify-content-end">
               <button class="nav-bar-button wow fadeIn" @click="openMenu()"><i class="las la-bars"></i></button>
             </div>
@@ -80,6 +80,7 @@ export default {
 
 <style>
 header{
+  max-width: 100vw;
   background: rgba( 255, 255, 255, 0.25 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   backdrop-filter: blur( 4px );
@@ -178,16 +179,9 @@ header{
   color: red;
   cursor: pointer;
 }
-
 @media screen and (max-width: 475px) {
   .logo-main {
     height: 2.5rem;
-  }
-}
-
-@media screen and (max-width: 423px) {
-  .logo-main {
-    height: 2rem;
   }
 }
 
