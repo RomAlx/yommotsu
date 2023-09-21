@@ -7,7 +7,7 @@
                 <h1 class="use-label-main"><span class="use-label-main-emoji">👋</span> Чем мы можем быть полезны?</h1>
             </div>
             <div class="row">
-                <div :class="{'col-7': screenWidth >= 992, 'col-12 text-center': screenWidth < 992}" class="wow fadeInLeft">
+                <div :class="{'col-7 fadeInLeft': screenWidth >= 992, 'col-12 text-center fadeIn': screenWidth < 992}" class="wow">
                     <div class="use-card-row-1">
                         <h1 class="use-label">Зарабатываете в рублях, а живете за границей?</h1>
                         <p class="use-text">Отлично! Тогда мы поможем с покупкой: BTC, ETH, BNB, USDT, и любую валюту, которая есть в списке CoinMarketCap.</p>
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                 </div>
-                <div :class="{'col-5': screenWidth >= 992, 'col-12 text-center': screenWidth < 992}" class="wow fadeInRight">
+                <div :class="{'col-5 fadeInRight': screenWidth >= 992, 'col-12 text-center fadeIn': screenWidth < 992}" class="wow">
                     <div class="use-card-row-1">
                         <h1 class="use-label">Музыкант?</h1>
                         <p class="use-text">Примем ваши платежи в долларах, евро и отдадим рублями!<br> С нами уже работают: Dimma Urih, Gleb Filipchenkow</p>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="row">
-                <div :class="{'col-4': screenWidth >= 992, 'col-12 text-center': screenWidth < 992}" class="wow fadeInLeft">
+                <div :class="{'col-4 fadeInLeft': screenWidth >= 992, 'col-12 text-center fadeIn': screenWidth < 992}" class="wow">
                     <div class="use-card-row-2">
                         <h1 class="use-label">Нужны Доллары?</h1>
                         <p class="use-text">Вы можете получить у нас любое количество долларов наличными за криптовалюту, рубли, лиры или баты.</p>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div :class="{'col-8': screenWidth >= 992, 'col-12 text-center': screenWidth < 992}" class="wow fadeInRight">
+                <div :class="{'col-8 fadeInRight': screenWidth >= 992, 'col-12 text-center fadeIn': screenWidth < 992}" class="wow">
                     <div class="use-card-row-2">
                         <h1 class="use-label">SWIFT? Не проблема!</h1>
                         <p class="use-text">Открытые направления: Турция / Таиланд.<br> Так же, мы предоставляем консультацию и полное сопровождение, если вы хотите работать по своим счетам.<br> Помогаем открыть счета в Турции, Таиланде, Казахстане и России.</p>
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="row">
-                <div :class="{'col-7': screenWidth >= 992, 'col-12 text-center': screenWidth < 992}" class="wow fadeInLeft">
+                <div :class="{'col-7 fadeInLeft': screenWidth >= 992, 'col-12 text-center fadeIn': screenWidth < 992}" class="wow">
                     <div class="use-card-row-3">
                         <h1 class="use-label">Хотите сделать покупку на EBay, Farfetch  и других зарубежных площадках?</h1>
                         <p class="use-text">Не проблема, мы закажем и оплатим любой товар, и доставим в любую точку мира!</p>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div :class="{'col-5': screenWidth >= 992, 'col-12 text-center': screenWidth < 992}" class="wow fadeInRight">
+                <div :class="{'col-5 fadeInRight': screenWidth >= 992, 'col-12 text-center fadeIn': screenWidth < 992}" class="wow">
                     <div class="use-card-row-3">
                         <h1 class="use-label">Хотите купить криптовалюту за рубли или доллары? </h1>
                         <p class="use-text">Примем любой рублёвый перевод на любой банк РФ, взамен выдадим любое количество или долларов наличными, или местной валюты. Либо переведём на счёт.</p>
