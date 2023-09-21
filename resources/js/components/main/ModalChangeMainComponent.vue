@@ -121,13 +121,6 @@ export default {
       this.v$.$validate();
       if (!this.v$.$error) {
         try{
-          console.log({
-            password: 'P2PEXCHANGE',
-            amount: this.amount,
-            name: this.name,
-            connect: this.connect,
-            phone: this.number,
-          });
           axios.post('/api/exchange/create/', { 
           data: {
             password: 'P2PEXCHANGE',
@@ -505,7 +498,6 @@ export default {
       width: 8rem;
       height: 2rem;
       padding: 0.1rem;
-      line-height: 1rem;
       gap: 0.625rem;
       border-radius: 0.5rem;
   }

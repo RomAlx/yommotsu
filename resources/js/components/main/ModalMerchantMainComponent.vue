@@ -1,124 +1,135 @@
 <template>
-    <div id="modal" class="modal">
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <div class="row justify-content-center border-bottom">
-          <div class="col">
-            <h1 class="label-change">Покупка товара</h1>
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" @click="closeModal">&times;</span>
+      <div class="row justify-content-center border-bottom">
+        <div class="col">
+          <h1 class="label-change">Обмен валюты</h1>
+        </div>
+      </div>  
+      <div class="row justify-content-center">
+        <div v-if="this.isDone">
+          <h1 class="label-change-field">Отлично!</h1>
+          <div class="col align-items-center text-center">
+            <img class="done-img" :src="srcServiceCopyDone">
           </div>
-        </div>  
-        <div class="row justify-content-center">
-          <div v-if="this.isDone">
-            <h1 class="label-change-field">Отлично!</h1>
-            <div class="col align-items-center text-center">
-              <img class="done-img" :src="srcServiceCopyDone">
-            </div>
-            <p class="modal-text">Наш менеджер свяжется с вами втечении 15 минут для уточнения деталей</p>
-            <div class="col align-items-center text-center">
-              <button class="modal-change-button" @click="closeModal">Готово</button>
-            </div>
+          <p class="modal-text">Наш менеджер свяжется с вами втечении 15 минут для уточнения деталей</p>
+          <div class="col align-items-center text-center">
+            <button class="modal-change-button" @click="closeModal">Готово</button>
           </div>
-          <div v-else>
-            <div class="container form-margin">
-              <form @submit.prevent="validateForm()">
-                <div class="row justify-content-center align-items-center">
+        </div>
+        <div v-else>
+          <div class="container form-margin">
+            <form @submit.prevent="validateForm()">
+              <div class="row justify-content-center align-items-center">
+                <div class="col">
+                  <h1 for="name" class="label-change-field">Как вас зовут</h1>
                   <div class="col align-items-center text-center">
-                    <h1 for="link" class="label-change-field">Ссылка на товар</h1>
-                    <div class="align-items-center">
-                      <input v-model="link" id="link" class="form-component" :class="{ 'invalid': (v$.link.$dirty && v$.link.required.$invalid) }">
-                    </div>
-                  </div>
-                  <div class="col align-items-center text-center">
-                    <h1 for="from" class="label-change-field">Способ связи</h1>
-                    <div class="align-items-center">
-                      <select v-model="connect" id="from" class="form-select" :class="{ 'invalid': (v$.connect.$dirty && v$.connect.required.$invalid) }">
-                        <option value="Telegram">Telegram</option>
-                        <option value="WhatsApp">WhatsApp</option>
-                      </select>
-                    </div>
+                    <input type="text" v-model="name" id="name" class="form-component" :class="{ 'invalid': (v$.name.$dirty && v$.name.required.$invalid) }">
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col">      
-                    <h1 v-if="connect==='WhatsApp'" for="number" class="label-change-field">Номер телефона</h1>
-                    <h1 v-else for="number" class="label-change-field">Имя пользователя</h1>
-                    <div class="col align-items-center text-center">
-                      <input type="tel" v-model="number" id="number" class="form-component" :class="{ 'invalid': (v$.number.$dirty && v$.number.required.$invalid) }">
-                    </div>
-                  </div>
-                  <div class="col">
-                    <h1 for="name" class="label-change-field">Как вас зовут</h1>
-                    <div class="col align-items-center text-center">
-                      <input type="text" v-model="name" id="name" class="form-component" :class="{ 'invalid': (v$.name.$dirty && v$.name.required.$invalid) }">
-                    </div>
-                  </div>
-                </div>    
-                <div class="row justify-content-center">
-                  <div class="col align-items-center text-center">
-                    <button type="submit" class="modal-change-button">Создать заявку</button>
+                <div class="col align-items-center text-center">
+                  <h1 for="from" class="label-change-field">Способ связи</h1>
+                  <div class="align-items-center">
+                    <select v-model="connect" id="from" class="form-select" :class="{ 'invalid': (v$.connect.$dirty && v$.connect.required.$invalid) }">
+                      <option value="Telegram">Telegram</option>
+                      <option value="WhatsApp">WhatsApp</option>
+                    </select>
                   </div>
                 </div>
-              </form>
-            </div>
+              </div>
+              <div class="row">
+                <div class="col">      
+                  <h1 v-if="connect==='WhatsApp'" for="number" class="label-change-field">Номер телефона</h1>
+                  <h1 v-else for="number" class="label-change-field">Имя пользователя</h1>
+                  <div class="col align-items-center text-center">
+                    <input type="tel" v-model="number" id="number" class="form-component" :class="{ 'invalid': (v$.number.$dirty && v$.number.required.$invalid) }">
+                  </div>
+                </div>
+                <div class="col">
+                  <h1 for="link" class="label-change-field">Ссылка на проект</h1>
+                  <div class="col align-items-center text-center">
+                    <input type="text" v-model="link" id="link" class="form-component" :class="{ 'invalid': (v$.link.$dirty && v$.link.required.$invalid) }">
+                  </div>
+                </div>
+              </div>    
+              <div class="row">
+                <div class="col">     
+                  <h1 for="description" class="label-change-field">Описание проекта</h1>
+                  <div class="col align-items-center text-center">
+                    <textarea v-model="description" id="description" class="form-component-text" :class="{ 'invalid': (v$.description.$dirty && v$.description.required.$invalid) }" rows="4"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col align-items-center text-center">
+                  <button type="submit" class="modal-change-button">Создать заявку</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </template>
-    
-  <script>
-  import axios from 'axios';
-  import useValidate from '@vuelidate/core';
-  import { required } from '@vuelidate/validators';
-  export default {
-    data() {
-      return {
-        isDone: false,
-        srcServiceCopyDone: '/img/service/done_green.png',
-        v$: useValidate(),
-        link: '',
-        name: '',
-        number: '',
-        connect: 'WhatsApp',
-      };
+  </div>
+</template>
+  
+<script>
+import axios from 'axios';
+import useValidate from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
+export default {
+  data() {
+    return {
+      isDone: false,
+      srcServiceCopyDone: '/img/service/done_green.png',
+      v$: useValidate(),
+      name: '',
+      number: '',
+      connect: 'WhatsApp',
+      link: '',
+      description: '',
+    };
+  },
+  validations() {
+    return {
+      name:{required},
+      number:{required},
+      connect:{required},
+      link:{required},
+      description:{required},
+    }
+  },
+  methods: {
+    closeModal(){
+      this.$emit("close");
     },
-    validations() {
-      return {
-        link: {required},
-        name:{required},
-        number:{required},
-        connect:{required},
+    validateForm() {
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        try{
+          axios.post('/api/project/create/', { 
+          data: {
+            password: 'P2PEXCHANGE',
+            name: this.name,
+            connect: this.connect,
+            phone: this.number,
+            link: this.link,
+            description: this.description
+          }});
+          console.log(`DONE`);
+          this.isDone = true;
+        } catch {
+
+        }
+      } else {
+        console.log(`FAIL TO SUBMIT`);
       }
     },
-    methods: {
-      closeModal(){
-        this.$emit("close");
-      },
-      validateForm() {
-        this.v$.$validate();
-        if (!this.v$.$error) {
-          try{
-            axios.post('/api/purchase/create/', { 
-            data: {
-              password: 'P2PEXCHANGE',
-              link: this.link,
-              name: this.name,
-              connect: this.connect,
-              phone: this.number,
-            }});
-            console.log(`DONE`);
-            this.isDone = true;
-          } catch {
-  
-          }
-        } else {
-          console.log(`FAIL TO SUBMIT`);
-        }
-      },
-    },
-  };
-  </script>
-  
+  },
+};
+</script>
+
 <style scoped>
 .done-img{
     background-color: #fdfdfdc5;
@@ -244,6 +255,22 @@
   align-self: center;
 }
 
+.form-component-text{
+  margin-top: 0.5rem;
+  width: 32rem;
+  min-height: 6rem;
+  border-radius: 0.625rem;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25) inset; 
+  font-family: Montserrat-Regular;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal; 
+  padding: 1rem;
+  display: inline-flex;
+  align-self: center;
+}
+
 .form-select{
   margin-top: 0.5rem;
   width: 15rem;
@@ -340,6 +367,14 @@
     padding-left: 1rem;
   }
 
+  .form-component-text{
+    margin-top: 0.5rem;
+    width: 25rem;
+    min-height: 6rem;
+    border-radius: 0.625rem;
+    font-size: 0.8rem;
+    padding: 1rem;
+  }
   .form-select{
     margin-top: 0.4rem;
     width: 12rem;
@@ -384,6 +419,14 @@
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25) inset; 
     font-size: 0.8rem;
     padding-left: 1rem;
+  }
+  .form-component-text{
+    margin-top: 0.5rem;
+    width: 16rem;
+    min-height: 12rem;
+    border-radius: 0.625rem;
+    font-size: 0.8rem;
+    padding: 1rem;
   }
 
   .form-select{
@@ -453,6 +496,14 @@
     padding-left: 1rem;
   }
 
+  .form-component-text{
+    margin-top: 0.5rem;
+    width: 12rem;
+    min-height: 12rem;
+    border-radius: 0.625rem;
+    font-size: 0.8rem;
+    padding: 1rem;
+  }
   .form-select{
     margin-top: 0.4rem;
     width: 12rem;

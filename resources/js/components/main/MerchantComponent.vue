@@ -1,4 +1,5 @@
 <template>
+    <ModalMerchantComponent v-if="isModalMerchantOpen" v-on:close="closeModal('merchant')" :class="{'myFadeOut': this.isModalAnimationCloseMerchant, 'myFadeIn': this.isModalMerchantOpen}"></ModalMerchantComponent>
     <section class="merchant-section wow fadeIn" id="merchant">
         <div class="container">
             <div class="merchant text-center">
@@ -7,7 +8,7 @@
                         <h1 class="merchant-label">YOMMOTSU merchant</h1>
                         <p class="merchant-text">Наша платежная система - это быстрая и удобная система для осуществления платежей. Мы предлагаем широкий спектр возможностей, включая финансовые операции за рубежом и уникальную кассу в Telegram для вашего бизнеса.<br> Мы гарантируем безопасность и надежность всех транзакций, а также оперативную поддержку наших клиентов.<br> Присоединяйтесь к нам и упростите процесс принятия оплаты уже сегодня! </p>
                         <div class="d-flex justify-content-center">
-                            <button class="merchant-button">Оставить заявку</button>
+                            <button class="merchant-button" @click="openModal('merchant')">Оставить заявку</button>
                         </div>
                     </div>
                     <div v-if="screenWidth>1200" class="col-6 mt-auto">
@@ -19,11 +20,17 @@
     </section>
 </template>
 
-<script>
+<script>import { defineAsyncComponent } from 'vue';
+
 export default {
+  components: {
+    ModalMerchantComponent: defineAsyncComponent(() => import('./ModalMerchantMainComponent.vue')),
+  },
   data() {
     return {
       srcPhoneImg: '/img/main/merchant-img.png',
+      isModalMerchantOpen: false,
+      isModalAnimationCloseMerchant: false,
     };
   },
   props: {
@@ -32,6 +39,26 @@ export default {
       required: true,
     },
   },
+  methods:{
+    openModal(move) {
+        switch (move){
+            case 'merchant':
+                this.isModalMerchantOpen = true;
+                break;
+        }
+    },
+    closeModal(move) {
+        switch (move) {
+            case 'merchant':
+                this.isModalAnimationCloseMerchant = true;
+                setTimeout(() => { 
+                    this.isModalMerchantOpen = false; 
+                    this.isModalAnimationCloseMerchant = false;
+                }, 500);
+                break;
+        }
+    }
+}
 }
 
 </script>

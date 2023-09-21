@@ -6,6 +6,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TelegramController;
@@ -46,6 +47,8 @@ Route::get('/pay/statistic/download', [StatisticController::class, 'export']);
 Route::get('/projects/get/projects', [BotController::class, 'getProjectNames']);
 
 Route::get('/merchants/get/current', [MerchantController::class, 'getMerchants']);
+
+Route::post('/project/create/', [ProjectController::class, 'sendFromMainPage']);
 
 Route::post('/exchange/create/', [ExchangeController::class, 'sendFromMainPage']);
 

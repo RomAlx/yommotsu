@@ -60,4 +60,17 @@ class TelegramApiBotService
             'parse_mode' => 'HTML',
         ]);
     }
+    public function sendOrderMerchant(array $data, Api $telegram): void
+    {
+        Log::info('Preparing data');
+        $text = (new TelegramApiBotMessagesHelper())->prepareMerchantOrderMainPage($data);
+        Log::info('Data was prepared: ' . $text);
+        $channel = env('TELEGRAM_BOT_EXCHANGE_PUSH');
+        Log::info('Sending to channel: ' . $channel);
+        $telegram->sendMessage([
+            'chat_id'=> $channel,
+            'text'=>$text,
+            'parse_mode' => 'HTML',
+        ]);
+    }
 }

@@ -23,4 +23,17 @@ class OrderMerchantRepository
             ->orderBy('updated_at', 'DESC')
             ->first();
     }
+
+    public function CreateFromMainPage(array $data): bool
+    {
+        Log::info('Data: '. json_encode($data));
+        return OrderMerchant::query()->Create([
+            'name' => $data['name'],
+            'connect' => $data['connect'],
+            'phone' => $data['phone'],
+            'link' => $data['link'],
+            'description' => $data['description'],
+            'status' => 'done'
+        ])->save();
+    }
 }
