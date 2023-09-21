@@ -503,7 +503,7 @@ export default {
       margin-top: 1.6rem;
       font-size: 0.8rem;
       width: 8rem;
-      height: 1.84rem;
+      height: 2rem;
       padding: 0.1rem;
       gap: 0.625rem;
       border-radius: 0.5rem;
