@@ -1,5 +1,5 @@
 <template>
-  <div id="modal">
+  <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
       <div class="row justify-content-center border-bottom">

@@ -1,6 +1,6 @@
 <template>
-    <ModalChangeComponent v-if="this.isModalChangeOpen" v-on:close="closeModal('change')"   class="modal wow fadeIn" :class="{'myFadeOut': this.isModalAnimationCloseChange}"></ModalChangeComponent>
-    <ModalBuyProductComponent v-if="this.isModalBuyOpen" v-on:close="closeModal('buy')" class="modal wow fadeIn" :class="{'myFadeOut': this.isModalAnimationCloseBuy}"></ModalBuyProductComponent>
+    <ModalChangeComponent v-if="isModalChangeOpen" v-on:close="closeModal('change')" :class="{'myFadeOut': this.isModalAnimationCloseChange, 'myFadeIn': this.isModalChangeOpen}"></ModalChangeComponent>
+    <ModalBuyProductComponent v-if="isModalBuyOpen" v-on:close="closeModal('buy')" :class="{'myFadeOut': this.isModalAnimationCloseBuy, 'myFadeIn': this.isModalBuyOpen}"></ModalBuyProductComponent>
     <section class="use" id="use">
         <div class="container">
             <div class="use-card-label wow fadeIn">

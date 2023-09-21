@@ -55,4 +55,17 @@ export default {
   opacity: 0;
   transition: opacity 0.5s;
 }
+
+.myFadeIn{
+  animation: fade-in 1s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 </style>
