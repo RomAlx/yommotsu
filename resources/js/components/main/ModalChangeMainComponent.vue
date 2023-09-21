@@ -1,5 +1,5 @@
 <template>
-  <div id="modal" class="modal wow fadeIn">
+  <div id="modal">
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
       <div class="row justify-content-center border-bottom">
