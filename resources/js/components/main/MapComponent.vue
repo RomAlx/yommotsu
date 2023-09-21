@@ -345,6 +345,30 @@ export default {
 
 }
 
+@media screen and (max-width: 776px) {
+
+.marker-information { 
+    width: 10rem; 
+    height: 7rem;
+    padding: 0.3rem;
+}
+
+.marker-information-flag{
+    height: 2.5rem;
+    margin: 0.2rem;
+}
+
+.marker-information-country{
+    font-size: 0.7rem;
+    line-height: 1.2rem;
+}
+
+.marker-information-address{
+    font-size: 0.6rem;
+}
+
+}
+
 @media screen and (max-width: 576px) {
 
 .map{
@@ -373,5 +397,24 @@ export default {
     font-size: 0.8rem;
 }
 
+.marker-information { 
+    width: 10rem; 
+    height: 5rem;
+    padding: 0.3rem;
+}
+
+.marker-information-flag{
+    height: 2rem;
+    margin: 0.1rem;
+}
+
+.marker-information-country{
+    font-size: 0.6rem;
+    line-height: 0.9rem;
+}
+
+.marker-information-address{
+    font-size: 0.6rem;
+}
 }
 </style>
