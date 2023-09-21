@@ -42,42 +42,53 @@
             </div>
         </div>
       </div>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col">
-            <h1 class="label feedback">Как все прошло?</h1>
-          </div>
-        </div>
+      <div v-if="this.isSendComment">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="star-block">
-              <div class="row justify-content-center">
-                <div class="col-2">
-                  <img :src="this.rate >= 1 ? star_active : star_disable" @click="changeRate(1)" alt="gold">
-                </div>
-                <div class="col-2">
-                  <img :src="this.rate >= 2 ? star_active : star_disable" @click="changeRate(2)" alt="gold">
-                </div>
-                <div class="col-2">
-                  <img :src="this.rate >= 3 ? star_active : star_disable" @click="changeRate(3)" alt="gold">
-                </div>
-                <div class="col-2">
-                  <img :src="this.rate >= 4 ? star_active : star_disable" @click="changeRate(4)" alt="gold">
-                </div>
-                <div class="col-2">
-                  <img :src="this.rate >= 5 ? star_active : star_disable" @click="changeRate(5)" alt="gold">
+            <div class="col">
+              <h1 class="label feedback">Спасибо за Ваш отзыв</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col">
+              <h1 class="label feedback">Как все прошло?</h1>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="star-block">
+                <div class="row justify-content-center">
+                  <div class="col-2">
+                    <img :src="this.rate >= 1 ? star_active : star_disable" @click="changeRate(1)" alt="gold">
+                  </div>
+                  <div class="col-2">
+                    <img :src="this.rate >= 2 ? star_active : star_disable" @click="changeRate(2)" alt="gold">
+                  </div>
+                  <div class="col-2">
+                    <img :src="this.rate >= 3 ? star_active : star_disable" @click="changeRate(3)" alt="gold">
+                  </div>
+                  <div class="col-2">
+                    <img :src="this.rate >= 4 ? star_active : star_disable" @click="changeRate(4)" alt="gold">
+                  </div>
+                  <div class="col-2">
+                    <img :src="this.rate >= 5 ? star_active : star_disable" @click="changeRate(5)" alt="gold">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="comment-block">
-              <div class="row justify-content-center">
-                <textarea class="comment-area" v-model="comment" placeholder="Напишите что-нибудь..."></textarea>  
-                <div class="col-12">
-                  <button class="done-button"  @click="sendComment()">Отправить</button>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="comment-block">
+                <div class="row justify-content-center">
+                  <textarea class="comment-area" v-model="comment" placeholder="Напишите что-нибудь..."></textarea>  
+                  <div class="col-12">
+                    <button class="done-button"  @click="sendComment()">Отправить</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -100,6 +111,7 @@ export default {
       send: false,
       rate: null,
       comment: null,
+      isSendComment: false,
     };
   },
   props: {
@@ -133,7 +145,7 @@ export default {
           comment: this.comment,
         },
       });
-      this.send = true;
+      this.isSendComment = true;
     },
   }
 };
