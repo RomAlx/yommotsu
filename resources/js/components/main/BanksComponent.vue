@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row justify-content-center align-items-center">
         <div class="col align-items-center">
-          <h1 class="banks-label">Банки с которыми мы работаем</h1>
+          <h1 class="banks-label">Банки партнеры</h1>
           <div class="banks-table">
             <div class="row justify-content-center align-items-center">
               <div class="d-flex justify-content-center text-center"

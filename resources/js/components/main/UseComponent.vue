@@ -71,14 +71,13 @@
 </template>
 
 <script>
-import ModalChangeComponent from './ModalChangeMainComponent.vue';
-import ModalBuyProductComponent from './ModalBuyProductComponent.vue';
+import { defineAsyncComponent } from 'vue';
 
 export default {
-    components: {
-        ModalChangeComponent,
-        ModalBuyProductComponent,
-    },
+  components: {
+    ModalChangeComponent: defineAsyncComponent(() => import('./ModalChangeMainComponent.vue')),
+    ModalBuyProductComponent: defineAsyncComponent(() => import('./ModalBuyProductComponent.vue')),
+  },
     props: {
     screenWidth: {
       type: Number,
