@@ -144,10 +144,6 @@ export default {
   height: 15vh;
 }
 
-.footer {
-  height: 5vh;
-}
-
 .label{
   margin: 1rem;
   color: #262626;
