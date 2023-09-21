@@ -505,6 +505,7 @@ export default {
       width: 8rem;
       height: 2rem;
       padding: 0.1rem;
+      line-height: 1rem;
       gap: 0.625rem;
       border-radius: 0.5rem;
   }
