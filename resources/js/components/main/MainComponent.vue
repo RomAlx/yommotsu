@@ -11,26 +11,18 @@
 
 <script>
 import { ref, onMounted } from 'vue';
-
-import HeaderComponent from './HeaderComponent.vue';
-import OfferComponent from './OfferComponent.vue';
-import UseComponent from './UseComponent.vue';
-import BanksComponent from './BanksComponent.vue';
-import MerchantComponent from './MerchantComponent.vue';
-import MapComponent from './MapComponent.vue';
-import AboutComponent from './AboutComponent.vue'
-import FooterComponent from './FooterComponent.vue';
+import { defineAsyncComponent } from 'vue';
 
 export default {
   components: {
-    HeaderComponent,
-    OfferComponent,
-    UseComponent,
-    BanksComponent,
-    MerchantComponent,
-    MapComponent,
-    AboutComponent,
-    FooterComponent,
+    HeaderComponent: defineAsyncComponent(() => import('./HeaderComponent.vue')),
+    OfferComponent: defineAsyncComponent(() => import('./OfferComponent.vue')),
+    UseComponent: defineAsyncComponent(() => import('./UseComponent.vue')),
+    BanksComponent: defineAsyncComponent(() => import('./BanksComponent.vue')),
+    MerchantComponent: defineAsyncComponent(() => import('./MerchantComponent.vue')),
+    MapComponent: defineAsyncComponent(() => import('./MapComponent.vue')),
+    AboutComponent: defineAsyncComponent(() => import('./AboutComponent.vue')),
+    FooterComponent: defineAsyncComponent(() => import('./FooterComponent.vue')),
   },
   setup() {
     const screenWidth = ref(0);
