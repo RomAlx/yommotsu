@@ -13,14 +13,14 @@ export default defineConfig({
     //    }
     //},
     //prod
-    //server: {
-    //    host,
-    //    hmr: { host },
-    //    https: {
-    //        key: fs.readFileSync(`/etc/ssl/yommotsu.key`),
-    //        cert: fs.readFileSync(`/etc/ssl/yommotsu.crt`),
-    //    }
-    //},
+    server: {
+        host,
+        hmr: { host },
+        https: {
+            key: fs.readFileSync(`/etc/ssl/yommotsu.key`),
+            cert: fs.readFileSync(`/etc/ssl/yommotsu.crt`),
+        }
+    },
     plugins: [
         vue({
             template: {
