@@ -37,6 +37,9 @@
             <button class="pay-button" @click="selectPaymentMethod('sbp')" :disabled="checkButtonStatus('sbp')"><img class="bank-img" :src="sbp" alt="СБП"></button>
           </div>
           <div class="col">
+            <button class="pay-button" @click="selectPaymentMethod('yomoney')" :disabled="checkButtonStatus('yomoney')"><img class="bank-img" :src="yomoney" alt="yomoney"></button>
+          </div>
+          <div class="col">
             <button class="pay-button" @click="selectPaymentMethod('usdt_trc_20')" :disabled="checkButtonStatus('usdt_trc_20')"><img class="bank-img" :src="usdt_trc_20" alt="USDT TRC 20"></button>
           </div>
           <div class="col">
@@ -60,8 +63,9 @@ export default {
       sbp: '/img/paymentMethod/sbp.png',
       alfa: '/img/paymentMethod/alfa.png',
       raiffeisen: '/img/paymentMethod/raiffeisen.png',
-      mastercard: '/img/paymentMethod/mastercard.png',
-      mir: '/img/paymentMethod/mir.png',
+      //mastercard: '/img/paymentMethod/mastercard.png',
+      //mir: '/img/paymentMethod/mir.png',
+      yomoney: '/img/paymentMethod/yomoney.png',
       usdt_trc_20: '/img/paymentMethod/usdt_trc_20.png',
       usdt_erc_20: '/img/paymentMethod/usdt_erc_20.png',
       btc: '/img/paymentMethod/btc.png',

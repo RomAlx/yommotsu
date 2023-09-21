@@ -32,6 +32,18 @@
                     Ваш комментарий к переводу: <span id="comment2" class="info-field-important">{{ this.order.order_id.slice(-4) }}</span> <span class="info-field-important"><img class="comment-copy" :src="srcServiceCopyComment2" @click="copyToClipboard('comment2')"></span></p>
             </div>
         </div>
+        <div class="row">
+            <div class="container fix-width">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <button type="button" class="done-button" @click="openNewWindow(this.redirect_url)">Отменить заказ</button>
+                    </div>
+                    <div class="col">
+                        <button class="done-button" @click="pay()">Я оплатил!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row align-items-center">
             <div class="col align-items-center">
                 <div class="container order-card">
@@ -131,16 +143,6 @@
                     <div class="col">
                         <img class="manual-img" :src="srcManualDone">
                         <p class="fix-top manual-field-value">Ожидайте подтверждения операции.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="container fix-width">
-                <div class="row justify-content-center">
-                    <div class="col">
-                        <button type="button" class="done-button" @click="openNewWindow(this.redirect_url)">Отменить заказ</button>
-                    </div>
-                    <div class="col">
-                        <button class="done-button" @click="pay()">Я оплатил!</button>
                     </div>
                 </div>
             </div>
@@ -543,6 +545,10 @@ a{
     box-shadow: 0px 2px 19px 3px rgba(0, 0, 0, 0.31); 
 }
 
+.yomoney{
+    background: linear-gradient(289deg, #15151D 17.96%, #7e20a3 277.49%);
+    box-shadow: 0px 2px 19px 3px rgba(0, 0, 0, 0.31); 
+}
 .card-label{
     color: #DDD;
     font-family: Montserrat-Regular;
@@ -648,6 +654,11 @@ a{
 .logo-mir{
     width: 12rem;
     height: 3.36rem;
+}
+
+.logo-yomoney{
+    width: 12rem;
+    height: 2.6rem;
 }
 
 .manual-field-value{
@@ -808,6 +819,11 @@ a{
     .logo-usdt_trc_20, .logo-usdt_erc_20, .logo-btc{
         width: 4.4rem;
         height: 4.4rem;
+    }
+
+    .logo-yomoney{
+        width: 9.6em;
+        height: 2.08rem;
     }
 
     .manual-field-value{
@@ -1003,6 +1019,11 @@ a{
         height: 2.15rem;
     }
 
+    .logo-yomoney{
+        width: 7.5em;
+        height: 1.61rem;
+    }
+
     .manual-field-value{
         font-size: 0.64rem;
     }
@@ -1128,6 +1149,11 @@ a{
     .logo-mir{
         width: 5.95rem;
         height: 1.72rem;
+    }
+
+    .logo-yomoney{
+        width: 7rem;
+        height: 1.5rem;
     }
 }
 

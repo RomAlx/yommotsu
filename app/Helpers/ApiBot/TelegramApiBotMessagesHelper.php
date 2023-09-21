@@ -10,9 +10,20 @@ class TelegramApiBotMessagesHelper
 {
     public function prepareDataFromRequest(array $data): string
     {
+        if(gettype($data['bank']) === 'string'){
+            $data['bank'] = json_decode($data['bank'], true);
+        }
+        Log::info( $data);
         if($data['bank']['bank'] != 'sbp'){
             $data['bank']['bank_number'] = substr($data['bank']['bank_number'], -4);
         }
+        $rate = '';
+        if(!is_null($data['rate'])){
+            for($i = 0; $i < $data['rate']; $i++){
+                $rate .= '⭐️';
+            }
+        }
+        $data['rate'] = $rate;
         Log::info((string)view('TelegramBotApiPayOrder', $data));
         return (string)view('TelegramBotApiPayOrder', $data);
     }

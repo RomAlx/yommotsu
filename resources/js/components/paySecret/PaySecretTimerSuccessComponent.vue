@@ -35,6 +35,48 @@
           </div>
         </div>
       </div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col">
+            <h1 class="label feedback">Как все прошло?</h1>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="star-block">
+              <div class="row justify-content-center">
+                <div class="col-2">
+                  <img :src="this.rate >= 1 ? star_active : star_disable" @click="changeRate(1)" alt="gold">
+                </div>
+                <div class="col-2">
+                  <img :src="this.rate >= 2 ? star_active : star_disable" @click="changeRate(2)" alt="gold">
+                </div>
+                <div class="col-2">
+                  <img :src="this.rate >= 3 ? star_active : star_disable" @click="changeRate(3)" alt="gold">
+                </div>
+                <div class="col-2">
+                  <img :src="this.rate >= 4 ? star_active : star_disable" @click="changeRate(4)" alt="gold">
+                </div>
+                <div class="col-2">
+                  <img :src="this.rate >= 5 ? star_active : star_disable" @click="changeRate(5)" alt="gold">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="comment-block">
+              <div class="row justify-content-center">
+                <textarea class="comment-area" v-model="comment" placeholder="Напишите что-нибудь..."></textarea>  
+                <div class="col-12">
+                  <button class="done-button"  @click="sendComment()">Отправить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +88,11 @@ export default {
       success: '/img/payTimer/done.png',
       redirect_url: window.blade_data.redirect_url,
       help_url: 'https://t.me/yommotsu_admin',
+      star_active: '/img/service/star-active.png',
+      star_disable: '/img/service/star-disable.png',
+      send: false,
+      rate: null,
+      comment: null,
     };
   },
   props: {
@@ -57,7 +104,21 @@ export default {
   methods: {
     openNewWindow(url){
       window.open(url, "_blank");
-    }
+    },
+    changeRate(num){
+      this.rate = num;
+    },
+    sendComment(){
+      axios.post('/api/order/update/paypage', {
+        data: {
+          password: 'P2PEXCHANGE',
+          order_id: this.order.order_id,
+          rate: this.rate,
+          comment: this.comment,
+        },
+      });
+      this.send = true;
+    },
   }
 };
 </script>
@@ -135,6 +196,38 @@ export default {
 .fix-width{
     margin-top: 1rem;
     width: 25rem;
+}
+
+.feedback{
+  margin: 2rem;
+  font-size: 1.4rem;
+}
+
+.star-block{
+  width: 20rem;
+}
+
+.comment-area{
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  width: 32rem;
+  height: 10rem;
+  flex-shrink: 0;
+  font-family: Montserrat-Regular;
+  font-size: 1rem;
+  border-radius: 0.9375rem;
+  background: rgba( 233, 233, 233, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  outline: none;
+  appearance: none;
+}
+
+.comment-block{
+  margin-bottom: 3rem;
 }
 
 @media screen and (max-width: 685px) {

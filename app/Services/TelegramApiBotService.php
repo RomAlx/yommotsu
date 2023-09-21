@@ -34,6 +34,29 @@ class TelegramApiBotService
         $order->save();
     }
 
+    public function updateOrder(array $data, Api $telegram): void
+    {
+        Log::info('Preparing data');
+        $text = (new TelegramApiBotMessagesHelper())->prepareDataFromRequest($data);
+        Log::info('Data was prepared: ' . $text);
+        $bot = (new BotRepository())->getBotByName($data['project_name']);
+        $channel = $bot->channel;
+        Log::info('Sending to channel: ' . $bot);
+        if(is_null($channel)){
+            $channel = env('TELEGRAM_BOT_PAY_PUSH');
+        }
+        Log::info('Sending to channel: ' . $channel);
+        $result = $telegram->editMessageText([
+            'chat_id'=> $channel,
+            'message_id' => $data['message_id'],
+            'text'=>$text,
+            'parse_mode' => 'HTML',
+        ]);
+        $order = (new PayOrderRepository())->getOrder($data['order_id']);
+        $order->message_id = $result->messageId;
+        $order->save();
+    }
+
     public function sendOrderExchange(array $data, Api $telegram): void
     {
         Log::info('Preparing data');

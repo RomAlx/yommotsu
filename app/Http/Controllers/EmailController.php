@@ -36,7 +36,9 @@ class EmailController extends Controller
                                 $status = 'Отклонен';
                                 break;
                         }
-                        $bank = json_decode($order->bank, 1);
+                        if(gettype($order->bank) === 'string'){
+                            $bank = json_decode($order->bank, true);
+                        }
                         Log::info('Order for bank: ' . $bank['bank']);
                         $currency = ' ₽';
                         switch ($bank['bank']){

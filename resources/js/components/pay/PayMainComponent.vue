@@ -21,6 +21,7 @@
 <script>
 import {reactive} from 'vue';
 import axios from 'axios';
+
 import PayMethodComponent from './PayMethodComponent.vue';
 import FormComponent from './PayFormComponent.vue';
 import CardComponent from './PayCardComponent.vue';
@@ -30,12 +31,12 @@ import FooterComponent from '../Footer/FooterComponent.vue';
 
 export default {
   components: {
-      PayMethodComponent,
-      FormComponent,
-      CardComponent,
-      CanceledComponent,
-      TimerComponent,
-      FooterComponent
+    PayMethodComponent,
+    FormComponent,
+    CardComponent,
+    TimerComponent,
+    CanceledComponent,
+    FooterComponent,
   },
   data() {
     return {

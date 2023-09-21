@@ -18,3 +18,11 @@
 
 <b>💰 Сумма</b>
 <b>{{$amount}}</b>
+
+@if(!is_null($rate))
+{{$rate}}
+@endif
+
+@if(!is_null($comment))
+<i>{{$comment}}</i>
+@endif

@@ -69,6 +69,7 @@ class OrderController extends Controller
     {
         Log::info('New Request: ' . json_encode($request->input('data')));
         $data = $request->input('data');
+        $isComment = false;
         if (array_key_exists('password', $data)) {
             if($data['password'] == 'P2PEXCHANGE'){
                 if (array_key_exists('order_id', $data)) {
@@ -87,8 +88,16 @@ class OrderController extends Controller
                         if (array_key_exists('bank', $data)) {
                             $order->bank = $data['bank'];
                         }
+                        if (array_key_exists('rate', $data)) {
+                            $isComment = true;
+                            $order->rate = $data['rate'];
+                        }
+                        if (array_key_exists('comment', $data)) {
+                            $isComment = true;
+                            $order->comment = $data['comment'];
+                        }
                         $order->save();
-                        if(is_null($order->message_id) && $order->status != 'CREATED'){
+                        if((is_null($order->message_id) && ($order->status != 'CREATED')) || (!is_null($order->message_id) && $isComment)){
                             $token = env('TELEGRAM_BOT_API_TOKEN');
                             $telegram = new Api($token);
                             $data = [
@@ -98,8 +107,15 @@ class OrderController extends Controller
                                 'order_id'=> $order->order_id,
                                 'amount'=> $order->amount,
                                 'bank' => $order->bank,
+                                'rate' => $order->rate,
+                                'comment' => $order->comment,
+                                'message_id' => $order->message_id,
                             ];
-                            (new TelegramApiBotService())->sendOrder($data, $telegram);
+                            if($isComment){
+                                (new TelegramApiBotService())->updateOrder($data, $telegram);
+                            } else {
+                                (new TelegramApiBotService())->sendOrder($data, $telegram);
+                            }
                         }
                         Log::info('Ending...');
                     } else {
