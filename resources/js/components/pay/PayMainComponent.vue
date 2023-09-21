@@ -14,8 +14,8 @@
         <TimerComponent v-else-if="data.step === 'Timer'" v-on:update:Step="updateStep"/>
       </div>
     </div>
-    <FooterComponent></FooterComponent>
   </div>
+  <FooterComponent></FooterComponent>
 </template>
 
 <script>
