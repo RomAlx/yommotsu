@@ -225,7 +225,7 @@ export default {
         padding-top: 6.5rem;
     }
     .about-label{
-        font-size: 2rem;
+        font-size: 1.44rem;
         line-height: 1.875rem;
     }
     .about-text {

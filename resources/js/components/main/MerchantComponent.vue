@@ -215,7 +215,7 @@ export default {
         font-weight: 700;
         line-height: 2.21875rem; /* 147.917% */
         letter-spacing: -0.0625rem;
-        margin-top: 8rem;
+        margin-top: 0rem;
         margin-bottom: 1.5rem;
     }
 }
@@ -223,7 +223,7 @@ export default {
 @media screen and (max-width: 576px) {
     
     .merchant-label{
-        font-size: 1.6rem;
+        font-size: 1.44rem;
         font-weight: 700;
         line-height: 2.21875rem; /* 147.917% */
         letter-spacing: -0.0625rem;
@@ -249,15 +249,6 @@ export default {
     }
 }
 
-@media screen and (max-width: 769px) {
-    .merchant-label{
-        font-size: 1.8rem;
-        font-weight: 700;
-        line-height: 2.21875rem; /* 147.917% */
-        letter-spacing: -0.0625rem;
-        margin-top: 0rem;
-        margin-bottom: 1.5rem;
-    }
-}
+
 
 </style>

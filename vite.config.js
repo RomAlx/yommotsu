@@ -8,19 +8,19 @@ const host = 'yommotsu.com';
 export default defineConfig({
     //dev
     //server: {
-    //    hmr: {
-    //      host: `localhost`
+    //       hmr: {
+    //    host: `localhost`
     //    }
     //},
     //prod
-    server: {
-        host,
-        hmr: { host },
-        https: {
-            key: fs.readFileSync(`/etc/ssl/yommotsu.key`),
-            cert: fs.readFileSync(`/etc/ssl/yommotsu.crt`),
-        }
-    },
+    //server: {
+    //    host,
+    //    hmr: { host },
+    //    https: {
+    //        key: fs.readFileSync(`/etc/ssl/yommotsu.key`),
+    //        cert: fs.readFileSync(`/etc/ssl/yommotsu.crt`),
+    //    }
+    //},
     plugins: [
         vue({
             template: {
