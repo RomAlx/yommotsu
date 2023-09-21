@@ -13,9 +13,11 @@
 import { ref, onMounted } from 'vue';
 import { defineAsyncComponent } from 'vue';
 
+import HeaderComponent from './HeaderComponent.vue';
+
 export default {
   components: {
-    HeaderComponent: defineAsyncComponent(() => import('./HeaderComponent.vue')),
+    HeaderComponent,
     OfferComponent: defineAsyncComponent(() => import('./OfferComponent.vue')),
     UseComponent: defineAsyncComponent(() => import('./UseComponent.vue')),
     BanksComponent: defineAsyncComponent(() => import('./BanksComponent.vue')),

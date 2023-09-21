@@ -1,5 +1,5 @@
 <template>
-  <header class="p-3 border-bottom fixed-top header wow fadeInDown">
+  <header class="p-3 border-bottom fixed-top header">
       <div class="container">
         <div class="row header-height justify-content-center">
           <div class="col-6 align-items-center">
@@ -18,14 +18,14 @@
             </ul>
           </div>
           <div v-else class="col-6">
-            <div v-if="!this.isMenuOpen" class="d-flex flex-wrap justify-content-end">
-              <button class="nav-bar-button wow fadeIn" @click="openMenu()"><i class="las la-bars"></i></button>
+            <div class="d-flex flex-wrap justify-content-end">
+              <button class="nav-bar-button" @click="openMenu()"><i class="las la-bars"></i></button>
             </div>
           </div>
         </div>
       </div>
   </header>
-  <div v-if="this.isMenuOpen" class="side-bar wow fadeIn" :class="{'myFadeOut': this.isAnimationClose}">
+  <div v-if="this.isMenuOpen" class="side-bar myFadeIn" :class="{'myFadeOut': this.isAnimationClose}">
     <div class="row">
       <div class="col-12">
         <ul class="nav d-flex flex-column justify-content-center align-items-center" style="padding: 0;">
