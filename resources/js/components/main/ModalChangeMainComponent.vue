@@ -230,7 +230,7 @@ export default {
 .modal-text {
   padding-left: 1rem;
   font-family: Montserrat-Regular;
-  color: #252525;
+  color: #000000;
   font-size: 1rem;
   font-style: normal;
   font-weight: 600;
@@ -315,19 +315,198 @@ export default {
 }
 
 .invalid{
-  border: 3px solid rgba(255, 2, 2, 0.493);
+  border: 2px solid rgba(255, 2, 2, 0.493);
+}
+
+@media screen and (max-width: 1400px) {
+  .done-img{
+    margin: 1rem;
+    background-color: #fdfdfdc5;
+    border-radius: 50%;
+    height: 6.4rem;
+  }
+  .form-margin{
+    margin-top: 0.8rem;
+  }
+  .label-change{
+    font-size: 1.2rem;
+  }
+
+  .label-change-field{
+    margin-top: 0.8rem;
+    font-size: 1rem;
+    line-height: 1rem;
+  }
+
+  .modal-content {
+    padding: 1.6rem;
+    border: 1px solid #888;
+    border-radius: 1rem;
+    width: 32rem;
+  }
+
+  .modal-label {
+    padding-left: 1rem;
+    font-family: Montserrat-SemiBold;
+    color: #252525;
+    font-size: 1rem;
+  }
+
+  .modal-text {
+    padding-left: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .modal-text-important {
+    color: #b82d2d;
+    font-family: Montserrat-SemiBold;
+  }
+
+  .form-component{
+    margin-top: 0.4rem;
+    width: 12rem;
+    height: 2rem;
+    border-radius: 0.625rem;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25) inset; 
+    font-size: 0.8rem;
+    padding-left: 1rem;
+  }
+
+  .form-select{
+    margin-top: 0.4rem;
+    width: 12rem;
+    height: 2rem;
+    border-radius: 0.625rem;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25) inset; 
+    font-family: Montserrat-Regular;
+    font-size: 0.8rem;
+    padding-left: 1.8rem;
+  }
+
+  .border-bottom{
+    border-bottom: 1px solid #0505054b !important;
+  }
+  .modal-change-button {
+      margin-top: 1.6rem;
+      font-size: 0.8rem;
+      width: 8rem;
+      height: 1.84rem;
+      padding: 0.1rem;
+      gap: 0.625rem;
+      border-radius: 0.5rem;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .modal-content {
-  position: relative;
-  background: #f1f1f1 url(/img/main/use-label-img.png) no-repeat center;
-  background-position: 2rem 2rem;
-  margin: 15% auto;
-  padding: 2rem;
-  border: 1px solid #888;
-  border-radius: 1rem;
-  width: 23rem;
+    position: relative;
+    background: #f1f1f1 url(/img/main/use-label-img.png) no-repeat center;
+    background-position: 2rem 2rem;
+    margin: 15% auto;
+    padding: 2rem;
+    border: 1px solid #888;
+    border-radius: 1rem;
+    width: 23rem;
+  }
+  .form-component{
+    margin-top: 0.4rem;
+    width: 16rem;
+    height: 2rem;
+    border-radius: 0.625rem;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25) inset; 
+    font-size: 0.8rem;
+    padding-left: 1rem;
+  }
+
+  .form-select{
+    margin-top: 0.4rem;
+    width: 16rem;
+    height: 2rem;
+    border-radius: 0.625rem;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25) inset; 
+    font-family: Montserrat-Regular;
+    font-size: 0.8rem;
+    padding-left: 1.8rem;
+  }
 }
+
+@media screen and (max-width: 476px) {
+  .done-img{
+    margin: 1rem;
+    background-color: #fdfdfdc5;
+    border-radius: 50%;
+    height: 6.4rem;
+  }
+  .form-margin{
+    margin-top: 0.8rem;
+  }
+  .label-change{
+    font-size: 1.2rem;
+  }
+
+  .label-change-field{
+    margin-top: 0.8rem;
+    font-size: 1rem;
+    line-height: 1rem;
+  }
+
+  .modal-content {
+    margin-top: 9rem;
+    padding: 1.6rem;
+    border: 1px solid #888;
+    border-radius: 1rem;
+    width: 18rem;
+  }
+
+  .modal-label {
+    padding-left: 1rem;
+    font-family: Montserrat-SemiBold;
+    color: #252525;
+    font-size: 1rem;
+  }
+
+  .modal-text {
+    padding-left: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .modal-text-important {
+    color: #b82d2d;
+    font-family: Montserrat-SemiBold;
+  }
+
+  .form-component{
+    margin-top: 0.4rem;
+    width: 12rem;
+    height: 2rem;
+    border-radius: 0.625rem;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25) inset; 
+    font-size: 0.8rem;
+    padding-left: 1rem;
+  }
+
+  .form-select{
+    margin-top: 0.4rem;
+    width: 12rem;
+    height: 2rem;
+    border-radius: 0.625rem;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25) inset; 
+    font-family: Montserrat-Regular;
+    font-size: 0.8rem;
+    padding-left: 1.8rem;
+  }
+
+  .border-bottom{
+    border-bottom: 1px solid #0505054b !important;
+  }
+  .modal-change-button {
+      margin-top: 1.6rem;
+      font-size: 0.8rem;
+      width: 8rem;
+      height: 1.84rem;
+      padding: 0.1rem;
+      gap: 0.625rem;
+      border-radius: 0.5rem;
+  }
 }
 </style>
