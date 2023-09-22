@@ -130,7 +130,7 @@
             this.isDone = true;
             setTimeout(() => {
                 this.isDone = false;
-            }, 500);
+            }, 1500);
           } catch {
   
           }
