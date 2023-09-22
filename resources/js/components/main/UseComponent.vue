@@ -6,13 +6,16 @@
             <div class="use-card-label wow fadeIn">
                 <h1 class="use-label-main"><span class="use-label-main-emoji">👋</span> Чем мы можем быть полезны?</h1>
             </div>
+            <ChangeComponent></ChangeComponent>
             <div class="row">
                 <div :class="{'col-7 fadeInLeft': screenWidth >= 992, 'col-12 text-center fadeIn': screenWidth < 992}" class="wow">
                     <div class="use-card-row-1">
                         <h1 class="use-label">Зарабатываете в рублях, а живете за границей?</h1>
                         <p class="use-text">Отлично! Тогда мы поможем с покупкой: BTC, ETH, BNB, USDT, и любую валюту, которая есть в списке CoinMarketCap.</p>
                         <div :class="{'d-flex justify-content-center': screenWidth < 992}">
-                            <button class="use-button" @click="openModal('change')"><span>Начать <i class="las la-comment"></i></span></button>
+                            <a class="use-button" :href="connect_url" target="_blank">
+                                <span>Начать <i class="las la-comment"></i></span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -21,7 +24,9 @@
                         <h1 class="use-label">Музыкант?</h1>
                         <p class="use-text">Примем ваши платежи в долларах, евро и отдадим рублями!<br> С нами уже работают: Dimma Urih, Gleb Filipchenkow</p>
                         <div :class="{'d-flex justify-content-center': screenWidth < 992}">
-                            <button class="use-button" @click="openModal('change')"><span>Начать <i class="las la-comment"></i></span></button>
+                            <a class="use-button" :href="connect_url" target="_blank">
+                                <span>Начать <i class="las la-comment"></i></span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -32,7 +37,9 @@
                         <h1 class="use-label">Нужны Доллары?</h1>
                         <p class="use-text">Вы можете получить у нас любое количество долларов наличными за криптовалюту, рубли, лиры или баты.</p>
                         <div :class="{'d-flex justify-content-center': screenWidth < 992}">
-                            <button class="use-button" @click="openModal('change')"><span>Начать <i class="las la-comment"></i></span></button>
+                            <a class="use-button" :href="connect_url" target="_blank">
+                                <span>Начать <i class="las la-comment"></i></span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -41,7 +48,9 @@
                         <h1 class="use-label">SWIFT? Не проблема!</h1>
                         <p class="use-text">Открытые направления: Турция / Таиланд.<br> Так же, мы предоставляем консультацию и полное сопровождение, если вы хотите работать по своим счетам.<br> Помогаем открыть счета в Турции, Таиланде, Казахстане и России.</p>
                         <div :class="{'d-flex justify-content-center': screenWidth < 992}">
-                            <button class="use-button" @click="openModal('change')"><span>Начать <i class="las la-comment"></i></span></button>
+                            <a class="use-button" :href="connect_url" target="_blank">
+                                <span>Начать <i class="las la-comment"></i></span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -61,7 +70,9 @@
                         <h1 class="use-label">Хотите купить криптовалюту за рубли или доллары? </h1>
                         <p class="use-text">Примем любой рублёвый перевод на любой банк РФ, взамен выдадим любое количество или долларов наличными, или местной валюты. Либо переведём на счёт.</p>
                         <div :class="{'d-flex justify-content-center': screenWidth < 992}">
-                            <button class="use-button" @click="openModal('change')"><span>Начать <i class="las la-comment"></i></span></button>
+                            <a class="use-button" :href="connect_url" target="_blank">
+                                <span>Начать <i class="las la-comment"></i></span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -75,6 +86,7 @@ import { defineAsyncComponent } from 'vue';
 
 export default {
   components: {
+    ChangeComponent: defineAsyncComponent(() => import('./ChangeComponent.vue')),
     ModalChangeComponent: defineAsyncComponent(() => import('./ModalChangeMainComponent.vue')),
     ModalBuyProductComponent: defineAsyncComponent(() => import('./ModalBuyProductComponent.vue')),
   },
@@ -87,6 +99,7 @@ export default {
   data() {
     return {
       srcUseAnnotationImg: '/img/main/use-annotation.png',
+      connect_url: 'https://t.me/yommotsu_admin',
       isModalChangeOpen: false,
       isModalAnimationCloseChange: false,
       isModalBuyOpen: false,
@@ -277,6 +290,7 @@ export default {
     border: none;
     outline: none;
     position: absolute;
+    text-decoration: none;
     bottom: 1rem;
     left: 1.5rem;
 }

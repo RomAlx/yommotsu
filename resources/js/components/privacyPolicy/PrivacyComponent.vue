@@ -44,13 +44,13 @@
             * Thailand, Phuket, 50/27 Soi Anusorn street, Mueang Phuket, Thailand +66 95 475 7374 <br>
             * Turkey, Antalia, Elmali Mahallesi 10. Sokak Hakki Gokceoglu Hani, D:No:8/D +90 537 392 1806 <br><br>
             - Email:<br>
-            * admin@yommotsu.com<br>
-            * support@yommotsu.com<br><br>
+            * Официальная почта <a href="mailto:admin@yommotsu.com">admin@yommotsu.com</a><br>
+            * Почта поддержки <a href="mailto:support@yommotsu.com">support@yommotsu.com</a><br><br>
             - Телеграмм: <br>
-            * <a href="https://t.me/yommotsu_university">Канал</a><br>
-            * <a href="https://t.me/yommotsubot">Бот</a><br>
-            * <a href="https://t.me/yommotsu_admin">Официальный аккаунт</a><br>
-            * <a href="https://t.me/yommotsu4btc">Аккаунт владельца сервиса</a><br><br>
+            * Канал <a href="https://t.me/yommotsu_university"> Yommotsu - University</a><br>
+            * Бот <a href="https://t.me/yommotsubot"> YOMMOTSU</a><br>
+            * Официальный аккаунт <a href="https://t.me/yommotsu_admin">@yommotsu_admin</a><br>
+            * Аккаунт владельца сервиса <a href="https://t.me/yommotsu4btc">@yommotsu4btc</a><br><br>
 
             УКАЗАННЫЕ КОНТАКТЫ ЕДИНСТВЕННЫЕ ОФИЦИАЛЬНЫЕ ИСТОЧНИКИ СВЯЗИ. ПОЖАЛУЙСТА БУДЬТЕ ВНИМАТЕЛЬНЫ!  <br><br>
 
@@ -102,6 +102,9 @@ export default {
 </script>
 
 <style>
+a{
+  color: #18181B;
+}
 .card{
     margin-top: 6rem;
     background: #f1f1f1;
