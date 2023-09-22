@@ -19,6 +19,8 @@
         <title>Yommotsu</title>
     </head>
     <body>
+        <div id="main">
+            
         </div>
         <script src="{{asset( 'js/wow.min.js', true)}}"></script>
         <script>
