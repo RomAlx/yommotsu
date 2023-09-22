@@ -13,7 +13,7 @@
             </div>
             <p class="modal-text">Наш менеджер свяжется с вами втечении 15 минут для уточнения деталей</p>
             <div class="col align-items-center text-center">
-                <button class="modal-change-button" @click="closeModal">Готово</button>
+                <button class="modal-change-button" @click="changeBack">Готово</button>
             </div>
         </div>
         <div v-else>
@@ -109,8 +109,8 @@
       }
     },
     methods: {
-      closeModal(){
-        this.$emit("close");
+      changeBack(){
+        this.isDone = false;
       },
       validateForm() {
         this.v$.$validate();
@@ -128,9 +128,6 @@
             }});
             console.log(`DONE`);
             this.isDone = true;
-            setTimeout(() => {
-                this.isDone = false;
-            }, 1500);
           } catch {
   
           }
