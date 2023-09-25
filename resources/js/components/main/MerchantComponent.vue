@@ -7,8 +7,17 @@
                     <div class="align-items-center" :class="{'col-6': screenWidth >= 992, 'col-12': screenWidth < 1200}">
                         <h1 class="merchant-label">YOMMOTSU merchant</h1>
                         <p class="merchant-text">Наша платежная система - это быстрая и удобная система для осуществления платежей. Мы предлагаем широкий спектр возможностей, включая финансовые операции за рубежом и уникальную кассу в Telegram для вашего бизнеса.<br> Мы гарантируем безопасность и надежность всех транзакций, а также оперативную поддержку наших клиентов.<br> Присоединяйтесь к нам и упростите процесс принятия оплаты уже сегодня! </p>
-                        <div class="d-flex justify-content-center">
-                            <button class="merchant-button" @click="openModal('merchant')">Оставить заявку</button>
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <button class="merchant-button" @click="openModal('merchant')">Оставить заявку</button>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <a class="merchant-button" href="/merchant/policy">Проектам</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div v-if="screenWidth>1200" class="col-6 mt-auto">
@@ -75,10 +84,9 @@ export default {
     background: 
          url(/img/main/merchant-bg1-img.png) no-repeat top right, 
          url(/img/main/merchant-bg2-img.png) no-repeat bottom left;
-    background-color: #f1f1f1;
+    background-color: #e9e9e9;
     background-size: auto;
     background-position: right -2rem top -29rem, left bottom -28rem;
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border-radius: 1rem;
@@ -117,7 +125,7 @@ export default {
     font-family: Montserrat-Regular;
     font-size: 1.2rem;
     display: flex;
-    width: 13rem;
+    width: 12rem;
     padding: 0.5rem;
     flex-direction: column;
     justify-content: center;
@@ -127,13 +135,13 @@ export default {
     border-radius: 0.625rem;
     background:  #18181B;
     box-shadow: 0 0 3rem red;
+    text-decoration: none;
     border: none;
     outline: none;
 }
 
 .merchant-button:hover{
-    color: #ffffff;
-    background: #18181bf6;
+    color: #ff0000;
     box-shadow: 0 0 3rem red;
 }
 

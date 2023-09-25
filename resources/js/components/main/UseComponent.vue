@@ -147,9 +147,8 @@ export default {
 
 .use-card-label{
     margin-bottom: 1rem;
-    background: #f1f1f1 url(/img/main/use-label-img.png) no-repeat center;
+    background: #e9e9e9 url(/img/main/use-label-img.png) no-repeat center;
     background-position: 45vw center;
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border: 0.25rem solid rgba( 255, 255, 255, 0.18 );
@@ -178,8 +177,7 @@ export default {
 
 .use-card{
     margin-top: 1rem;
-    background: #f1f1f1;
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    background: #e9e9e9;
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border: 0.25rem solid rgba( 255, 255, 255, 0.18 );
@@ -197,8 +195,7 @@ export default {
 
 .use-card-row-1{
     margin-top: 1rem;
-    background: #f1f1f1;
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    background: #e9e9e9;
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border: 0.25rem solid rgba( 255, 255, 255, 0.18 );
@@ -216,8 +213,7 @@ export default {
 
 .use-card-row-2{
     margin-top: 1rem;
-    background: #f1f1f1;
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    background: #e9e9e9;
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border: 0.25rem solid rgba( 255, 255, 255, 0.18 );
@@ -235,8 +231,7 @@ export default {
 
 .use-card-row-3{
     margin-top: 1rem;
-    background: #f1f1f1;
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    background: #e9e9e9;
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border: 0.25rem solid rgba( 255, 255, 255, 0.18 );

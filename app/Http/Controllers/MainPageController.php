@@ -17,4 +17,8 @@ class MainPageController extends Controller
     public function treatment(Request $request){
         return view('treatmentPage');
     }
+
+    public function merchantPolicy(Request $request){
+        return view('merchantPolicyPage');
+    }
 }

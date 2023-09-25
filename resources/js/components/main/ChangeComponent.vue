@@ -89,9 +89,9 @@
         isDone: false,
         srcServiceCopyDone: '/img/service/done_green.png',
         v$: useValidate(),
-        banks: ['Сбербанк | RUB','Тинькофф | RUB','Райффайзен | RUB','ВТБ | RUB','Альфа банк | RUB','ОТП банк | RUB','Vakif Bank | TRY','Bangkok Bank | THB', 'BTC', 'USDT', 'Другая криптовалюта'],
-        from: 'Сбербанк | RUB',
-        to: 'Bangkok Bank | THB',
+        banks: ['RUB', 'THB', 'USDT', 'BTC'],
+        from: 'RUB',
+        to: 'THB',
         amount: null,
         name: '',
         number: '',
@@ -196,8 +196,7 @@
   
   .change-block {
     position: relative;
-    background: rgba( 255, 255, 255, 0.25 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    background: #e9e9e9;
     backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur( 4px );
     border-radius: 10px;

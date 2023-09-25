@@ -104,6 +104,7 @@ a:hover{
 .footer{
     margin-top: 3rem;
     padding: 1rem;
+    padding-top: 2rem;
     background-color: #000000;
 }
 
@@ -154,7 +155,7 @@ a:hover{
 .rights-text{
     color: #b4b2b2;
     font-family: Montserrat-Regular;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-style: normal;
     font-weight: 400;
     text-decoration: none;
@@ -165,6 +166,7 @@ a:hover{
     .footer{
         margin-top: 3rem;
         padding: 1rem;
+        padding-top: 2rem;
     }
 
     .logo-footer{
@@ -183,6 +185,7 @@ a:hover{
     .footer{
         margin-top: 3rem;
         padding: 1rem;
+        padding-top: 2rem;
     }
 
     .logo-footer{
@@ -208,7 +211,7 @@ a:hover{
     }
 
     .rights-text{
-        font-size: 0.9rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -217,6 +220,7 @@ a:hover{
     .footer{
         margin-top: 2rem;
         padding: 1rem;
+        padding-top: 2rem;
     }
 
     .logo-footer{

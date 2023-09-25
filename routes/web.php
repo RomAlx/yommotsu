@@ -25,6 +25,8 @@ Route::get('/', [MainPageController::class, 'main']);
 
 Route::get('/policy', [MainPageController::class, 'privacy']);
 
+Route::get('/merchant/policy', [MainPageController::class, 'merchantPolicy']);
+
 Route::get('/treatment', [MainPageController::class, 'treatment']);
 
 Route::get('/pay', [PayController::class, 'pay']);

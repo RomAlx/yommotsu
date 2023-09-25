@@ -10,7 +10,7 @@
             </div>
           </div>
           <div v-if="screenWidth>=992" class="col-6">
-            <ul class="nav d-flex justify-content-center">
+            <ul class="nav nav-pills d-flex justify-content-center">
               <li><a href="#merchant" class="nav-link px-2 header-link">Мерчант</a></li>
               <li><a href="#use" class="nav-link px-2 header-link">Обмен Валют</a></li>
               <li><a href="#contacts" class="nav-link px-2 header-link">Контакты</a></li>
@@ -82,7 +82,6 @@ export default {
 header{
   max-width: 100vw;
   background: rgba( 255, 255, 255, 0.25 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
   border-radius: 10px;

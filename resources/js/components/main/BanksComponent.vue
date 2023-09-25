@@ -94,6 +94,7 @@ export default {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  margin-bottom: 2rem;
 }
 
 @media screen and (max-width: 992px) {

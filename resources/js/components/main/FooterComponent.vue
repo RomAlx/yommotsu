@@ -50,7 +50,7 @@
                     <div class="rights">
                         <div class="row justify-content-center">
                             <div class="col-12 align-items-center text-center">
-                                <h1 class="rights-text" href="huy">Copyright © 2023 Yommotsu. All Rights Reserved.</h1>
+                                <h1 class="rights-text" href="huy">Copyright © 2019 Yommotsu. All Rights Reserved.</h1>
                             </div>
                         </div>
                     </div>
@@ -85,6 +85,7 @@ a:hover{
 .footer{
     margin-top: 3rem;
     padding: 1rem;
+    padding-top: 2rem;
     background-color: #000000;
 }
 
@@ -135,7 +136,7 @@ a:hover{
 .rights-text{
     color: #b4b2b2;
     font-family: Montserrat-Regular;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-style: normal;
     font-weight: 400;
     text-decoration: none;
@@ -146,6 +147,7 @@ a:hover{
     .footer{
         margin-top: 3rem;
         padding: 1rem;
+        padding-top: 2rem;
     }
 
     .logo-footer{
@@ -164,6 +166,7 @@ a:hover{
     .footer{
         margin-top: 3rem;
         padding: 1rem;
+        padding-top: 2rem;
     }
 
     .logo-footer{
@@ -198,6 +201,7 @@ a:hover{
     .footer{
         margin-top: 2rem;
         padding: 1rem;
+        padding-top: 2rem;
     }
 
     .logo-footer{

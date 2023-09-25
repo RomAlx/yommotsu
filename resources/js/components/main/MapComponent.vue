@@ -52,10 +52,10 @@
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <p class="map-phone">+7 999 123 25 01</p>
+                        <p class="map-phone">+7 912 070 11 21</p>
                     </div>
                     <div class="col-3">
-                        <p class="map-phone">+7 999 123 25 01</p>
+                        <p class="map-phone">+7 912 070 11 21</p>
                     </div>
                     <div class="col-3">
                         <p class="map-phone">+66 95 475 7374</p>
@@ -74,7 +74,7 @@
                         <p class="map-adress">Башня Федерации | Пресненская набережная, 12</p>
                     </div>
                     <div class="col-4">
-                        <p class="map-phone">+7 999 123 25 01</p>
+                        <p class="map-phone">+7 912 070 11 21</p>
                     </div>
                 </div>
                 <div class="row align-items-center border-bottom">
@@ -85,7 +85,7 @@
                         <p class="map-adress">ул. Тополевый переулок д. 5</p>
                     </div>
                     <div class="col-4">
-                        <p class="map-phone">+7 999 123 25 01</p>
+                        <p class="map-phone">+7 912 070 11 21</p>
                     </div>
                 </div>
                 <div class="row align-items-center border-bottom">
@@ -182,7 +182,6 @@ export default {
 
 #map-container {
     margin-top: 3rem;
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border: 0.25rem solid rgba( 255, 255, 255, 0.18 );
@@ -224,7 +223,6 @@ export default {
         translateX(-50%)
         translateY(-108%); 
     background: rgba( 237, 237, 237, 0.5 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur( 4px );
     border-radius: 10px;
@@ -266,7 +264,6 @@ export default {
     font-style: normal;
     font-weight: 700;
     line-height: 2.21875rem; /* 147.917% */
-    letter-spacing: -0.0625rem;
     margin-top: 1rem;
     text-align: center;
 }
@@ -278,7 +275,6 @@ export default {
     font-style: normal;
     font-weight: 700;
     line-height: 2.21875rem; /* 147.917% */
-    letter-spacing: -0.0625rem;
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -290,7 +286,6 @@ export default {
     font-style: normal;
     font-weight: 700;
     line-height: 2.21875rem; /* 147.917% */
-    letter-spacing: -0.0625rem;
     text-align: center;
 }
 
