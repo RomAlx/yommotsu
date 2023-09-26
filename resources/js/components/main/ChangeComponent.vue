@@ -39,9 +39,18 @@
                     <div class="col align-items-center text-center">
                         <h1 for="amount" class="label-change-field">Отдаете сумму</h1>
                         <div class="align-items-center">
-                            <input v-model="amount" id="amount" class="form-component" :class="{ 'invalid': (v$.amount.$dirty && v$.amount.required.$invalid) }">
+                            <input type="number" inputmode="numeric" v-model="amount" id="amount" class="form-component" :class="{ 'invalid': (v$.amount.$dirty && v$.amount.required.$invalid) }">
                         </div>
                     </div>
+                </div>
+                <div class="row justify-content-center align-items-center">
+                  <div class="col align-items-center text-center">
+                    <p v-if="this.current_summary != '' && this.current_rate != '' &&  this.from != this.to" class="info-text">
+                      На данный момент мы сможем обменять по курсу <span class="info-text-important">{{ this.current_rate}}</span>.<br>
+                      Вы получите <span class="info-text-important">{{ this.current_summary }}</span>.<br>
+                      <span class="info-text-important">Окончательный курс согласовывается в момент сделки.</span>
+                    </p>
+                  </div>
                 </div>
                 <div class="row justify-content-center align-items-center">
                     <div class="col align-items-center text-center">
@@ -92,12 +101,15 @@
         banks: ['RUB', 'THB', 'USDT', 'BTC'],
         from: 'RUB',
         to: 'THB',
-        amount: null,
+        amount: "",
         name: '',
         number: '',
         connect: 'WhatsApp',
+        rates: '',
+        current_summary: '',
+        current_rate: '',
       };
-    },
+    },      
     validations() {
       return {
         from: {required},
@@ -108,7 +120,138 @@
         connect:{required},
       }
     },
+    watch: {
+      amount: {
+        handler: 'updateRateAndSummary',
+        immediate: true
+      },
+      from: {
+        handler: 'updateRateAndSummary',
+        immediate: true
+      },
+      to: {
+        handler: 'updateRateAndSummary',
+        immediate: true
+      }
+    },
     methods: {
+      async updateRateAndSummary() {
+        await this.rate_calculate();
+        await this.summary_calculate();
+      },
+      async rate_calculate() {
+        // Make API requests to get currency rates
+        const binanceUrl = 'https://api.binance.com/api/v3/ticker/price?symbols=["BTCRUB","USDTRUB","BTCUSDT"]';
+        const bitkubUsdtUrl = 'https://api.bitkub.com/api/market/ticker?sym=thb_usdt';
+        const bitkubBtcUrl = 'https://api.bitkub.com/api/market/ticker?sym=thb_btc';
+
+        // Fetch currency rates from Binance API and Bitkub API
+        const binanceResponse = fetch(binanceUrl);
+        const bitkubUsdtResponse = fetch(bitkubUsdtUrl);
+        const bitkubBtcResponse = fetch(bitkubBtcUrl);
+
+        const [binanceResponseData, bitkubUsdtResponseData, bitkubBtcResponseData] = await Promise.all([
+          binanceResponse.then(response => response.json()),
+          bitkubUsdtResponse.then(response => response.json()),
+          bitkubBtcResponse.then(response => response.json())
+        ]);
+
+        // Extract the rates from the API responses
+        const binanceData = binanceResponseData;
+        const bitkubUsdtData = bitkubUsdtResponseData;
+        const bitkubBtcData = bitkubBtcResponseData;
+
+        const btcRubRate = binanceData.find(item => item.symbol === 'BTCRUB').price;
+        const usdtRubRate = binanceData.find(item => item.symbol === 'USDTRUB').price;
+        const btcUsdtRate = binanceData.find(item => item.symbol === 'BTCUSDT').price;
+        const thbUsdtRate = bitkubUsdtData['THB_USDT'].last;
+        const thbBtcRate = bitkubBtcData['THB_BTC'].last;
+
+        const rates = {
+          'thb_usdt': (thbUsdtRate * 0.95).toFixed(2),
+          'thb_rub': (1/(thbUsdtRate * 0.95) * usdtRubRate * 1.05).toFixed(2),
+          'thb_btc': (thbBtcRate * 0.95).toFixed(2),
+          'btc_usdt': (btcUsdtRate * 1.05).toFixed(2),
+          'btc_rub': (btcRubRate * 1.05).toFixed(2),
+          'usdt_rub': (usdtRubRate * 1.05).toFixed(2),
+        };
+
+        console.log(rates);
+        this.rates = rates;
+
+        return {
+          rates
+        };
+      },
+      async summary_calculate() {
+        // Calculate the amount based on the currency rates
+        const rates = (await this.rate_calculate()).rates;
+        console.log(rates);
+        // Perform the calculation based on the selected currencies and amount input
+        let summary = 0;
+        let rate = 0;
+        if (this.amount != ''){
+          //rub <-> thb
+          if (this.from === 'RUB' && this.to === 'THB') {   
+            rate = rates.thb_rub + ' ₽';    
+            summary = (this.amount / rates.thb_rub).toFixed(2) + ' ฿';
+          }
+          if (this.from === 'THB' && this.to === 'RUB') {         
+            rate = rates.thb_rub + ' ₽';    
+            summary = (this.amount * rates.thb_rub).toFixed(2) + ' ₽';
+          }
+          //rub <-> usdt
+          if (this.from === 'RUB' && this.to === 'USDT') {
+            rate = rates.usdt_rub + ' ₽';    
+            summary = (this.amount / rates.usdt_rub).toFixed(2) + ' ₮';
+          }
+          if (this.from === 'USDT' && this.to === 'RUB') {
+            rate = rates.usdt_rub + ' ₽';    
+            summary = (this.amount * rates.usdt_rub).toFixed(2) + ' ₽';
+          }
+          //rub <-> btc
+          if (this.from === 'RUB' && this.to === 'BTC') {
+            rate = rates.btc_rub + ' ₽';    
+            summary = (this.amount / rates.btc_rub).toFixed(7) + ' ₿';
+          }
+          if (this.from === 'BTC' && this.to === 'RUB') {
+            rate = rates.btc_rub + ' ₽';    
+            summary = (this.amount * rates.btc_rub).toFixed(2) + ' ₽';
+          }
+          //btc <-> usdt
+          if (this.from === 'BTC' && this.to === 'USDT') {
+            rate = rates.btc_usdt + ' ₮';    
+            summary = (this.amount * rates.btc_usdt).toFixed(2) + ' ₮';
+          }
+          if (this.from === 'USDT' && this.to === 'BTC') {
+            rate = rates.btc_usdt + ' ₮';
+            summary = (this.amount / rates.btc_usdt).toFixed(7) + ' ₿';
+          }
+          //thb <-> usdt
+          if (this.from === 'THB' && this.to === 'USDT') {
+            rate = rates.thb_usdt + ' ฿';    
+            summary = (this.amount * rates.thb_usdt).toFixed(2) + ' ₮';
+          }
+          if (this.from === 'USDT' && this.to === 'THB') {
+            rate = rates.thb_usdt + ' ฿';    
+            summary = (this.amount / rates.thb_usdt).toFixed(2) + ' ฿';
+          }
+          //thb <-> btc
+          if (this.from === 'THB' && this.to === 'BTC') {
+            rate = rates.thb_btc + ' ฿';    
+            summary = (this.amount / rates.thb_btc).toFixed(7) + ' ₿';
+          }
+          if (this.from === 'BTC' && this.to === 'THB') {
+            rate = rates.thb_btc + ' ฿';    
+            summary = (this.amount * rates.thb_btc).toFixed(2) + ' ฿';
+          }
+          console.log(summary);
+          this.current_summary = summary;
+          this.current_rate = rate;
+          // Return the calculated amount
+          return summary;
+        }
+      },   
       changeBack(){
         this.isDone = false;
       },
@@ -204,15 +347,28 @@
     margin: 2rem auto;
     padding: 2rem;
   }
-  
-  .modal-label {
-    padding-left: 1rem;
-    font-family: Montserrat-SemiBold;
-    color: #252525;
-    font-size: 1.4rem;
+
+  .use-text{
+    color: #2e2e2e;
+    font-family: Montserrat-Regular;
+    font-size: 0.9rem;
     font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    font-weight: 500;
+    line-height: 1.1875rem;
+  }
+
+
+  .info-text{
+    margin-top: 1.5rem;
+    color: #2e2e2e;
+    font-family: Montserrat-Regular;
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.1875rem;
+  }
+  .info-text-important{
+    font-family: Montserrat-SemiBold;
   }
   
   .modal-text {
