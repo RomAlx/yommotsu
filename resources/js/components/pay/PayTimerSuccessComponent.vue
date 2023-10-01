@@ -266,6 +266,9 @@ export default {
 }
 
 @media screen and (max-width: 685px) {
+  .comment-area{
+    width: 25.6rem;
+  }
   .success-card{
     margin: 1.6rem;
     padding: 1rem;
@@ -301,6 +304,10 @@ export default {
   }
 }
 @media screen and (max-width: 450px) {
+  .comment-area{
+    width: 20rem;
+    font-size: 0.9rem;
+  }
   .success-card{
     margin: 1.6rem;
     padding: 1.2rem;
