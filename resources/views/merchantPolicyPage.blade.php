@@ -19,7 +19,7 @@
         <title>Yommotsu</title>
     </head>
     <body>
-        <div id="merchantPolicy">
+        <div id="merchantPolicy" data-csrf-token="{{ csrf_token() }}">
 
         </div>
         <script src="{{asset( 'js/wow.min.js', true)}}"></script>

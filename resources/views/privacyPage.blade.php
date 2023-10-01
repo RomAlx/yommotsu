@@ -16,7 +16,7 @@
         <title>Yommotsu</title>
     </head>
     <body>
-        <div id="privacy">
+        <div id="privacy" data-csrf-token="{{ csrf_token() }}">
 
         </div>
         <script src="{{asset( 'js/wow.min.js', true)}}"></script>

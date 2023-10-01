@@ -19,7 +19,7 @@
         <title>Yommotsu Pay</title>
     </head>
     <body>
-        <div id="pay">
+        <div id="pay" data-csrf-token="{{ csrf_token() }}">
 
         </div>
         <script src="{{asset( 'js/wow.min.js', true)}}"></script>
