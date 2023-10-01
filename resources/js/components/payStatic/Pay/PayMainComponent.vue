@@ -33,6 +33,7 @@ export default {
   },
   data() {
     return {
+      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       bank: null,
       step: 'PaymentMethod',
       order: {
@@ -52,6 +53,9 @@ export default {
     const fetchData = async () => {
       try {
         let response = await axios.get('/api/merchants/get/current', {
+          headers: {
+              'X-CSRF-TOKEN': this.csrfToken
+          },
           params: {
             password: 'P2PEXCHANGE',
           },
@@ -82,6 +86,9 @@ export default {
     },
     updateFromCard() {
       axios.post('/api/order/update/paypagestatic', { 
+        headers: {
+            'X-CSRF-TOKEN': this.csrfToken
+        },
         data: {
           password: 'P2PEXCHANGE',
           project_name: this.order.project_name,

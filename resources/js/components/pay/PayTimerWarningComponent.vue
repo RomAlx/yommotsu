@@ -53,6 +53,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       warning: '/img/payTimer/warning.png',
       redirect_url: window.blade_data.redirect_url,
       help_url: 'https://t.me/yommotsu_admin',
@@ -68,6 +69,9 @@ export default {
   methods: {
     sendEmail(order_id){
       axios.post('/api/order/status/email', {
+        headers: {
+            'X-CSRF-TOKEN': this.csrfToken
+        },
         data: {
           password: 'P2PEXCHANGE',
           order_id: order_id,

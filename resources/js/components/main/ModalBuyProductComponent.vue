@@ -73,6 +73,7 @@
   export default {
     data() {
       return {
+        csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         isDone: false,
         srcServiceCopyDone: '/img/service/done_green.png',
         v$: useValidate(),
@@ -99,6 +100,9 @@
         if (!this.v$.$error) {
           try{
             axios.post('/api/purchase/create/', { 
+            headers: {
+                'X-CSRF-TOKEN': this.csrfToken
+            },
             data: {
               password: 'P2PEXCHANGE',
               link: this.link,

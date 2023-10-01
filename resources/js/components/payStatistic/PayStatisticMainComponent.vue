@@ -62,6 +62,11 @@ import axios from 'axios'
 import { ref, watch } from 'vue'
 
 export default {
+  data() {
+    return{
+      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    }    
+  },
   setup () {
     const items = ref([])
     const projects = ref([])
@@ -72,6 +77,9 @@ export default {
 
     const fetchData = async () => {
       const res = await axios.get(`/api/pay/statistic/get`, {
+        headers: {
+            'X-CSRF-TOKEN': this.csrfToken
+        },
         params: {
           password: password,
           project_name: selectedProject.value, 
@@ -93,6 +101,9 @@ export default {
 
     const fetchProjects = async () => {
       const res = await axios.get(`/api/projects/get/projects`, {
+        headers: {
+            'X-CSRF-TOKEN': this.csrfToken
+        },
         params: {
           password: password,
         }
@@ -102,6 +113,9 @@ export default {
 
     const downloadReport = async () => {
       const res = await axios.get(`/api/pay/statistic/download`, {
+        headers: {
+            'X-CSRF-TOKEN': this.csrfToken
+        },
         responseType: 'blob',
         params: {
           password: password, 

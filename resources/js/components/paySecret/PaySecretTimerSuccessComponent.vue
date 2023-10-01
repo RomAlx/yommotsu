@@ -96,6 +96,7 @@
 export default {
   data() {
     return {
+      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       success: '/img/payTimer/done.png',
       redirect_url: window.blade_data.redirect_url,
       help_url: 'https://t.me/yommotsu_admin',
@@ -122,6 +123,9 @@ export default {
     },
     sendComment(){
       axios.post('/api/order/update/paypage', {
+        headers: {
+            'X-CSRF-TOKEN': this.csrfToken
+        },
         data: {
           password: 'P2PEXCHANGE',
           order_id: this.order.order_id,

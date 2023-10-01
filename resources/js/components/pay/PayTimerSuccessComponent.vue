@@ -103,6 +103,7 @@
 export default {
   data() {
     return {
+      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       success: '/img/payTimer/done.png',
       redirect_url: window.blade_data.redirect_url,
       help_url: 'https://t.me/yommotsu_admin',
@@ -123,6 +124,9 @@ export default {
   methods: {
     sendEmail(order_id){
       axios.post('/api/order/status/email', {
+        headers: {
+            'X-CSRF-TOKEN': this.csrfToken
+        },
         data: {
           password: 'P2PEXCHANGE',
           order_id: order_id,
@@ -138,6 +142,9 @@ export default {
     },
     sendComment(){
       axios.post('/api/order/update/paypage', {
+        headers: {
+            'X-CSRF-TOKEN': this.csrfToken
+        },
         data: {
           password: 'P2PEXCHANGE',
           order_id: this.order.order_id,

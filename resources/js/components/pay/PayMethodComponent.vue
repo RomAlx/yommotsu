@@ -77,8 +77,8 @@ export default {
   },
   methods: {
     openModal() {
-          let modal = document.getElementById("modal");
-          modal.style.display = "block";
+        let modal = document.getElementById("modal");
+        modal.style.display = "block";
     },
     closeModal() {
         let modal = document.getElementById("modal");

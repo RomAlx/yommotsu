@@ -81,6 +81,7 @@ import { required } from '@vuelidate/validators';
 export default {
   data() {
     return {
+      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       isDone: false,
       srcServiceCopyDone: '/img/service/done_green.png',
       v$: useValidate(),
@@ -109,6 +110,9 @@ export default {
       if (!this.v$.$error) {
         try{
           axios.post('/api/project/create/', { 
+          headers: {
+              'X-CSRF-TOKEN': this.csrfToken
+          },
           data: {
             password: 'P2PEXCHANGE',
             name: this.name,

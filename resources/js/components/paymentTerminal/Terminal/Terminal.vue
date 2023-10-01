@@ -58,6 +58,7 @@ export default {
   },
   data() {
     return {
+      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       logo: '/img/logo.png',
       currentDateTime: '',
       projectName: window.blade_data.project_name,
@@ -109,6 +110,9 @@ export default {
 
         const makeAxiosRequest = () => {
             axios.get('/api/order/get/today', {
+                headers: {
+                    'X-CSRF-TOKEN': this.csrfToken
+                },
                 params: {
                     project_name: window.blade_data.project_name,
                     password: window.blade_data.password,

@@ -38,6 +38,7 @@ import {required} from '@vuelidate/validators';
 export default {
     data() {
         return {
+            csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             logo: '/img/logo.png',
             v$: useValidate(),
             login: '',
@@ -61,6 +62,9 @@ export default {
                 };
                 
                 axios.get('/api/auth/terminal', {
+                    headers: {
+                        'X-CSRF-TOKEN': this.csrfToken
+                    },
                     params: {
                         project_name: this.login,
                         password: this.password
