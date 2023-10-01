@@ -26,6 +26,7 @@ export default {
   },
   data() {
     return{
+      csrfToken: document.getElementById('pay-static').getAttribute('data-csrf-token'),
       step: 'Loading',
     }
   },
@@ -44,6 +45,9 @@ export default {
 
     const makeAxiosRequest = () => {
       axios.get('/api/order/status', {
+          headers: {
+              'X-CSRF-TOKEN': this.csrfToken
+          },
           params: {
             project_name: window.blade_data.project_name,
             order_id: window.blade_data.order_id,

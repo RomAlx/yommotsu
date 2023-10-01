@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      csrfToken: document.getElementById('pay-secret').getAttribute('data-csrf-token'),
       form: {
         name: '-',
         email: '-',

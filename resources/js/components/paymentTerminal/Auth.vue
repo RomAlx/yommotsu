@@ -38,7 +38,7 @@ import {required} from '@vuelidate/validators';
 export default {
     data() {
         return {
-            csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            csrfToken: document.getElementById('pay-terminal').getAttribute('data-csrf-token'),
             logo: '/img/logo.png',
             v$: useValidate(),
             login: '',

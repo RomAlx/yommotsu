@@ -81,7 +81,7 @@ import { required } from '@vuelidate/validators';
 export default {
   data() {
     return {
-      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      csrfToken: document.getElementById('main').getAttribute('data-csrf-token'),
       isDone: false,
       srcServiceCopyDone: '/img/service/done_green.png',
       v$: useValidate(),

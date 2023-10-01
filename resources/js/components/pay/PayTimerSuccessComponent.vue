@@ -103,7 +103,7 @@
 export default {
   data() {
     return {
-      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      csrfToken:  document.getElementById('pay').getAttribute('data-csrf-token'),
       success: '/img/payTimer/done.png',
       redirect_url: window.blade_data.redirect_url,
       help_url: 'https://t.me/yommotsu_admin',

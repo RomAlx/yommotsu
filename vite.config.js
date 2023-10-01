@@ -8,7 +8,7 @@ const host = 'yommotsu.com';
 export default defineConfig({
     //dev
     //server: {
-    //hmr: {
+    //    hmr: {
     //        host: `localhost`
     //    }
     //},

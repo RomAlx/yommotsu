@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      csrfToken: document.getElementById('pay-static').getAttribute('data-csrf-token'),
       bank: null,
       step: 'PaymentMethod',
       order: {
