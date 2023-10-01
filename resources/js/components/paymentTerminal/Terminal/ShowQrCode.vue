@@ -6,7 +6,7 @@
                 <div class="row align-items-center justify-content-center">
                     <div class="col">
                         <h1 class="label">Ссылка для оплаты</h1>
-                        <p class="payment-url"><a href="#" @click="openNewWindow(this.url)">Ссылка</a></p>
+                        <p class="payment-url"><a @click="openNewWindow($event)">Ссылка</a></p>
                         <img class="payment-qrcode" :src="this.qrCodeData" alt="QR Code" />
                         <div class="row">
                             <div class="col">
@@ -59,11 +59,13 @@ export default {
             const colorLight = '#ffffff'; // Цвет светлых ячеек
             this.qrCodeData = qr.createDataURL(cellSize, margin, colorDark, colorLight);
         },
-        openNewWindow(url){
-            window.open(url, "_blank");
-        },
         closeModal(){
             this.$emit('Close');
+        },
+
+        openNewWindow(event) {
+            event.preventDefault();
+            window.open(this.url, "_blank");
         }
   }
 };
