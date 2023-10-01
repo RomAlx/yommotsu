@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+use Illuminate\Session\TokenMismatchException;
 
 class VerifyCsrfToken extends Middleware
 {
@@ -15,4 +17,13 @@ class VerifyCsrfToken extends Middleware
         '/api/telegram/webhook',
         '/api/order/webhook',
     ];
+
+    public function handle($request, Closure $next)
+    {
+        if ($this->isReading($request) || $this->tokensMatch($request)) {
+            return $this->addCookieToResponse($request, $next($request));
+        }
+
+        throw new TokenMismatchException();
+    }
 }
