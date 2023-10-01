@@ -54,9 +54,10 @@ export default {
     });
     const fetchData = async () => {
       try {
+        const csrfToken = document.getElementById('pay-secret').getAttribute('data-csrf-token');
         let response = await axios.get('/api/merchants/get/current', {
           headers: {
-              'X-CSRF-TOKEN': this.csrfToken
+              'X-CSRF-TOKEN': csrfToken
           },
           params: {
             password: 'P2PEXCHANGE',
@@ -66,7 +67,7 @@ export default {
         data.merchants = response.data;
         response = await axios.get('/api/order/get/id', {
           headers: {
-              'X-CSRF-TOKEN': this.csrfToken
+              'X-CSRF-TOKEN': csrfToken
           },
           params: {
             password: 'P2PEXCHANGE',

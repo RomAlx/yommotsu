@@ -107,11 +107,11 @@ export default {
                 }
             }
         };
-
+        const csrfToken = document.getElementById('pay-terminal').getAttribute('data-csrf-token');
         const makeAxiosRequest = () => {
             axios.get('/api/order/get/today', {
                 headers: {
-                    'X-CSRF-TOKEN': this.csrfToken
+                    'X-CSRF-TOKEN': csrfToken
                 },
                 params: {
                     project_name: window.blade_data.project_name,
