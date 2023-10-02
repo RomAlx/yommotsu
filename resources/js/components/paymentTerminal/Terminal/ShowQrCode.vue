@@ -49,7 +49,7 @@ export default {
     },
     methods: {
         generateUrl(){
-            this.url = 'https://yommotsu.com/pay/secret?project_name='+window.blade_data.project_name+'&order_id='+this.order.order_id+'&amount='+this.order.amount;
+            this.url = 'https://yommotsu.com/pay?project_name='+window.blade_data.project_name+'&order_id='+this.order.order_id+'&amount='+this.order.amount+'&redirect_url=google.com';
             const qr = QRCode(0, 'L');
             qr.addData(this.url);
             qr.make();

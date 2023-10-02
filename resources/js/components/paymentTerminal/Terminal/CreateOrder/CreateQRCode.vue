@@ -51,7 +51,7 @@ export default {
     methods: {
         generateUrl(){
             let amount = this.amount.split(' ').filter(Boolean).join('');
-            this.url = 'https://yommotsu.com/pay/secret?project_name='+window.blade_data.project_name+'&order_id='+this.order_id+'&amount='+amount;
+            this.url = 'https://yommotsu.com/pay?project_name='+window.blade_data.project_name+'&order_id='+this.order_id+'&amount='+amount+'&redirect_url=google.com';
         },
         openNewWindow(url){
             window.open(url, "_blank");
