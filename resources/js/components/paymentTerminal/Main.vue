@@ -26,3 +26,10 @@ export default {
 };
 
 </script>
+
+<style>
+button{
+  border: none;
+  outline: none;
+}
+</style>
