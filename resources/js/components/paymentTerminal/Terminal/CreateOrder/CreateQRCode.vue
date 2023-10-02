@@ -51,7 +51,12 @@ export default {
     methods: {
         generateUrl(){
             let amount = this.amount.split(' ').filter(Boolean).join('');
-            this.url = 'https://yommotsu.com/pay?project_name='+window.blade_data.project_name+'&order_id='+this.order_id+'&amount='+amount+'&redirect_url=google.com';
+            if(window.blade_data.project_name == 'ProjectX'){
+                this.url = 'https://yommotsu.com/pay/secret?project_name='+window.blade_data.project_name;
+            } else {
+                this.url = 'https://yommotsu.com/pay?project_name='+window.blade_data.project_name;
+            }
+            this.url = this.url+'&order_id='+this.order_id+'&amount='+amount+'&redirect_url=/';
         },
         openNewWindow(url){
             window.open(url, "_blank");

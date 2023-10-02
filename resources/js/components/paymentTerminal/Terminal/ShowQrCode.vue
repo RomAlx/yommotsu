@@ -49,7 +49,12 @@ export default {
     },
     methods: {
         generateUrl(){
-            this.url = 'https://yommotsu.com/pay?project_name='+window.blade_data.project_name+'&order_id='+this.order.order_id+'&amount='+this.order.amount+'&redirect_url=google.com';
+            if(window.blade_data.project_name === 'ProjectX'){
+                this.url = 'https://yommotsu.com/pay/secret?project_name='+window.blade_data.project_name;
+            } else {
+                this.url = 'https://yommotsu.com/pay?project_name='+window.blade_data.project_name;
+            }
+            this.url = this.url+'&order_id='+this.order_id+'&amount='+amount+'&redirect_url=/';
             const qr = QRCode(0, 'L');
             qr.addData(this.url);
             qr.make();
