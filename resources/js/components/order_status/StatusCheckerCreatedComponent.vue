@@ -10,14 +10,6 @@
               <div class="col-9"><p class="fix-top created-field-value">{{ this.order.project_name }}</p></div>
             </div>
             <div class="row justify-content-start">
-              <div class="col-3"><p class="fix-top created-field-name">Email</p></div>
-              <div class="col-9"><p class="fix-top created-field-value">{{ this.order.email }}</p></div>
-            </div>
-            <div class="row justify-content-start">
-              <div class="col-3"><p class="fix-top created-field-name">ФИО</p></div>
-              <div class="col-9"><p class="fix-top created-field-value">{{ this.order.name }}</p></div>
-            </div>
-            <div class="row justify-content-start">
               <div class="col-3"><p class="fix-top created-field-name">Сумма</p></div>
               <div class="col-9"><p class="fix-top created-field-value">{{ this.order.amount }}</p></div>
             </div>
