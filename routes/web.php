@@ -2,6 +2,7 @@
 
 use App\Exports\PayOrdersExport;
 use App\Http\Controllers\MainPageController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TelegramController;
@@ -36,5 +37,7 @@ Route::get('/pay/static', [PayController::class, 'pay_static']);
 Route::get('/pay/secret', [PayController::class, 'pay_secret']);
 
 Route::get('/pay/terminal', [TerminalController::class, 'pay_terminal']);
+
+Route::get('/order/status', [OrderController::class, 'web_status']);
 
 Route::get('/secret/statistic', [StatisticController::class, 'getPage']);

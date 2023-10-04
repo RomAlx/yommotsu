@@ -200,4 +200,24 @@ class OrderController extends Controller
             }
         }
     }
+
+    public function web_status(Request $request)
+    {
+        $queryParams = $request->query();
+        Log::info('New request for merchant. QueryParams: ' . json_encode($queryParams));
+        $data = [
+            'data' => [
+                'order_id' => 'no_order'
+            ]
+        ];
+        if (array_key_exists('order_id', $queryParams)) {
+            $data = [
+                'data' => [
+                    'order_id' => $queryParams['order_id'],
+                ]
+            ]; 
+        }
+        Log::info('Request is successfully');
+        return view('orderStatusPage', $data);
+    }
 }
