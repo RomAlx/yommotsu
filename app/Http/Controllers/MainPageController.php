@@ -21,4 +21,8 @@ class MainPageController extends Controller
     public function merchantPolicy(Request $request){
         return view('merchantPolicyPage');
     }
+
+    public function faq(Request $request){
+        return view('FAQPage');
+    }
 }

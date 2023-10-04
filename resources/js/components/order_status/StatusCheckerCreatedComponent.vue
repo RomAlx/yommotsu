@@ -31,13 +31,6 @@
           <p class="label-comment">Также вы можете написать в поддержку узнать статус заказа, передав данные о нем.</p>
         </div>
       </div>
-      <div class="container fix-width">
-        <div class="row justify-content-center">
-            <div class="col">
-                <button class="done-button"  @click="openNewWindow(this.redirect_url)">Готово</button>
-            </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>

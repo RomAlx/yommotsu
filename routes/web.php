@@ -30,6 +30,8 @@ Route::get('/merchant/policy', [MainPageController::class, 'merchantPolicy']);
 
 Route::get('/treatment', [MainPageController::class, 'treatment']);
 
+Route::get('/faq', [MainPageController::class, 'faq']);
+
 Route::get('/pay', [PayController::class, 'pay']);
 
 Route::get('/pay/static', [PayController::class, 'pay_static']);

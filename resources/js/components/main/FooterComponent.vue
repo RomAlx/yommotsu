@@ -10,16 +10,19 @@
                     </div>
                     <div :class="{'col-6': screenWidth >= 1200, 'col-12 align-items-center text-center': screenWidth<1200}">
                         <div class="row justify-content-end align-items-center">
-                            <div class="col-3 align-items-center">
+                            <div class="col align-items-center text-center">
                                 <a href="#merchant" class="footer-label">Мерчант</a>
                             </div>
-                            <div class="col-3 align-items-center">
+                            <div class="col align-items-center text-center">
                                 <a href="#use" class="footer-label">Обмен</a>
                             </div>
-                            <div class="col-3 align-items-center">
+                            <div class="col align-items-center text-center">
                                 <a href="#contacts" class="footer-label">Контакты</a>
                             </div>
-                            <div class="align-items-center" :class="{'col-2': screenWidth >= 1200, 'col-3': screenWidth<1200}">
+                            <div class="col align-items-center text-center">
+                                <a href="/faq" class="footer-label">FAQ</a>
+                            </div>
+                            <div class="col align-items-center text-center">
                                 <a href="#about" class="footer-label">О нас</a>
                             </div>
                         </div>
