@@ -59,7 +59,7 @@ export default {
         });
       } else {
         console.log(`FAIL TO SUBMIT`);
-        this.error = 'Вы ничего не ввели'
+        this.error = 'Вы ничего не ввели';
       }
     },
   }
