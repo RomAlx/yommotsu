@@ -4,9 +4,10 @@ use App\Exports\PayOrdersExport;
 use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PayController;
-use App\Http\Controllers\StatisticController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TelegramController;
 use App\Http\Controllers\TerminalController;
+use App\Http\Controllers\WebAccountController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,4 +43,8 @@ Route::get('/pay/terminal', [TerminalController::class, 'pay_terminal']);
 
 Route::get('/order/status', [OrderController::class, 'web_status']);
 
-Route::get('/secret/statistic', [StatisticController::class, 'getPage']);
+Route::get('/user/admin/{id}', [AdminController::class, 'getPage']);
+
+Route::get('/auth', [WebAccountController::class, 'getPage']);
+
+Route::post('/auth', [WebAccountController::class, 'auth']);

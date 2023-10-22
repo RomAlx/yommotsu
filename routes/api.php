@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\CurrencyController;
@@ -43,9 +44,10 @@ Route::get('/order/get/today', [OrderController::class, 'getForTerminal']);
 
 Route::post('/order/status/email', [EmailController::class, 'sendEmail']);
 
-Route::get('/pay/statistic/get', [StatisticController::class, 'getData']);
-
-Route::get('/pay/statistic/download', [StatisticController::class, 'export']);
+Route::middleware(['AuthMiddleware'])->group(function() {
+    Route::get('/admin/statistic/get', [AdminController::class, 'getData']);
+    Route::get('/admin/statistic/download', [AdminController::class, 'export']);
+});
 
 Route::get('/projects/get/projects', [BotController::class, 'getProjectNames']);
 

@@ -5,22 +5,18 @@ namespace App\Http\Controllers;
 use App\Exports\PayOrdersExport;
 use App\Models\PayOrder;
 use Carbon\Carbon;
+use Exception;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
+use stdClass;
 
-class StatisticController extends Controller
+class AdminController extends Controller
 {
-    public function getPage(Request $request) {
-        $queryParams = $request->query();
-        if (array_key_exists('password', $queryParams)) {
-            if($queryParams['password'] == 'P2PEXCHANGE') {
-                return view('paymentStatisticPage');
-            } else {
-                return response()->json(['status'=>'wrong password'], 401);
-            }
-        } else {
-            return response()->json(['status'=>'something went wrong'], 404);
-        }
+    public function getPage(Request $request, $id) {
+        return view('adminPage');
     }
     
     public function prepairData(array $params)
