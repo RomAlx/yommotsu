@@ -29,9 +29,9 @@
                     </div>
                     <div :class="{'col-3': screenWidth >= 1200, 'col-12 align-items-center text-center social': screenWidth<1200}">
                         <div class="row" :class="{'justify-content-end': screenWidth >= 1200, 'justify-content-center': screenWidth<1200}">
-                            <div class="align-items-center" :class="{'col-3': screenWidth >= 1200, 'col-1': screenWidth<1200 && screenWidth>= 768, 'col-2': screenWidth<768}">
+                            <!--<div class="align-items-center" :class="{'col-3': screenWidth >= 1200, 'col-1': screenWidth<1200 && screenWidth>= 768, 'col-2': screenWidth<768}">
                                 <a href="https://t.me/yommotsu_university" target="_blank" class="footer-social" ><i class="lab la-telegram"></i></a>
-                            </div>
+                            </div>-->
                             <div class="align-items-center" :class="{'col-3': screenWidth >= 1200, 'col-1': screenWidth<1200 && screenWidth>= 768, 'col-2': screenWidth<768}">
                                 <a href="mailto:admin@yommotsu.com" target="_blank" class="footer-social"><i class="las la-envelope"></i></a>
                             </div>

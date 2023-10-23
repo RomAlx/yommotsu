@@ -17,9 +17,9 @@
               Q: <span class="question">Как проходит оплата со стороны клиента?</span><br>
               A: Для ответа на этот вопрос мы подготовили инструкцию в <a href="https://teletype.in/@yommotsu/bsQj4ErmGhA" target="_blank">текстовом варианте</a> и видео процесса оплаты.<br><br>
             </p>
-            <div class="video-container">
+            <!--<div class="video-container">
               <iframe src="https://www.youtube.com/embed/9GZrqNbJrEI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+            </div>-->
             <p class="text">
               <i>Надеемся, эти ответы помогут вам. Если у вас возникнут еще вопросы, не стесняйтесь спрашивать!</i>
             </p>
