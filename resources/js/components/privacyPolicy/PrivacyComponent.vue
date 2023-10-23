@@ -47,8 +47,8 @@
             * Официальная почта <a href="mailto:admin@yommotsu.com">admin@yommotsu.com</a><br>
             * Почта поддержки <a href="mailto:support@yommotsu.com">support@yommotsu.com</a><br><br>
             - Телеграмм: <br>
-            * Канал <a href="https://t.me/yommotsu_university"> Yommotsu - University</a><br>
-            * Бот <a href="https://t.me/yommotsubot"> YOMMOTSU</a><br>
+            <!--* Канал <a href="https://t.me/yommotsu_university"> Yommotsu - University</a><br>-->
+            * Бот <a href="t.me/yommotsu_bot"> YOMMOTSU</a><br>
             * Официальный аккаунт <a href="https://t.me/yommotsu_admin">@yommotsu_admin</a><br>
             * Аккаунт владельца сервиса <a href="https://t.me/yommotsu4btc">@yommotsu4btc</a><br><br>
 

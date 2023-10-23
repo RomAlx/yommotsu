@@ -36,7 +36,7 @@
                                 <a href="mailto:admin@yommotsu.com" target="_blank" class="footer-social"><i class="las la-envelope"></i></a>
                             </div>
                             <div class="align-items-center" :class="{'col-3': screenWidth >= 1200, 'col-1': screenWidth<1200 && screenWidth>= 768, 'col-2': screenWidth<768}">
-                                <a href="https://t.me/yommotsubot" target="_blank" class="footer-social"><i class="las la-robot"></i></a>
+                                <a href="t.me/yommotsu_bot" target="_blank" class="footer-social"><i class="las la-robot"></i></a>
                             </div>
                         </div>
                     </div>
