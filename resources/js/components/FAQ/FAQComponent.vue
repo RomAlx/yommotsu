@@ -15,7 +15,7 @@
               Q: <span class="question">Какая информация требуется для использования нашего сервиса?</span><br>
               A: Для использования нашего сервиса вам потребуется ввести Имя держателя карты и предоставить email адрес ,для отправки вам уведомлений о статусе заказа. Мы также можем запросить дополнительные документы для проверки ваших данных и обеспечения безопасности.<br><br>
               Q: <span class="question">Как проходит оплата со стороны клиента?</span><br>
-              A: Для ответа на этот вопрос мы подготовили инструкцию в <a href="https://teletype.in/@yommotsu/bsQj4ErmGhA" target="_blank">текстовом варианте</a> и видео процесса оплаты.<br><br>
+              A: Для ответа на этот вопрос мы подготовили инструкцию в <a href="https://teletype.in/@yommotsu/bsQj4ErmGhA" target="_blank">текстовом варианте</a><br><br>
             </p>
             <!--<div class="video-container">
               <iframe src="https://www.youtube.com/embed/9GZrqNbJrEI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
