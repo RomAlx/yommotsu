@@ -44,17 +44,13 @@
           <option value="WAITING">WAITING</option> 
           <option value="REJECTED">REJECTED</option> 
         </select>
-        <div class="datepicker">
-          <DatePicker 
-          placeholder="Выбери период"
-          range="true"
-          v-model="selectedPeriod"
-          locale="ru"
-          calendar-cell-class-name="dp-custom-cell"
-          inline 
-          auto-apply
-          ></DatePicker>
-        </div>
+        <label for="periodSelect ">Выберите период: </label> 
+        <select class="form-control red-select" id="periodSelect" v-model="selectedPeriod"> 
+          <option value="day">Сегодня</option> 
+          <option value="week">Неделя</option> 
+          <option value="month">Месяц</option>
+          <option value="year">Год</option> 
+        </select> 
         <button class="btn btn-danger" @click="downloadReport">Скачать отчет</button> 
       </div> 
     </div>
@@ -71,18 +67,11 @@ export default {
   components: {
     DatePicker
   },
-  data() {
-    return {
-      selectedPeriod: [],
-      selectedDate: null,
-      currentDate: new Date(),
-    }
-  },
   setup () {
     const items = ref([])
     const projects = ref([])
     const selectedProject = ref('all')
-    const selectedPeriod = ref()
+    const selectedPeriod = ref('month')
     const selectedStatus = ref('all')
     const password = 'P2PEXCHANGE'
     const csrfToken = document.getElementById('admin').getAttribute('data-csrf-token')
@@ -254,7 +243,6 @@ export default {
   position: sticky;
   top: 0;
   z-index: 2;
-  background-color: #ffffff;
 }
 
 select {
