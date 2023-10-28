@@ -71,7 +71,7 @@ export default {
     const items = ref([])
     const projects = ref([])
     const selectedProject = ref('all')
-    const selectedPeriod = ref('month')
+    const selectedPeriod = ref('day')
     const selectedStatus = ref('all')
     const password = 'P2PEXCHANGE'
     const csrfToken = document.getElementById('admin').getAttribute('data-csrf-token')
