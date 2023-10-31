@@ -86,7 +86,7 @@ export default {
     },
     selectPaymentMethod(bank) {
         console.log(`Выбран банк: ${bank}`);
-        this.$emit("update:Bank", {merchant: this.merchants[bank], step: 'Form'});
+        this.$emit("update:Bank", {merchant: this.merchants[bank], step: 'Card'});
     },
     checkButtonStatus(bank) {
       if (bank in this.merchants) {

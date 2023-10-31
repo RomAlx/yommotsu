@@ -8,9 +8,9 @@
               <th class="text-center">ID</th>
               <th class="text-center">Название проекта</th>
               <th class="text-center">ID заказа</th>
-              <th class="text-center">Email</th>
-              <th class="text-center">ФИО</th>
               <th class="text-center">Сумма</th>
+              <th class="text-center">Банк</th>
+              <th class="text-center">Владелец</th>
               <th class="text-center">Статус</th>
               <th class="text-center">Дата создания</th>
             </tr>
@@ -20,9 +20,9 @@
               <td class="text-center">{{ item.id }}</td>
               <td class="text-center">{{ item.project_name }}</td>
               <td class="text-center">{{ item.order_id }}</td>
-              <td class="text-center">{{ item.email }}</td>
-              <td class="text-center">{{ item.name }}</td>
               <td class="text-center">{{ item.amount }}</td>
+              <td class="text-center">{{ bankFromString(item.bank) }}</td>
+              <td class="text-center">{{ holderFromString(item.bank) }}</td>
               <td class="text-center">{{ item.status }}</td>
               <td class="text-center">{{ item.created_at }}</td>
             </tr>
@@ -193,6 +193,14 @@ export default {
     },
     hideDatePicker() {
       this.isOpen = false;
+    },
+    bankFromString(jsonString){
+      let jsonObject = JSON.parse(jsonString);
+      return jsonObject.bank;
+    },
+    holderFromString(jsonString){
+      let jsonObject = JSON.parse(jsonString);
+      return jsonObject.name;
     },
     previousMonth() {
       this.currentDate.setMonth(this.currentDate.getMonth() - 1);

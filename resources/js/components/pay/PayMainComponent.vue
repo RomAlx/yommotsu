@@ -8,7 +8,6 @@
     <div class="tg_wrap">
       <div class="tg_cont text-center">
         <PayMethodComponent v-if="data.step === 'PaymentMethod'" :merchants="data.merchants" v-on:update:Bank="updateFromBank"/>
-        <FormComponent v-else-if="data.step === 'Form'" :form="form" v-on:update:Form="updateFromForm" v-on:update:Step="updateStep"/>
         <CardComponent v-else-if="data.step === 'Card'" :merchant="bank" :order="data.order" :form="form" v-on:update:Card="updateFromCard" v-on:update:Step="updateStep"/>
         <CanceledComponent v-else-if="data.step === 'Canceled'"/>
         <TimerComponent v-else-if="data.step === 'Timer'" v-on:update:Step="updateStep"/>
@@ -102,34 +101,6 @@ export default {
       this.bank = bank.merchant;
       this.data.step = bank.step;
     },
-    updateFromForm(form) {
-      this.form.name = form.name;
-      this.form.email = form.email;
-      this.form.agreement = form.agreement;
-      this.data.step = form.step;
-      axios.post('/api/order/update/paypage', { 
-        headers: {
-            'X-CSRF-TOKEN': this.csrfToken
-        },
-        data: {
-          password: 'P2PEXCHANGE',
-          order_id: this.data.order.order_id,
-          name: this.form.name,
-          email: this.form.email, 
-          status: 'CREATED',
-          bank: this.bank,
-        }
-      });
-      axios.post('/api/order/status/email', {
-        headers: {
-            'X-CSRF-TOKEN': this.csrfToken
-        },
-        data: {
-          password: 'P2PEXCHANGE',
-          order_id: this.data.order.order_id,
-        },
-      });
-    },
     updateFromCard(card) {
       this.data.step = card.step;
       axios.post('/api/order/update/paypage', { 
@@ -145,15 +116,15 @@ export default {
           bank: this.bank,
         }
       });
-      axios.post('/api/order/status/email', {
-        headers: {
-            'X-CSRF-TOKEN': this.csrfToken
-        },
-        data: {
-          password: 'P2PEXCHANGE',
-          order_id: this.data.order.order_id,
-        },
-      });
+      //axios.post('/api/order/status/email', {
+      //  headers: {
+      //      'X-CSRF-TOKEN': this.csrfToken
+      //  },
+      //  data: {
+      //    password: 'P2PEXCHANGE',
+      //    order_id: this.data.order.order_id,
+      //  },
+      //});
     },
   }
 };
