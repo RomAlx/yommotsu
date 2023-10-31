@@ -13,7 +13,7 @@ services:
         volumes:
             - ./:/var/www
             #DEV
-            # - ./docker/nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf
+            #- ./docker/nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf
             #PROD
             - ./docker/nginx/conf.d/appProd.conf:/etc/nginx/conf.d/app.conf 
             - ./docker/nginx/ssl:/etc/ssl

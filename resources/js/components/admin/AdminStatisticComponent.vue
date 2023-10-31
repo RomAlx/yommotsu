@@ -194,13 +194,29 @@ export default {
     hideDatePicker() {
       this.isOpen = false;
     },
-    bankFromString(jsonString){
+    bankFromString(jsonString) {
       let jsonObject = JSON.parse(jsonString);
-      return jsonObject.bank;
+      if (jsonObject !== null) {
+        if ('bank' in jsonObject) {
+          return jsonObject.bank;
+        } else {
+          return 'bank'; // или что-то другое, если поле отсутствует
+        }
+      } else {
+        return 'no info';
+      }
     },
     holderFromString(jsonString){
       let jsonObject = JSON.parse(jsonString);
-      return jsonObject.name;
+      if (jsonObject !== null) {
+        if ('name' in jsonObject) {
+          return jsonObject.name;
+        } else {
+          return 'name'; // или что-то другое, если поле отсутствует
+        }
+      } else {
+        return 'no info';
+      }
     },
     previousMonth() {
       this.currentDate.setMonth(this.currentDate.getMonth() - 1);
