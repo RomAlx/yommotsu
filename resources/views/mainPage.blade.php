@@ -12,7 +12,6 @@
         <link  rel="stylesheet" href="{{asset('css/style.css', true)}}">
         <!-- Core -->
         <script src="{{asset('js/jquery-3.6.0.min.js', true)}}"></script>
-        <script src="//code.jivo.ru/widget/5NIsIownh1" async></script>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript" >
            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
