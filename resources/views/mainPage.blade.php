@@ -30,6 +30,7 @@
         </script>
         <noscript><div><img src="https://mc.yandex.ru/watch/95443795" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <!-- /Yandex.Metrika counter -->
+        <script src="//code.jivo.ru/widget/8WzK4qFtD8" async></script>
         <title>Yommotsu</title>
     </head>
     <body>

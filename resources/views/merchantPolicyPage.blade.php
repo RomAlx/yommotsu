@@ -15,7 +15,7 @@
         <!-- /Yandex.Metrika counter -->
         <!-- Core -->
         <script src="{{asset('js/jquery-3.6.0.min.js', true)}}"></script>
-        <script src="//code.jivo.ru/widget/5NIsIownh1" async></script>
+        <script src="//code.jivo.ru/widget/8WzK4qFtD8" async></script>
         <title>Yommotsu</title>
     </head>
     <body>
